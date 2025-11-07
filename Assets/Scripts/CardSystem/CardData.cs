@@ -4,11 +4,11 @@ using UnityEngine;
 public class CardData : ScriptableObject
 {
     // カードに共通するパラメータを宣言
-    public string cardName; // カードの名前
-    public int power; // カードの強さ
-    public ElementType element; // enum:選択式になる
-    public Sprite cardImage;
-    public string description;
+    public string cardName; // 名前
+    public int power; // 強さ
+    public ElementType element; // 属性，enum:選択式になる
+    public Sprite cardImage; // 画像
+    public string description; // 説明
 }
 
 public enum ElementType

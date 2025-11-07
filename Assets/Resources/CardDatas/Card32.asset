@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f1728e23d8976e94c95fda0b391e109e, type: 3}
-  m_Name: G3
+  m_Name: Card32
   m_EditorClassIdentifier: Assembly-CSharp::CardData
-  cardName: "\u732B\u5175\u58EB"
-  power: 3
+  cardName: "\u4E00\u822C\u732B"
+  power: 2
   element: 2
   cardImage: {fileID: 21300000, guid: 5c64da9344c439b48889d724c070496a, type: 3}
   description: 

@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f1728e23d8976e94c95fda0b391e109e, type: 3}
-  m_Name: B6
+  m_Name: Card38
   m_EditorClassIdentifier: Assembly-CSharp::CardData
-  cardName: "\u732B\u9A0E\u58EB"
-  power: 6
-  element: 1
-  cardImage: {fileID: 21300000, guid: 2c6ac40b8a48f874bbe65b5961bd555d, type: 3}
+  cardName: "\u732B\u738B"
+  power: 8
+  element: 2
+  cardImage: {fileID: 21300000, guid: 5c64da9344c439b48889d724c070496a, type: 3}
   description: 
