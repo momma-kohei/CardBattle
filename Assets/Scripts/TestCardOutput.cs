@@ -1,18 +1,15 @@
 using UnityEngine;
 
-public class TestCardOutput : MonoBehaviour
+public class TestCardOutput : MonoBehaviour // testとしてカードを生成
 {
     public CardController cardController = null;
-    [Header("カードID")]public int cardID = 0;
+    [Header("カードID")]public int cardID = 0; // カードIDは十の位が属性番号（1-3），一の位が序列番号（1-8）である2桁の整数
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        // cardController = GetComponent<CardController>();
         cardController.Init(cardID);
     }
 
-    // Update is called once per frame
     void Update()
     {
         
