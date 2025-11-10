@@ -816,52 +816,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &618421959
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 618421961}
-  - component: {fileID: 618421960}
-  m_Layer: 0
-  m_Name: TestManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!114 &618421960
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 618421959}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e2b40ab1846796c4eb556c9b10475137, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::TestCardOutput
-  cardController: {fileID: 0}
-  cardID: 21
---- !u!4 &618421961
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 618421959}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.55171, y: -0.26031, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &619394800
 GameObject:
   m_ObjectHideFlags: 0
@@ -1552,8 +1506,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 250, y: 0}
-  m_SizeDelta: {x: -900, y: -500}
+  m_AnchoredPosition: {x: 260, y: 0}
+  m_SizeDelta: {x: -920, y: -500}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1487234796
 MonoBehaviour:
@@ -1992,8 +1946,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -250, y: 0}
-  m_SizeDelta: {x: -900, y: -500}
+  m_AnchoredPosition: {x: -260, y: 0}
+  m_SizeDelta: {x: -920, y: -500}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1881383834
 MonoBehaviour:
@@ -2088,8 +2042,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90f028aef1963d04b9da7529c10b8cd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
-  cardPrefab: {fileID: 6420583291657760158, guid: 60f2bc1eaa5e30c4dbc2ac0b34854ab1, type: 3}
+  handCardPrefab: {fileID: 7701147545126566288, guid: 22e37c38a3f6ac444b66b9068418dbc5, type: 3}
+  fieldCardPrefab: {fileID: 6420583291657760158, guid: 60f2bc1eaa5e30c4dbc2ac0b34854ab1, type: 3}
   PlayerHandTransform: {fileID: 142866442}
+  PlayerFieldTransform: {fileID: 1881383833}
 --- !u!4 &1948438323
 Transform:
   m_ObjectHideFlags: 0
@@ -2114,5 +2070,4 @@ SceneRoots:
   - {fileID: 924337654}
   - {fileID: 1042613660}
   - {fileID: 1760533322}
-  - {fileID: 618421961}
   - {fileID: 1948438323}

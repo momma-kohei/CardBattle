@@ -2,13 +2,13 @@ using UnityEngine;
 
 /// <summary>
 /// カードのデータを管理するクラス.
-/// 各変数とコンストラクタを含む．
+/// 各変数とそれを含むコンストラクタ．
 /// </summary>
 public class CardModel // 設定資料集CardDatasを参照して実際のカードを作るためのクラス
 {
-    // カードに共通するパラメータを取得する変数
+    // カードに共通する変数
     public string cardName; // 名前
-    public int power; // 強さ
+    public int power; // カードのパワー（攻撃力）
     public ElementType element; // 属性（enum:選択式になる）
     public Sprite cardTexture; // 画像
     public string description; // 説明

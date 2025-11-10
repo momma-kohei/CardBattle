@@ -2,8 +2,13 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class CardView : MonoBehaviour
-{// カードオブジェクトのUIと結びつけるための変数
+/// <summary>
+/// データ情報をもとに画面に表示するクラス
+/// </summary>
+public class CardView : MonoBehaviour // data -> display
+{
+    // カードオブジェクトのUIと結びつけるための変数
+    // variants -> UI
     [SerializeField] TextMeshProUGUI nameText;
     [SerializeField] TextMeshProUGUI powerText;
     [SerializeField] Image cardImage;

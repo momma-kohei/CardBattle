@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class CardController : MonoBehaviour
 {
-    CardView view; // データを表示
-    CardModel model; // データを管理
+    CardView view; // データを表示する機能を取得
+    CardModel model; // カードデータを取得するための器
 
     private void Awake()
     {
@@ -14,7 +14,13 @@ public class CardController : MonoBehaviour
     /// カードIDを指定してカードを初期化するメソッド
     /// </summary>
     /// <param name="cardID">属性番号と序列番号によるカードID</param>
-    public void Init(int cardID)
+    public void InitHand(int cardID)
+    {
+        model = new CardModel(cardID);
+        view.Show(model);
+        this.name = cardID.ToString();
+    }
+    public void InitField(int cardID)
     {
         model = new CardModel(cardID);
         view.Show(model);

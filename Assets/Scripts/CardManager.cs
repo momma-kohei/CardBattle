@@ -2,21 +2,14 @@ using Unity.VisualScripting.Antlr3.Runtime.Tree;
 using UnityEngine;
 
 /// <summary>
-/// ゲームの進行を制御するクラス
+/// カードを制御するクラス
 /// </summary>
-public class GameManager : MonoBehaviour
+public class CardManager : MonoBehaviour
 {
     [SerializeField] CardController handCardPrefab; // プレハブを取得
     [SerializeField] CardController fieldCardPrefab; // プレハブを取得
     [SerializeField] Transform PlayerHandTransform; // 手札のTransformを取得
     [SerializeField] Transform PlayerFieldTransform; // フィールドのTransfromを取得
-
-    void Start()
-    {
-        GenerateHandCard(11);
-        GenerateHandCard(24);
-        GenerateHandCard(37);
-    }
 
     /// <summary>
     /// カードの生成を制御するメソッド
