@@ -14,6 +14,9 @@ public class CardData : ScriptableObject // unity -> data
     public string description; // à–¾
 }
 
+/// <summary>
+/// ‘®«‚Ìí—Ş‚ğ’è‹`‚·‚é—ñ‹“Œ^
+/// </summary>
 public enum ElementType
 {
     Fire, // ‰Î‘®«

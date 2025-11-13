@@ -11,25 +11,89 @@ public class CardManager : MonoBehaviour
     [SerializeField] Transform PlayerHandTransform; // 手札のTransformを取得
     [SerializeField] Transform PlayerFieldTransform; // フィールドのTransfromを取得
 
+    bool elementSelected = false; // 属性が選択されたかどうか
+    int elementNum = -1; // 選択された属性番号
+    int fieldCardNum = 0; // フィールドに出ているカードの枚数
+
     /// <summary>
-    /// カードの生成を制御するメソッド
+    /// 手札にカードを生成するメソッド
     /// </summary>
     /// <param name="hand">生成先の場所</param>
-    void GenerateHandCard(int cardID)
+    public void GenerateHandCard(int cardID)
     {
         CardController card = Instantiate(handCardPrefab, PlayerHandTransform, false); // handにカードを生成
         ReceiveEvent re = card.GetComponent<ReceiveEvent>(); // プレハブのインスタンス化後にコンポーネントを取得
-        re.SetGameManager(this); // GameManagerの情報をプレハブに渡す
-        card.InitHand(cardID);
+        re.SetCardManager(this); // GameManagerの情報をプレハブに渡す
+        card.Init(cardID);
     }
     /// <summary>
-    /// カードIDを指定してカードを生成するメソッド
+    /// フィールとにカードを生成するメソッド
     /// </summary>
     /// <param name="cardID">カードID</param>
     public void GenerateFieldCard(int cardID)
     {
         CardController card = Instantiate(fieldCardPrefab, PlayerFieldTransform, false); // fieldにカードを生成
-        card.InitField(cardID);
+        card.Init(cardID); // カードIDを渡して初期化
+        fieldCardNum++; // フィールドに出ているカードの枚数をカウント
+        elementNum = card.GetCardElement(); // カードの属性番号を取得
+    }
+    /// <summary>
+    /// 属性を考慮してフィールドにカードを生成するメソッド
+    /// </summary>
+    /// <param name="cardID">カードID</param>
+    public void GenerateFieldCardByElement(int cardID)
+    {
+        switch ((int)elementNum)
+        {
+            case -1: // 属性が選択されていない場合
+                GenerateFieldCard(cardID);
+                elementSelected = true; // 属性が選択されたことを記録
+                break;
+            case 0: // 火属性が選択されている場合
+                if (cardID / 10 == 1) GenerateFieldCard(cardID);
+                break;
+            case 1: // 水属性が選択されている場合
+                if (cardID / 10 == 2) GenerateFieldCard(cardID);
+                break;
+            case 2: // 木属性が選択されている場合
+                if (cardID / 10 == 3) GenerateFieldCard(cardID);
+                break;
+        }
+    }
+    /// <summary>
+    /// 属性を考慮してフィールドにカードを消去するメソッド
+    /// </summary>
+    /// <param name="cardID">カードID</param>
+    public void RemoveFieldCard(int cardID)
+    {
+        Destroy(GameObject.Find("/PlayCanvas/PlayerField/" + cardID)); // フィールド内に作成したオブジェクトを破壊
+        fieldCardNum--; // フィールドに出ているカードの枚数をカウント
+        if (fieldCardNum == 0) elementNum = -1; // 属性番号をリセット
+    }
+    /// <summary>
+    /// 属性を考慮してbool値を反転させるメソッド
+    /// </summary>
+    /// <param name="b">対称のbool値</param>
+    /// <param name="cardID">属性を判定するためのカードID</param>
+    /// <returns></returns>
+    public bool untiBoolByElement(bool b, int cardID)
+    {
+        switch ((int)elementNum)
+        {
+            case -1: // 属性が選択されていない場合
+                b = !b;
+                break;
+            case 0: // 火属性が選択されている場合
+                if (cardID / 10 == 1) b = !b;
+                break;
+            case 1: // 水属性が選択されている場合
+                if (cardID / 10 == 2) b = !b;
+                break;
+            case 2: // 木属性が選択されている場合
+                if (cardID / 10 == 3) b = !b;
+                break;
+        }
+        return b;
     }
     /// <summary>
     /// カード枚数を指定してランダムなカードを生成するメソッド

@@ -3,16 +3,17 @@ using UnityEngine.InputSystem;
 
 public class ReceiveEvent : MonoBehaviour
 {
-    GameManager manager;
+    GameManager gameManager;
+    CardManager cardManager;
     private bool inField = false;
 
     /// <summary>
-    /// ゲームマネージャーをセットするメソッド 
+    /// カードマネージャーをセットするメソッド 
     /// </summary>
-    /// <param name="gm"></param>
-    public void SetGameManager(GameManager gm)
+    /// <param name="cm"></param>
+    public void SetCardManager(CardManager cm)
     {
-        manager = gm;
+        cardManager = cm;
     }
 
     public void MyPointerDownUI()
@@ -21,20 +22,13 @@ public class ReceiveEvent : MonoBehaviour
 
         if(inField)
         {
-            Destroy(GameObject.Find("/PlayCanvas/PlayerField/" + this.name)); // フィールド内に作成したオブジェクトを破壊
-            inField = false;
+            cardManager.RemoveFieldCard(int.Parse(this.name)); // フィールド内に作成したオブジェクトを削除
+            inField = cardManager.untiBoolByElement(inField, int.Parse(this.name));
         }
         else
         {
-            manager.GenerateFieldCard(int.Parse(this.name)); // フィールド内に自身と同じカードを作成
-            inField = true;
+            cardManager.GenerateFieldCardByElement(int.Parse(this.name)); // フィールド内に自身と同じカードを作成
+            inField = cardManager.untiBoolByElement(inField, int.Parse(this.name));
         }
-    }
-
-    public void MyDragUI()
-    {
-
-        transform.position = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
-        transform.position = new Vector3 (transform.position.x, transform.position.y, 0f);
     }
 }
