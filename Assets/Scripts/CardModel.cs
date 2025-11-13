@@ -14,10 +14,10 @@ public class CardModel // İ’è‘—¿WCardDatas‚ğQÆ‚µ‚ÄÀÛ‚ÌƒJ[ƒh‚ğì‚é‚½‚ß‚Ìƒ
     public string description; // à–¾
 
     /// <summary>
-    /// ƒJ[ƒhID‚ğw’è‚µ‚Äƒf[ƒ^‚ğæ“¾‚µ•Ï”‚ÉŠi”[‚·‚é‚½‚ß‚ÌƒRƒ“ƒXƒgƒ‰ƒNƒ^
+    /// ƒJ[ƒhID‚ğw’è‚µ‚Äƒf[ƒ^‚ğæ“¾‚µ•\¦‚·‚éƒRƒ“ƒXƒgƒ‰ƒNƒ^
     /// </summary>
     /// <param name="cardID">‘®«”Ô†‚Æ˜—ñ”Ô†‚É‚æ‚éƒJ[ƒhID</param>
-    public CardModel(int cardID) // ƒRƒ“ƒXƒgƒ‰ƒNƒ^iƒJ[ƒhID‚Åƒf[ƒ^‚ğæ“¾j
+    public CardModel(int cardID)
     {
         // cardID‚©‚çƒIƒuƒWƒFƒNƒg‚ğ“Á’è‚µæ“¾
         CardData cardData = Resources.Load<CardData>("CardDatas/Card" + cardID); // êŠ‚Æƒtƒ@ƒCƒ‹–¼‚Åƒ[ƒh‚·‚éƒf[ƒ^‚ğw’è

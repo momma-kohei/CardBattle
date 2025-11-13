@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Unity.VisualScripting.Antlr3.Runtime.Tree;
 using UnityEngine;
 
@@ -6,20 +7,23 @@ using UnityEngine;
 /// </summary>
 public class CardManager : MonoBehaviour
 {
+    CardDeckModel deckModel; // CardDeckModelのインスタンス化
+    public List<int> deck; // デッキのカードIDリスト
+
     [SerializeField] CardController handCardPrefab; // プレハブを取得
     [SerializeField] CardController fieldCardPrefab; // プレハブを取得
     [SerializeField] Transform PlayerHandTransform; // 手札のTransformを取得
     [SerializeField] Transform PlayerFieldTransform; // フィールドのTransfromを取得
-
-    bool elementSelected = false; // 属性が選択されたかどうか
     int elementNum = -1; // 選択された属性番号
     int fieldCardNum = 0; // フィールドに出ているカードの枚数
 
-    /// <summary>
-    /// 手札にカードを生成するメソッド
-    /// </summary>
-    /// <param name="hand">生成先の場所</param>
-    public void GenerateHandCard(int cardID)
+    public void InitDeck() // デッキ情報を初期化するメソッド
+    {
+        deckModel = new CardDeckModel();
+        deck = deckModel.deck; // デッキ情報を初期化
+    }
+
+    public void GenerateHandCard(int cardID) // 手札にカードを生成するメソッド
     {
         CardController card = Instantiate(handCardPrefab, PlayerHandTransform, false); // handにカードを生成
         ReceiveEvent re = card.GetComponent<ReceiveEvent>(); // プレハブのインスタンス化後にコンポーネントを取得
@@ -27,10 +31,20 @@ public class CardManager : MonoBehaviour
         card.Init(cardID);
     }
     /// <summary>
-    /// フィールとにカードを生成するメソッド
+    /// カード枚数を指定してランダムなカードを生成するメソッド
     /// </summary>
-    /// <param name="cardID">カードID</param>
-    public void GenerateFieldCard(int cardID)
+    /// <param name="hand">生成先の場所</param>
+    /// <param name="num">カードの枚数</param>
+    public void GenerateRandomHandCard(int num)
+    {
+        deckModel.PickCardFromDeck(num); // デッキからカードを引く処理を実行
+        foreach (int cardID in deckModel.handCardList)
+        {
+            Debug.Log("HandCardID:" + cardID);
+            GenerateHandCard(cardID); // 手札にカードを生成
+        }
+    }
+    public void GenerateFieldCard(int cardID) // フィールとにカードを生成するメソッド
     {
         CardController card = Instantiate(fieldCardPrefab, PlayerFieldTransform, false); // fieldにカードを生成
         card.Init(cardID); // カードIDを渡して初期化
@@ -47,7 +61,6 @@ public class CardManager : MonoBehaviour
         {
             case -1: // 属性が選択されていない場合
                 GenerateFieldCard(cardID);
-                elementSelected = true; // 属性が選択されたことを記録
                 break;
             case 0: // 火属性が選択されている場合
                 if (cardID / 10 == 1) GenerateFieldCard(cardID);
@@ -61,7 +74,7 @@ public class CardManager : MonoBehaviour
         }
     }
     /// <summary>
-    /// 属性を考慮してフィールドにカードを消去するメソッド
+    /// フィールドのカードを消去するメソッド
     /// </summary>
     /// <param name="cardID">カードID</param>
     public void RemoveFieldCard(int cardID)
@@ -94,17 +107,5 @@ public class CardManager : MonoBehaviour
                 break;
         }
         return b;
-    }
-    /// <summary>
-    /// カード枚数を指定してランダムなカードを生成するメソッド
-    /// </summary>
-    /// <param name="hand">生成先の場所</param>
-    /// <param name="num">カードの枚数</param>
-    void GenerateRandomHandCard(Transform hand, int num)
-    {
-        CardController card = Instantiate(handCardPrefab, hand, false);
-        // ランダムなカードIDを指定してカードを手札に生成する処理を行う
-        // numによって反復回数を制御
-        // デッキから引くようにカードが減っていく動きも必要
     }
 }
