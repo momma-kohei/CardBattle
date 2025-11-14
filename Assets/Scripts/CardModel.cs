@@ -1,26 +1,26 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
 /// <summary>
-/// ƒJ[ƒh‚Ìƒf[ƒ^‚ğŠÇ—‚·‚éƒNƒ‰ƒX.
-/// Še•Ï”‚Æ‚»‚ê‚ğŠÜ‚ŞƒRƒ“ƒXƒgƒ‰ƒNƒ^D
+/// ã‚«ãƒ¼ãƒ‰ã®ãƒ‡ãƒ¼ã‚¿ã‚’ç®¡ç†ã™ã‚‹ã‚¯ãƒ©ã‚¹.
+/// å„å¤‰æ•°ã¨ãã‚Œã‚’å«ã‚€ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ï¼
 /// </summary>
-public class CardModel // İ’è‘—¿WCardDatas‚ğQÆ‚µ‚ÄÀÛ‚ÌƒJ[ƒh‚ğì‚é‚½‚ß‚ÌƒNƒ‰ƒX
+public class CardModel // è¨­å®šè³‡æ–™é›†CardDatasã‚’å‚ç…§ã—ã¦å®Ÿéš›ã®ã‚«ãƒ¼ãƒ‰ã‚’ä½œã‚‹ãŸã‚ã®ã‚¯ãƒ©ã‚¹
 {
-    // ƒJ[ƒh‚É‹¤’Ê‚·‚é•Ï”
-    public string cardName; // –¼‘O
-    public int power; // ƒJ[ƒh‚Ìƒpƒ[iUŒ‚—Íj
-    public ElementType element; // ‘®«ienum:‘I‘ğ®‚É‚È‚éj
-    public Sprite cardTexture; // ‰æ‘œ
-    public string description; // à–¾
+    // ã‚«ãƒ¼ãƒ‰ã«å…±é€šã™ã‚‹å¤‰æ•°
+    public string cardName; // åå‰
+    public int power; // ã‚«ãƒ¼ãƒ‰ã®ãƒ‘ãƒ¯ãƒ¼ï¼ˆæ”»æ’ƒåŠ›ï¼‰
+    public ElementType element; // å±æ€§ï¼ˆenum:é¸æŠå¼ã«ãªã‚‹ï¼‰
+    public Sprite cardTexture; // ç”»åƒ
+    public string description; // èª¬æ˜
 
     /// <summary>
-    /// ƒJ[ƒhID‚ğw’è‚µ‚Äƒf[ƒ^‚ğæ“¾‚µ•\¦‚·‚éƒRƒ“ƒXƒgƒ‰ƒNƒ^
+    /// ã‚«ãƒ¼ãƒ‰IDã‚’æŒ‡å®šã—ã¦ãƒ‡ãƒ¼ã‚¿ã‚’å–å¾—ã—è¡¨ç¤ºã™ã‚‹ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
     /// </summary>
-    /// <param name="cardID">‘®«”Ô†‚Æ˜—ñ”Ô†‚É‚æ‚éƒJ[ƒhID</param>
+    /// <param name="cardID">å±æ€§ç•ªå·ã¨åºåˆ—ç•ªå·ã«ã‚ˆã‚‹ã‚«ãƒ¼ãƒ‰ID</param>
     public CardModel(int cardID)
     {
-        // cardID‚©‚çƒIƒuƒWƒFƒNƒg‚ğ“Á’è‚µæ“¾
-        CardData cardData = Resources.Load<CardData>("CardDatas/Card" + cardID); // êŠ‚Æƒtƒ@ƒCƒ‹–¼‚Åƒ[ƒh‚·‚éƒf[ƒ^‚ğw’è
+        // cardIDã‹ã‚‰ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’ç‰¹å®šã—å–å¾—
+        CardData cardData = Resources.Load<CardData>("CardDatas/Card" + cardID); // å ´æ‰€ã¨ãƒ•ã‚¡ã‚¤ãƒ«åã§ãƒ­ãƒ¼ãƒ‰ã™ã‚‹ãƒ‡ãƒ¼ã‚¿ã‚’æŒ‡å®š
         cardName = cardData.cardName;
         power = cardData.power;
         element = cardData.element;
@@ -28,3 +28,4 @@ public class CardModel // İ’è‘—¿WCardDatas‚ğQÆ‚µ‚ÄÀÛ‚ÌƒJ[ƒh‚ğì‚é‚½‚ß‚Ìƒ
         description = cardData.description;
     }
 }
+

@@ -1,111 +1,112 @@
-using System.Collections.Generic;
+ï»¿using System.Collections.Generic;
 using Unity.VisualScripting.Antlr3.Runtime.Tree;
 using UnityEngine;
 
 /// <summary>
-/// ƒJ[ƒh‚ğ§Œä‚·‚éƒNƒ‰ƒX
+/// ã‚«ãƒ¼ãƒ‰ã‚’åˆ¶å¾¡ã™ã‚‹ã‚¯ãƒ©ã‚¹
 /// </summary>
 public class CardManager : MonoBehaviour
 {
-    CardDeckModel deckModel; // CardDeckModel‚ÌƒCƒ“ƒXƒ^ƒ“ƒX‰»
-    public List<int> deck; // ƒfƒbƒL‚ÌƒJ[ƒhIDƒŠƒXƒg
+    CardDeckModel deckModel; // CardDeckModelã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹åŒ–
+    public List<int> deck; // ãƒ‡ãƒƒã‚­ã®ã‚«ãƒ¼ãƒ‰IDãƒªã‚¹ãƒˆ
 
-    [SerializeField] CardController handCardPrefab; // ƒvƒŒƒnƒu‚ğæ“¾
-    [SerializeField] CardController fieldCardPrefab; // ƒvƒŒƒnƒu‚ğæ“¾
-    [SerializeField] Transform PlayerHandTransform; // èD‚ÌTransform‚ğæ“¾
-    [SerializeField] Transform PlayerFieldTransform; // ƒtƒB[ƒ‹ƒh‚ÌTransfrom‚ğæ“¾
-    int elementNum = -1; // ‘I‘ğ‚³‚ê‚½‘®«”Ô†
-    int fieldCardNum = 0; // ƒtƒB[ƒ‹ƒh‚Éo‚Ä‚¢‚éƒJ[ƒh‚Ì–‡”
+    [SerializeField] CardController handCardPrefab; // ãƒ—ãƒ¬ãƒãƒ–ã‚’å–å¾—
+    [SerializeField] CardController fieldCardPrefab; // ãƒ—ãƒ¬ãƒãƒ–ã‚’å–å¾—
+    [SerializeField] Transform PlayerHandTransform; // æ‰‹æœ­ã®Transformã‚’å–å¾—
+    [SerializeField] Transform PlayerFieldTransform; // ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰ã®Transfromã‚’å–å¾—
+    int elementNum = -1; // é¸æŠã•ã‚ŒãŸå±æ€§ç•ªå·
+    int fieldCardNum = 0; // ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰ã«å‡ºã¦ã„ã‚‹ã‚«ãƒ¼ãƒ‰ã®æšæ•°
 
-    public void InitDeck() // ƒfƒbƒLî•ñ‚ğ‰Šú‰»‚·‚éƒƒ\ƒbƒh
+    public void InitDeck() // ãƒ‡ãƒƒã‚­æƒ…å ±ã‚’åˆæœŸåŒ–ã™ã‚‹ãƒ¡ã‚½ãƒƒãƒ‰
     {
         deckModel = new CardDeckModel();
-        deck = deckModel.deck; // ƒfƒbƒLî•ñ‚ğ‰Šú‰»
+        deck = deckModel.deck; // ãƒ‡ãƒƒã‚­æƒ…å ±ã‚’åˆæœŸåŒ–
     }
 
-    public void GenerateHandCard(int cardID) // èD‚ÉƒJ[ƒh‚ğ¶¬‚·‚éƒƒ\ƒbƒh
+    public void GenerateHandCard(int cardID) // æ‰‹æœ­ã«ã‚«ãƒ¼ãƒ‰ã‚’ç”Ÿæˆã™ã‚‹ãƒ¡ã‚½ãƒƒãƒ‰
     {
-        CardController card = Instantiate(handCardPrefab, PlayerHandTransform, false); // hand‚ÉƒJ[ƒh‚ğ¶¬
-        ReceiveEvent re = card.GetComponent<ReceiveEvent>(); // ƒvƒŒƒnƒu‚ÌƒCƒ“ƒXƒ^ƒ“ƒX‰»Œã‚ÉƒRƒ“ƒ|[ƒlƒ“ƒg‚ğæ“¾
-        re.SetCardManager(this); // GameManager‚Ìî•ñ‚ğƒvƒŒƒnƒu‚É“n‚·
+        CardController card = Instantiate(handCardPrefab, PlayerHandTransform, false); // handã«ã‚«ãƒ¼ãƒ‰ã‚’ç”Ÿæˆ
+        ReceiveEvent re = card.GetComponent<ReceiveEvent>(); // ãƒ—ãƒ¬ãƒãƒ–ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹åŒ–å¾Œã«ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆã‚’å–å¾—
+        re.SetCardManager(this); // GameManagerã®æƒ…å ±ã‚’ãƒ—ãƒ¬ãƒãƒ–ã«æ¸¡ã™
         card.Init(cardID);
     }
     /// <summary>
-    /// ƒJ[ƒh–‡”‚ğw’è‚µ‚Äƒ‰ƒ“ƒ_ƒ€‚ÈƒJ[ƒh‚ğ¶¬‚·‚éƒƒ\ƒbƒh
+    /// ã‚«ãƒ¼ãƒ‰æšæ•°ã‚’æŒ‡å®šã—ã¦ãƒ©ãƒ³ãƒ€ãƒ ãªã‚«ãƒ¼ãƒ‰ã‚’ç”Ÿæˆã™ã‚‹ãƒ¡ã‚½ãƒƒãƒ‰
     /// </summary>
-    /// <param name="hand">¶¬æ‚ÌêŠ</param>
-    /// <param name="num">ƒJ[ƒh‚Ì–‡”</param>
+    /// <param name="hand">ç”Ÿæˆå…ˆã®å ´æ‰€</param>
+    /// <param name="num">ã‚«ãƒ¼ãƒ‰ã®æšæ•°</param>
     public void GenerateRandomHandCard(int num)
     {
-        deckModel.PickCardFromDeck(num); // ƒfƒbƒL‚©‚çƒJ[ƒh‚ğˆø‚­ˆ—‚ğÀs
+        deckModel.PickCardFromDeck(num); // ãƒ‡ãƒƒã‚­ã‹ã‚‰ã‚«ãƒ¼ãƒ‰ã‚’å¼•ãå‡¦ç†ã‚’å®Ÿè¡Œ
         foreach (int cardID in deckModel.handCardList)
         {
             Debug.Log("HandCardID:" + cardID);
-            GenerateHandCard(cardID); // èD‚ÉƒJ[ƒh‚ğ¶¬
+            GenerateHandCard(cardID); // æ‰‹æœ­ã«ã‚«ãƒ¼ãƒ‰ã‚’ç”Ÿæˆ
         }
     }
-    public void GenerateFieldCard(int cardID) // ƒtƒB[ƒ‹‚Æ‚ÉƒJ[ƒh‚ğ¶¬‚·‚éƒƒ\ƒbƒh
+    public void GenerateFieldCard(int cardID) // ãƒ•ã‚£ãƒ¼ãƒ«ã¨ã«ã‚«ãƒ¼ãƒ‰ã‚’ç”Ÿæˆã™ã‚‹ãƒ¡ã‚½ãƒƒãƒ‰
     {
-        CardController card = Instantiate(fieldCardPrefab, PlayerFieldTransform, false); // field‚ÉƒJ[ƒh‚ğ¶¬
-        card.Init(cardID); // ƒJ[ƒhID‚ğ“n‚µ‚Ä‰Šú‰»
-        fieldCardNum++; // ƒtƒB[ƒ‹ƒh‚Éo‚Ä‚¢‚éƒJ[ƒh‚Ì–‡”‚ğƒJƒEƒ“ƒg
-        elementNum = card.GetCardElement(); // ƒJ[ƒh‚Ì‘®«”Ô†‚ğæ“¾
+        CardController card = Instantiate(fieldCardPrefab, PlayerFieldTransform, false); // fieldã«ã‚«ãƒ¼ãƒ‰ã‚’ç”Ÿæˆ
+        card.Init(cardID); // ã‚«ãƒ¼ãƒ‰IDã‚’æ¸¡ã—ã¦åˆæœŸåŒ–
+        fieldCardNum++; // ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰ã«å‡ºã¦ã„ã‚‹ã‚«ãƒ¼ãƒ‰ã®æšæ•°ã‚’ã‚«ã‚¦ãƒ³ãƒˆ
+        elementNum = card.GetCardElement(); // ã‚«ãƒ¼ãƒ‰ã®å±æ€§ç•ªå·ã‚’å–å¾—
     }
     /// <summary>
-    /// ‘®«‚ğl—¶‚µ‚ÄƒtƒB[ƒ‹ƒh‚ÉƒJ[ƒh‚ğ¶¬‚·‚éƒƒ\ƒbƒh
+    /// å±æ€§ã‚’è€ƒæ…®ã—ã¦ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰ã«ã‚«ãƒ¼ãƒ‰ã‚’ç”Ÿæˆã™ã‚‹ãƒ¡ã‚½ãƒƒãƒ‰
     /// </summary>
-    /// <param name="cardID">ƒJ[ƒhID</param>
+    /// <param name="cardID">ã‚«ãƒ¼ãƒ‰ID</param>
     public void GenerateFieldCardByElement(int cardID)
     {
         switch ((int)elementNum)
         {
-            case -1: // ‘®«‚ª‘I‘ğ‚³‚ê‚Ä‚¢‚È‚¢ê‡
+            case -1: // å±æ€§ãŒé¸æŠã•ã‚Œã¦ã„ãªã„å ´åˆ
                 GenerateFieldCard(cardID);
                 break;
-            case 0: // ‰Î‘®«‚ª‘I‘ğ‚³‚ê‚Ä‚¢‚éê‡
+            case 0: // ç«å±æ€§ãŒé¸æŠã•ã‚Œã¦ã„ã‚‹å ´åˆ
                 if (cardID / 10 == 1) GenerateFieldCard(cardID);
                 break;
-            case 1: // …‘®«‚ª‘I‘ğ‚³‚ê‚Ä‚¢‚éê‡
+            case 1: // æ°´å±æ€§ãŒé¸æŠã•ã‚Œã¦ã„ã‚‹å ´åˆ
                 if (cardID / 10 == 2) GenerateFieldCard(cardID);
                 break;
-            case 2: // –Ø‘®«‚ª‘I‘ğ‚³‚ê‚Ä‚¢‚éê‡
+            case 2: // æœ¨å±æ€§ãŒé¸æŠã•ã‚Œã¦ã„ã‚‹å ´åˆ
                 if (cardID / 10 == 3) GenerateFieldCard(cardID);
                 break;
         }
     }
     /// <summary>
-    /// ƒtƒB[ƒ‹ƒh‚ÌƒJ[ƒh‚ğÁ‹‚·‚éƒƒ\ƒbƒh
+    /// ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰ã®ã‚«ãƒ¼ãƒ‰ã‚’æ¶ˆå»ã™ã‚‹ãƒ¡ã‚½ãƒƒãƒ‰
     /// </summary>
-    /// <param name="cardID">ƒJ[ƒhID</param>
+    /// <param name="cardID">ã‚«ãƒ¼ãƒ‰ID</param>
     public void RemoveFieldCard(int cardID)
     {
-        Destroy(GameObject.Find("/PlayCanvas/PlayerField/" + cardID)); // ƒtƒB[ƒ‹ƒh“à‚Éì¬‚µ‚½ƒIƒuƒWƒFƒNƒg‚ğ”j‰ó
-        fieldCardNum--; // ƒtƒB[ƒ‹ƒh‚Éo‚Ä‚¢‚éƒJ[ƒh‚Ì–‡”‚ğƒJƒEƒ“ƒg
-        if (fieldCardNum == 0) elementNum = -1; // ‘®«”Ô†‚ğƒŠƒZƒbƒg
+        Destroy(GameObject.Find("/PlayCanvas/PlayerField/" + cardID)); // ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰å†…ã«ä½œæˆã—ãŸã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’ç ´å£Š
+        fieldCardNum--; // ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰ã«å‡ºã¦ã„ã‚‹ã‚«ãƒ¼ãƒ‰ã®æšæ•°ã‚’ã‚«ã‚¦ãƒ³ãƒˆ
+        if (fieldCardNum == 0) elementNum = -1; // å±æ€§ç•ªå·ã‚’ãƒªã‚»ãƒƒãƒˆ
     }
     /// <summary>
-    /// ‘®«‚ğl—¶‚µ‚Äbool’l‚ğ”½“]‚³‚¹‚éƒƒ\ƒbƒh
+    /// å±æ€§ã‚’è€ƒæ…®ã—ã¦boolå€¤ã‚’åè»¢ã•ã›ã‚‹ãƒ¡ã‚½ãƒƒãƒ‰
     /// </summary>
-    /// <param name="b">‘ÎÌ‚Ìbool’l</param>
-    /// <param name="cardID">‘®«‚ğ”»’è‚·‚é‚½‚ß‚ÌƒJ[ƒhID</param>
+    /// <param name="b">å¯¾ç§°ã®boolå€¤</param>
+    /// <param name="cardID">å±æ€§ã‚’åˆ¤å®šã™ã‚‹ãŸã‚ã®ã‚«ãƒ¼ãƒ‰ID</param>
     /// <returns></returns>
     public bool untiBoolByElement(bool b, int cardID)
     {
         switch ((int)elementNum)
         {
-            case -1: // ‘®«‚ª‘I‘ğ‚³‚ê‚Ä‚¢‚È‚¢ê‡
+            case -1: // å±æ€§ãŒé¸æŠã•ã‚Œã¦ã„ãªã„å ´åˆ
                 b = !b;
                 break;
-            case 0: // ‰Î‘®«‚ª‘I‘ğ‚³‚ê‚Ä‚¢‚éê‡
+            case 0: // ç«å±æ€§ãŒé¸æŠã•ã‚Œã¦ã„ã‚‹å ´åˆ
                 if (cardID / 10 == 1) b = !b;
                 break;
-            case 1: // …‘®«‚ª‘I‘ğ‚³‚ê‚Ä‚¢‚éê‡
+            case 1: // æ°´å±æ€§ãŒé¸æŠã•ã‚Œã¦ã„ã‚‹å ´åˆ
                 if (cardID / 10 == 2) b = !b;
                 break;
-            case 2: // –Ø‘®«‚ª‘I‘ğ‚³‚ê‚Ä‚¢‚éê‡
+            case 2: // æœ¨å±æ€§ãŒé¸æŠã•ã‚Œã¦ã„ã‚‹å ´åˆ
                 if (cardID / 10 == 3) b = !b;
                 break;
         }
         return b;
     }
 }
+

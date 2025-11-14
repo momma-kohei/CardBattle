@@ -1,9 +1,9 @@
-using System.Collections.Generic;
+ï»¿using System.Collections.Generic;
 using Unity.VisualScripting.Antlr3.Runtime.Tree;
 using UnityEngine;
 
 /// <summary>
-/// ƒQ[ƒ€‚Ìis‚ğ§Œä‚·‚éƒNƒ‰ƒX
+/// ã‚²ãƒ¼ãƒ ã®é€²è¡Œã‚’åˆ¶å¾¡ã™ã‚‹ã‚¯ãƒ©ã‚¹
 /// </summary>
 public class GameManager : MonoBehaviour
 {
@@ -12,9 +12,10 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        playerCardManager.InitDeck(); // ƒfƒbƒLî•ñ‚ğ‰Šú‰»
-        // opponentCardManager.InitDeck(); // ƒfƒbƒLî•ñ‚ğ‹¤—L
-        playerCardManager.GenerateRandomHandCard(7); // ƒ‰ƒ“ƒ_ƒ€‚É7–‡èD‚ğ¶¬
-        // opponentCardManager.GenerateRandomHandCard(7); // ƒ‰ƒ“ƒ_ƒ€‚É7–‡èD‚ğ¶¬
+        playerCardManager.InitDeck(); // ãƒ‡ãƒƒã‚­æƒ…å ±ã‚’åˆæœŸåŒ–
+        // opponentCardManager.InitDeck(); // ãƒ‡ãƒƒã‚­æƒ…å ±ã‚’å…±æœ‰
+        playerCardManager.GenerateRandomHandCard(7); // ãƒ©ãƒ³ãƒ€ãƒ ã«7æšæ‰‹æœ­ã‚’ç”Ÿæˆ
+        // opponentCardManager.GenerateRandomHandCard(7); // ãƒ©ãƒ³ãƒ€ãƒ ã«7æšæ‰‹æœ­ã‚’ç”Ÿæˆ
     }
 }
+

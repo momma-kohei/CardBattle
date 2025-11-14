@@ -1,28 +1,29 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
 /// <summary>
-/// ƒf[ƒ^î•ñ‚ğ‚à‚Æ‚É‰æ–Ê‚É•\¦‚·‚éƒNƒ‰ƒX
+/// ãƒ‡ãƒ¼ã‚¿æƒ…å ±ã‚’ã‚‚ã¨ã«ç”»é¢ã«è¡¨ç¤ºã™ã‚‹ã‚¯ãƒ©ã‚¹
 /// </summary>
 public class CardView : MonoBehaviour // data -> display
 {
-    // ƒJ[ƒhƒIƒuƒWƒFƒNƒg‚ÌUI‚ÆŒ‹‚Ñ‚Â‚¯‚é‚½‚ß‚Ì•Ï”
+    // ã‚«ãƒ¼ãƒ‰ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®UIã¨çµã³ã¤ã‘ã‚‹ãŸã‚ã®å¤‰æ•°
     // variants -> UI
     [SerializeField] TextMeshProUGUI nameText;
     [SerializeField] TextMeshProUGUI powerText;
     [SerializeField] Image cardImage;
-    // [SerializeField] TextMeshProUGUI descriptionText; // ƒJ[ƒh‚Ìà–¾‚Í‰¼À‘•
+    // [SerializeField] TextMeshProUGUI descriptionText; // ã‚«ãƒ¼ãƒ‰ã®èª¬æ˜ã¯ä»®å®Ÿè£…
 
     /// <summary>
-    /// ƒJ[ƒhƒf[ƒ^‚Ìî•ñ‚ğƒJ[ƒh‚É”½‰f‚·‚éƒƒ\ƒbƒh
+    /// ã‚«ãƒ¼ãƒ‰ãƒ‡ãƒ¼ã‚¿ã®æƒ…å ±ã‚’ã‚«ãƒ¼ãƒ‰ã«åæ˜ ã™ã‚‹ãƒ¡ã‚½ãƒƒãƒ‰
     /// </summary>
-    /// <param name="cardModel">ƒJ[ƒhî•ñ‚ğŠi”[‚·‚éƒRƒ“ƒXƒgƒ‰ƒNƒ^</param>
+    /// <param name="cardModel">ã‚«ãƒ¼ãƒ‰æƒ…å ±ã‚’æ ¼ç´ã™ã‚‹ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿</param>
     public void Show(CardModel cardModel)
     {
         nameText.text = cardModel.cardName;
         powerText.text = cardModel.power.ToString();
         cardImage.sprite = cardModel.cardTexture;
-        // descriptionText.text = cardModel.description.ToString(); // ƒJ[ƒh‚Ìà–¾‚Í‰¼À‘•
+        // descriptionText.text = cardModel.description.ToString(); // ã‚«ãƒ¼ãƒ‰ã®èª¬æ˜ã¯ä»®å®Ÿè£…
     }
 }
+

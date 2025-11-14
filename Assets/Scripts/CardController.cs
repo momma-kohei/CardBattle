@@ -1,33 +1,34 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
 /// <summary>
-/// ƒJ[ƒh©g‚Ìî•ñ‚ğˆµ‚¤ƒNƒ‰ƒX
+/// ã‚«ãƒ¼ãƒ‰è‡ªèº«ã®æƒ…å ±ã‚’æ‰±ã†ã‚¯ãƒ©ã‚¹
 /// </summary>
 public class CardController : MonoBehaviour
 {
-    CardView view; // ƒf[ƒ^‚ğ•\¦‚·‚é‹@”\‚ğæ“¾
-    CardModel model; // ƒJ[ƒhƒf[ƒ^‚ğæ“¾‚·‚é‚½‚ß‚ÌŠí
+    CardView view; // ãƒ‡ãƒ¼ã‚¿ã‚’è¡¨ç¤ºã™ã‚‹æ©Ÿèƒ½ã‚’å–å¾—
+    CardModel model; // ã‚«ãƒ¼ãƒ‰ãƒ‡ãƒ¼ã‚¿ã‚’å–å¾—ã™ã‚‹ãŸã‚ã®å™¨
 
     private void Awake()
     {
-        view = GetComponent<CardView>(); // CardView‚ÌƒCƒ“ƒXƒ^ƒ“ƒX‚ğæ“¾
+        view = GetComponent<CardView>(); // CardViewã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã‚’å–å¾—
     }
 
     /// <summary>
-    /// ƒJ[ƒhID‚ğw’è‚µ‚ÄƒJ[ƒh‚ğ‰Šú‰»‚·‚éƒƒ\ƒbƒh
+    /// ã‚«ãƒ¼ãƒ‰IDã‚’æŒ‡å®šã—ã¦ã‚«ãƒ¼ãƒ‰ã‚’åˆæœŸåŒ–ã™ã‚‹ãƒ¡ã‚½ãƒƒãƒ‰
     /// </summary>
-    /// <param name="cardID">‘®«”Ô†‚Æ˜—ñ”Ô†‚É‚æ‚éƒJ[ƒhID</param>
+    /// <param name="cardID">å±æ€§ç•ªå·ã¨åºåˆ—ç•ªå·ã«ã‚ˆã‚‹ã‚«ãƒ¼ãƒ‰ID</param>
     public void Init(int cardID)
     {
-        model = new CardModel(cardID); // CardModel‚Ìî•ñ‚ğ‰Šú‰»
-        view.Show(model); // ‰Šú‰»‚µ‚½î•ñ‚ÅƒJ[ƒhUI‚ğ•\¦
-        this.name = cardID.ToString(); // ƒIƒuƒWƒFƒNƒg–¼‚ğƒJ[ƒhID‚ÅXV
+        model = new CardModel(cardID); // CardModelã®æƒ…å ±ã‚’åˆæœŸåŒ–
+        view.Show(model); // åˆæœŸåŒ–ã—ãŸæƒ…å ±ã§ã‚«ãƒ¼ãƒ‰UIã‚’è¡¨ç¤º
+        this.name = cardID.ToString(); // ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆåã‚’ã‚«ãƒ¼ãƒ‰IDã§æ›´æ–°
     }
 
-    // ƒJ[ƒhƒ‚ƒfƒ‹‚Ìî•ñ‚ğ“K‹X’m‚ç‚¹‚éƒƒ\ƒbƒh‚ª•K—v
+    // ã‚«ãƒ¼ãƒ‰ãƒ¢ãƒ‡ãƒ«ã®æƒ…å ±ã‚’é©å®œçŸ¥ã‚‰ã›ã‚‹ãƒ¡ã‚½ãƒƒãƒ‰ãŒå¿…è¦
 
     public int GetCardElement()
     {
         return (int)model.element;
     }
 }
+

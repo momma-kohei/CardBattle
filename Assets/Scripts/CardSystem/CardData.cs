@@ -1,25 +1,25 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
-[CreateAssetMenu(fileName = "CardData", menuName = "Scriptable Objects/CardData")] // ‰EƒNƒŠƒbƒN‚©‚çì‚ê‚é‚æ‚¤‚ÉƒAƒZƒbƒgƒƒjƒ…[‚ğì¬
-// Assets/Resources/CardDatas/‰º‚É‚±‚ê‚ğ—p‚¢‚ÄƒJ[ƒhW‚ğì¬
+[CreateAssetMenu(fileName = "CardData", menuName = "Scriptable Objects/CardData")] // å³ã‚¯ãƒªãƒƒã‚¯ã‹ã‚‰ä½œã‚Œã‚‹ã‚ˆã†ã«ã‚¢ã‚»ãƒƒãƒˆãƒ¡ãƒ‹ãƒ¥ãƒ¼ã‚’ä½œæˆ
+// Assets/Resources/CardDatas/ä¸‹ã«ã“ã‚Œã‚’ç”¨ã„ã¦ã‚«ãƒ¼ãƒ‰é›†ã‚’ä½œæˆ
 
-// unity‚ÌƒAƒZƒbƒg‚Æ‚µ‚Äƒf[ƒ^‚ğŠÇ—
+// unityã®ã‚¢ã‚»ãƒƒãƒˆã¨ã—ã¦ãƒ‡ãƒ¼ã‚¿ã‚’ç®¡ç†
 public class CardData : ScriptableObject // unity -> data
 {
-    // ƒJ[ƒh‚É‹¤’Ê‚·‚é•Ï”
-    public string cardName; // –¼‘O
-    public int power; // ƒJ[ƒh‚Ìƒpƒ[iUŒ‚—Íj
-    public ElementType element; // ‘®«ienum:‘I‘ğ®‚É‚È‚éj
-    public Sprite cardImage; // ‰æ‘œ
-    public string description; // à–¾
+    // ã‚«ãƒ¼ãƒ‰ã«å…±é€šã™ã‚‹å¤‰æ•°
+    public string cardName; // åå‰
+    public int power; // ã‚«ãƒ¼ãƒ‰ã®ãƒ‘ãƒ¯ãƒ¼ï¼ˆæ”»æ’ƒåŠ›ï¼‰
+    public ElementType element; // å±æ€§ï¼ˆenum:é¸æŠå¼ã«ãªã‚‹ï¼‰
+    public Sprite cardImage; // ç”»åƒ
+    public string description; // èª¬æ˜
 }
 
 /// <summary>
-/// ‘®«‚Ìí—Ş‚ğ’è‹`‚·‚é—ñ‹“Œ^
+/// å±æ€§ã®ç¨®é¡ã‚’å®šç¾©ã™ã‚‹åˆ—æŒ™å‹
 /// </summary>
 public enum ElementType
 {
-    Fire, // ‰Î‘®«
-    Water, // …‘®«
-    Grass // ‘‘®«Gƒ|ƒPƒ‚ƒ“‚É•í‚Á‚Ä‘‚ğGrass‚Æ‚µ‚½
+    Fire, // ç«å±æ€§
+    Water, // æ°´å±æ€§
+    Grass // è‰å±æ€§ï¼›ãƒã‚±ãƒ¢ãƒ³ã«å€£ã£ã¦è‰ã‚’Grassã¨ã—ãŸ
 }
