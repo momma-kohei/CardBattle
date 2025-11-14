@@ -1,22 +1,22 @@
-using NUnit.Framework;
+ï»¿using NUnit.Framework;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class CardDeckModel
 {
-    public List<int> deck; // ƒfƒbƒL‚ÌƒJ[ƒhIDƒŠƒXƒg
-    public List<int> handCardList; // èD‚ÌƒJ[ƒhIDƒŠƒXƒg
+    public List<int> deck; // ãƒ‡ãƒƒã‚­ã®ã‚«ãƒ¼ãƒ‰IDãƒªã‚¹ãƒˆ
+    public List<int> handCardList; // æ‰‹æœ­ã®ã‚«ãƒ¼ãƒ‰IDãƒªã‚¹ãƒˆ
 
-    const int eleNum = 3; // ‘®«‚Ì”
-    const int cardNumPerElement = 8; // ‘®«‚²‚Æ‚ÌƒJ[ƒh‚Ì”
+    const int eleNum = 3; // å±æ€§ã®æ•°
+    const int cardNumPerElement = 8; // å±æ€§ã”ã¨ã®ã‚«ãƒ¼ãƒ‰ã®æ•°
 
-    public CardDeckModel() // ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+    public CardDeckModel() // ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
     {
-        InitializeDeck(); // ƒfƒbƒL‚ğ‰Šú‰»
-        ShuffleDeck(); // ƒfƒbƒL‚ğƒVƒƒƒbƒtƒ‹
+        InitializeDeck(); // ãƒ‡ãƒƒã‚­ã‚’åˆæœŸåŒ–
+        ShuffleDeck(); // ãƒ‡ãƒƒã‚­ã‚’ã‚·ãƒ£ãƒƒãƒ•ãƒ«
     }
 
-    public void InitializeDeck() // ƒfƒbƒL‚ğ‰Šú‰»‚·‚éƒƒ\ƒbƒh
+    public void InitializeDeck() // ãƒ‡ãƒƒã‚­ã‚’åˆæœŸåŒ–ã™ã‚‹ãƒ¡ã‚½ãƒƒãƒ‰
     {
         deck = new List<int>();
 
@@ -24,12 +24,12 @@ public class CardDeckModel
         {
             for (int j = 1; j <= cardNumPerElement; j++)
             {
-                int cardID = i * 10 + j; // ‘®«”Ô†‚Æ˜—ñ”Ô†‚ÅƒJ[ƒhID‚ğ¶¬
-                deck.Add(cardID); // ƒfƒbƒL‚ÉƒJ[ƒhID‚ğ’Ç‰Á
+                int cardID = i * 10 + j; // å±æ€§ç•ªå·ã¨åºåˆ—ç•ªå·ã§ã‚«ãƒ¼ãƒ‰IDã‚’ç”Ÿæˆ
+                deck.Add(cardID); // ãƒ‡ãƒƒã‚­ã«ã‚«ãƒ¼ãƒ‰IDã‚’è¿½åŠ 
             }
         }
     }
-    public void ShuffleDeck() // ƒfƒbƒL‚ğƒVƒƒƒbƒtƒ‹‚·‚éƒƒ\ƒbƒh
+    public void ShuffleDeck() // ãƒ‡ãƒƒã‚­ã‚’ã‚·ãƒ£ãƒƒãƒ•ãƒ«ã™ã‚‹ãƒ¡ã‚½ãƒƒãƒ‰
     {
         for (int i = 0; i < deck.Count; i++)
         {
@@ -39,17 +39,17 @@ public class CardDeckModel
             deck[randomIndex] = temp;
         }
     }
-    public void PickCardFromDeck(int pickNum) // ƒfƒbƒL‚©‚çƒJ[ƒh‚ğˆø‚­ƒƒ\ƒbƒh
+    public void PickCardFromDeck(int pickNum) // ãƒ‡ãƒƒã‚­ã‹ã‚‰ã‚«ãƒ¼ãƒ‰ã‚’å¼•ããƒ¡ã‚½ãƒƒãƒ‰
     {
         handCardList = new List<int>();
         for (int i = 0; i < pickNum; i++)
         {
-            if (deck.Count == 0) break; // ƒfƒbƒL‚ª‹ó‚Ìê‡‚ÍI—¹
-            int cardID = deck[0]; // ƒfƒbƒL‚Ìˆê”Ôã‚ÌƒJ[ƒhID‚ğæ“¾
-            deck.RemoveAt(0); // ƒfƒbƒL‚©‚çƒJ[ƒhID‚ğíœ
-            handCardList.Add(cardID); // èD‚ÉƒJ[ƒhID‚ğ’Ç‰Á
+            if (deck.Count == 0) break; // ãƒ‡ãƒƒã‚­ãŒç©ºã®å ´åˆã¯çµ‚äº†
+            int cardID = deck[0]; // ãƒ‡ãƒƒã‚­ã®ä¸€ç•ªä¸Šã®ã‚«ãƒ¼ãƒ‰IDã‚’å–å¾—
+            deck.RemoveAt(0); // ãƒ‡ãƒƒã‚­ã‹ã‚‰ã‚«ãƒ¼ãƒ‰IDã‚’å‰Šé™¤
+            handCardList.Add(cardID); // æ‰‹æœ­ã«ã‚«ãƒ¼ãƒ‰IDã‚’è¿½åŠ 
         }
-        handCardList.Sort(); // èD‚ğƒJ[ƒhID‡‚Éƒ\[ƒg
+        handCardList.Sort(); // æ‰‹æœ­ã‚’ã‚«ãƒ¼ãƒ‰IDé †ã«ã‚½ãƒ¼ãƒˆ
         Debug.Log("Deck:" + deck.Count);
     }
 }
