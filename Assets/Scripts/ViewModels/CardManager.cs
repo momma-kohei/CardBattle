@@ -16,6 +16,7 @@ public class CardManager : MonoBehaviour
     [SerializeField] Transform OpponentHandTransform;           // 対戦相手の手札のTransfromを取得
     [SerializeField] Transform OpponentFieldTransform;          // 対戦相手のフィールドのTransfromを取得
     [SerializeField] ListController listController;             // ListControllerのインスタンス化
+
     int _elementNum = -1; // 選択された属性番号を-1で初期化
     int _fieldCardNum = 0; // フィールドに出ているカードの枚数を0で初期化
 
@@ -63,7 +64,7 @@ public class CardManager : MonoBehaviour
         card.Init(cardID); // カードIDを渡して初期化
         _fieldCardNum++; // フィールドに出ているカードの枚数をカウント
         _elementNum = card.GetCardElement(); // カードの属性番号を取得
-        // listController.SelectPlayerHand(cardID);
+        listController.SelectCard(listController.PlayerHandModel, cardID);
     }
     public void GenerateOpponentFieldCard(int cardID) // フィールとにカードを生成するメソッド
     {
@@ -102,7 +103,7 @@ public class CardManager : MonoBehaviour
     public void RemoveFieldCard(int cardID)
     {
         Destroy(GameObject.Find("/PlayCanvas/PlayerField/" + cardID)); // フィールド内に作成したオブジェクトを破壊
-        // listController.UnselectCard(listController.PlayerHandModel, cardID);
+        listController.UnselectCard(listController.PlayerHandModel, cardID);
         _fieldCardNum--; // フィールドに出ているカードの枚数をカウント
         if (_fieldCardNum == 0) _elementNum = -1; // 属性番号をリセット
     }

@@ -41,7 +41,6 @@ public class DeckModel
             _deck[randomIndex] = temp;
         }
     }
-    
     public void ReloadDeck()
     {
         _deck = new List<int>(_trashCards); // 捨て札をデッキに戻す

@@ -22,4 +22,19 @@ public class HandModel
         }
         _handCardList.Sort(); // 手札をカードID順にソート
     }
+
+    // ここのリストに関する操作はここで実装すべ
+    public void AddList(int num)
+    {
+        _handCardList.Add(num);
+    }
+    public void RemoveList(int num)
+    {
+        _handCardList.Remove(num);
+    }
+    public int GetIndex(int cardID)
+    {
+        int index = _handCardList.IndexOf(cardID);
+        return index;
+    }
 }
