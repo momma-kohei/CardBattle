@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CardDeckModel
+public class DeckModel
 {
     public List<int> deck; // デッキのカードIDリスト
     public List<int> handCardList; // 手札のカードIDリスト
@@ -10,7 +10,7 @@ public class CardDeckModel
     const int eleNum = 3; // 属性の数
     const int cardNumPerElement = 8; // 属性ごとのカードの数
 
-    public CardDeckModel() // コンストラクタ
+    public DeckModel() // コンストラクタ
     {
         InitializeDeck(); // デッキを初期化
         ShuffleDeck(); // デッキをシャッフル

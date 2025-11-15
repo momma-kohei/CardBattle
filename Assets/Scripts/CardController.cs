@@ -5,12 +5,12 @@
 /// </summary>
 public class CardController : MonoBehaviour
 {
-    CardView view; // データを表示する機能を取得
-    CardModel model; // カードデータを取得するための器
+    CardView _view; // データを表示する機能を取得
+    CardModel _model; // カードデータを取得するための器
 
     private void Awake()
     {
-        view = GetComponent<CardView>(); // CardViewのインスタンスを取得
+        _view = GetComponent<CardView>(); // CardViewのインスタンスを取得
     }
 
     /// <summary>
@@ -19,8 +19,8 @@ public class CardController : MonoBehaviour
     /// <param name="cardID">属性番号と序列番号によるカードID</param>
     public void Init(int cardID)
     {
-        model = new CardModel(cardID); // CardModelの情報を初期化
-        view.Show(model); // 初期化した情報でカードUIを表示
+        _model = new CardModel(cardID); // CardModelの情報を初期化
+        _view.Show(_model); // 初期化した情報でカードUIを表示
         this.name = cardID.ToString(); // オブジェクト名をカードIDで更新
     }
 
@@ -28,7 +28,7 @@ public class CardController : MonoBehaviour
 
     public int GetCardElement()
     {
-        return (int)model.element;
+        return (int)_model.element;
     }
 }
 

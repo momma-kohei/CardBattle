@@ -7,7 +7,7 @@ using UnityEngine;
 /// </summary>
 public class CardManager : MonoBehaviour
 {
-    CardDeckModel deckModel; // CardDeckModelのインスタンス化
+    DeckModel deckModel; // CardDeckModelのインスタンス化
     public List<int> deck; // デッキのカードIDリスト
 
     [SerializeField] CardController handCardPrefab; // プレハブを取得
@@ -19,7 +19,7 @@ public class CardManager : MonoBehaviour
 
     public void InitDeck() // デッキ情報を初期化するメソッド
     {
-        deckModel = new CardDeckModel();
+        deckModel = new DeckModel();
         deck = deckModel.deck; // デッキ情報を初期化
     }
 

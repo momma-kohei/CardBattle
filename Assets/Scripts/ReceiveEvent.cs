@@ -1,34 +1,39 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class ReceiveEvent : MonoBehaviour
 {
-    GameManager gameManager;
-    CardManager cardManager;
-    private bool inField = false;
+    GameManager _gameManager;
+    CardManager _cardManager;
+    CardManager02 _cardManager02;
+    private bool _inField = false;
 
-    /// <summary>
-    /// ƒJ[ƒhƒ}ƒl[ƒWƒƒ[‚ğƒZƒbƒg‚·‚éƒƒ\ƒbƒh 
-    /// </summary>
-    /// <param name="cm"></param>
     public void SetCardManager(CardManager cm)
     {
-        cardManager = cm;
+        _cardManager = cm;
+    }
+    public void SetCardManager02(CardManager02 cm2)
+    {
+        _cardManager02 = cm2;
     }
 
-    public void MyPointerDownUI()
+    public void MyPointerDownUI() // ã“ã®ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆï¼ˆã‚«ãƒ¼ãƒ‰ãƒ—ãƒ¬ãƒãƒ–ï¼‰ãŒã‚¯ãƒªãƒƒã‚¯ã•ã‚ŒãŸã¨ãã«å‘¼ã°ã‚Œã‚‹ãƒ¡ã‚½ãƒƒãƒ‰
     {
-        Debug.Log(this.name + "‚ª‰Ÿ‚³‚ê‚½");
+        Debug.Log(this.name + "ãŒæŠ¼ã•ã‚ŒãŸ");
 
-        if(inField)
+        if(_inField)
         {
-            cardManager.RemoveFieldCard(int.Parse(this.name)); // ƒtƒB[ƒ‹ƒh“à‚Éì¬‚µ‚½ƒIƒuƒWƒFƒNƒg‚ğíœ
-            inField = cardManager.untiBoolByElement(inField, int.Parse(this.name));
+            //cardManager.RemoveFieldCard(int.Parse(this.name)); // ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰å†…ã«ä½œæˆã—ãŸã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’å‰Šé™¤
+            //inField = cardManager.untiBoolByElement(inField, int.Parse(this.name));
+            _cardManager02.RemoveFieldCard(int.Parse(this.name)); // ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰å†…ã«ä½œæˆã—ãŸã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’å‰Šé™¤
+            _inField = _cardManager02.untiBoolByElement(_inField, int.Parse(this.name));
         }
         else
         {
-            cardManager.GenerateFieldCardByElement(int.Parse(this.name)); // ƒtƒB[ƒ‹ƒh“à‚É©g‚Æ“¯‚¶ƒJ[ƒh‚ğì¬
-            inField = cardManager.untiBoolByElement(inField, int.Parse(this.name));
+            //cardManager.GenerateFieldCardByElement(int.Parse(this.name)); // ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰å†…ã«è‡ªèº«ã¨åŒã˜ã‚«ãƒ¼ãƒ‰ã‚’ä½œæˆ
+            //inField = cardManager.untiBoolByElement(inField, int.Parse(this.name));
+            _cardManager02.GenerateFieldCardByElement(int.Parse(this.name)); // ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰å†…ã«è‡ªèº«ã¨åŒã˜ã‚«ãƒ¼ãƒ‰ã‚’ä½œæˆ
+            _inField = _cardManager02.untiBoolByElement(_inField, int.Parse(this.name));
         }
     }
 }
