@@ -63,7 +63,7 @@ public class CardManager : MonoBehaviour
         card.Init(cardID); // カードIDを渡して初期化
         _fieldCardNum++; // フィールドに出ているカードの枚数をカウント
         _elementNum = card.GetCardElement(); // カードの属性番号を取得
-        // listController.SelectCard(listController.PlayerHandModel, cardID);
+        // listController.SelectPlayerHand(cardID);
     }
     public void GenerateOpponentFieldCard(int cardID) // フィールとにカードを生成するメソッド
     {

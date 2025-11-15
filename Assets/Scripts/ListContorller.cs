@@ -11,6 +11,8 @@ public class ListController : MonoBehaviour
     public HandModel PlayerHandModel { get { return playerHandModel; } }
     public HandModel OpponentHandModel { get { return opponentHandModel; } }
 
+    List<int> fieldCard = new List<int>();
+
     void Start()
     {
         deckModel = new DeckModel();
@@ -20,7 +22,22 @@ public class ListController : MonoBehaviour
 
     public void SelectCard(HandModel handModel, int cardID)
     {
-        handModel.FieldCardList.Add(cardID); // 手札のカードを選択してフィールドに追加
+        Debug.Log("SelectCard is called!");
+        fieldCard = new List<int>(handModel.FieldCardList);
+        Debug.Log("New list is defined.");
+        fieldCard.Add(cardID); // 手札のカードを選択してフィールドに追加
+        handModel.FieldCardList = new List<int>(fieldCard);
+        // handModel.fieldCardList.Sort(); // フィールドのカードをソート　※ソートはなしで好きなカードをトップに置ける仕様もあり
+    }
+    public void SelectPlayerHand(int cardID)
+    {
+        Debug.Log("SelectCard is called!");
+        fieldCard = new List<int>(playerHandModel.FieldCardList);
+        Debug.Log("New list is defined.");
+        fieldCard.Add(cardID); // 手札のカードを選択してフィールドに追加
+        Debug.Log("Card is added.");
+        playerHandModel.FieldCardList = fieldCard;
+        Debug.Log("Finish!");
         // handModel.fieldCardList.Sort(); // フィールドのカードをソート　※ソートはなしで好きなカードをトップに置ける仕様もあり
     }
     public void UnselectCard(HandModel handModel, int cardID)
