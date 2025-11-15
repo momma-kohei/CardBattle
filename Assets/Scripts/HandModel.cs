@@ -10,7 +10,7 @@ public class HandModel
     public List<int> HandCardList { get { return _handCardList; } set { _handCardList = value; } }
     public List<int> FieldCardList { get { return _fieldCardList; } set { _fieldCardList = value; } }
 
-    public void DrawCards(DeckModel02 deckModel, int num) // デッキからカードを引くメソッド
+    public void DrawCards(DeckModel deckModel, int num) // デッキからカードを引くメソッド
     {
         _handCardList = new List<int>();
         for (int i = 0; i < num; i++)

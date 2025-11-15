@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
 /// <summary>
-/// カード自身の情報を扱うクラス
+/// カード自身１枚１枚の情報を扱うクラス
 /// </summary>
 public class CardController : MonoBehaviour
 {
@@ -10,7 +10,7 @@ public class CardController : MonoBehaviour
 
     private void Awake()
     {
-        _view = GetComponent<CardView>(); // CardViewのインスタンスを取得
+        if(GetComponent<CardView>() != null) _view = GetComponent<CardView>(); // CardViewのインスタンスを取得
     }
 
     /// <summary>

@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class DeckModel
 {
-    public List<int> deck; // デッキのカードIDリスト
-    public List<int> handCardList; // 手札のカードIDリスト
-
+    List<int> _deck; // デッキのカードIDリスト
+    List<int> _trashCards; // 使用済みのカードIDリスト
+    // 各リストのプロパティを設定
+    public List<int> Deck { get { return _deck; } set { _deck = value; } }
+    public List<int> TrashCards { get { return _trashCards; } set { _trashCards = value; } }
     const int eleNum = 3; // 属性の数
     const int cardNumPerElement = 8; // 属性ごとのカードの数
 
@@ -18,38 +20,40 @@ public class DeckModel
 
     public void InitializeDeck() // デッキを初期化するメソッド
     {
-        deck = new List<int>();
+        _deck = new List<int>();
 
         for (int i = 1; i <= eleNum; i++)
         {
             for (int j = 1; j <= cardNumPerElement; j++)
             {
                 int cardID = i * 10 + j; // 属性番号と序列番号でカードIDを生成
-                deck.Add(cardID); // デッキにカードIDを追加
+                _deck.Add(cardID); // デッキにカードIDを追加
             }
         }
     }
     public void ShuffleDeck() // デッキをシャッフルするメソッド
     {
-        for (int i = 0; i < deck.Count; i++)
+        for (int i = 0; i < _deck.Count; i++)
         {
-            int randomIndex = Random.Range(0, deck.Count);
-            int temp = deck[i];
-            deck[i] = deck[randomIndex];
-            deck[randomIndex] = temp;
+            int randomIndex = Random.Range(0, _deck.Count);
+            int temp = _deck[i];
+            _deck[i] = _deck[randomIndex];
+            _deck[randomIndex] = temp;
         }
     }
-    public void PickCardFromDeck(int pickNum) // デッキからカードを引くメソッド
+    
+    public void ReloadDeck()
     {
-        handCardList = new List<int>();
-        for (int i = 0; i < pickNum; i++)
+        _deck = new List<int>(_trashCards); // 捨て札をデッキに戻す
+        ShuffleDeck(); // デッキをシャッフル
+    }
+    public void TrashHandCards(HandModel _handModel)
+    {
+        foreach ( int cardID in _handModel.FieldCardList)
         {
-            if (deck.Count == 0) break; // デッキが空の場合は終了
-            int cardID = deck[0]; // デッキの一番上のカードIDを取得
-            deck.RemoveAt(0); // デッキからカードIDを削除
-            handCardList.Add(cardID); // 手札にカードIDを追加
+            _trashCards.Add(cardID);
+            _handModel.HandCardList.Remove(cardID);
+            _handModel.FieldCardList.Remove(cardID);
         }
-        handCardList.Sort(); // 手札をカードID順にソート
-        Debug.Log("Deck:" + deck.Count);
     }
 }

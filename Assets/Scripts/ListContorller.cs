@@ -3,17 +3,17 @@ using UnityEngine;
 
 public class ListController : MonoBehaviour
 {
-    DeckModel02 deckModel; // DeckModel02のインスタンス化
+    DeckModel deckModel; // DeckModel02のインスタンス化
     HandModel playerHandModel; // HandModelのインスタンス化
     HandModel opponentHandModel; // HandModelのインスタンス化
     // 各インスタンスに対してプロパティを設定
-    public DeckModel02 DeckModel { get { return deckModel; } }
+    public DeckModel DeckModel { get { return deckModel; } }
     public HandModel PlayerHandModel { get { return playerHandModel; } }
     public HandModel OpponentHandModel { get { return opponentHandModel; } }
 
     void Start()
     {
-        deckModel = new DeckModel02();
+        deckModel = new DeckModel();
         playerHandModel = new HandModel();
         opponentHandModel = new HandModel();
     }
