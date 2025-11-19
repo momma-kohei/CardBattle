@@ -25,7 +25,10 @@ public class CardController : MonoBehaviour
     }
 
     // カードモデルの情報を適宜知らせるメソッドが必要
-
+    public int GetCardPower()
+    {
+        return _model.power;
+    }
     public int GetCardElement()
     {
         return (int)_model.element;

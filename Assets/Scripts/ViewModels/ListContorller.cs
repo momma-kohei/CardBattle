@@ -3,32 +3,38 @@ using UnityEngine;
 
 public class ListController : MonoBehaviour
 {
-    DeckModel deckModel; // DeckModel02のインスタンス化
-    HandModel playerHandModel; // HandModelのインスタンス化
-    HandModel opponentHandModel; // HandModelのインスタンス化
+    DeckModel _deckModel; // DeckModel02のインスタンス化
+    HandModel _playerHandModel; // HandModelのインスタンス化
+    HandModel _opponentHandModel; // HandModelのインスタンス化
     // 各インスタンスに対してプロパティを設定
-    public DeckModel DeckModel { get { return deckModel; } }
-    public HandModel PlayerHandModel { get { return playerHandModel; } }
-    public HandModel OpponentHandModel { get { return opponentHandModel; } }
+    public DeckModel DeckModel { get { return _deckModel; } }
+    public HandModel PlayerHandModel { get { return _playerHandModel; } }
+    public HandModel OpponentHandModel { get { return _opponentHandModel; } }
 
     void Start()
     {
-        deckModel = new DeckModel();
-        playerHandModel = new HandModel();
-        opponentHandModel = new HandModel();
+        _deckModel = new DeckModel();
+        _playerHandModel = new HandModel();
+        _opponentHandModel = new HandModel();
     }
 
-    public void SelectCard(HandModel handModel, int cardID)
+    //private void Update()
+    //{
+    //    _playerHandModel.Update();
+    //}
+
+    public void SelectCard(HandModel _handModel, int _cardID)
     {
-        handModel.AddList(cardID); // 手札のカードを選択してフィールドに追加
-        // handModel.fieldCardList.Sort(); // フィールドのカードをソート　※ソートはなしで好きなカードをトップに置ける仕様もあり
+
+        _handModel.List_Add(true, _cardID); // 手札のカードを選択してフィールドに追加
+        // _handModel.fieldCardList.Sort(); // フィールドのカードをソート　※ソートはなしで好きなカードをトップに置ける仕様もあり
     }
-    public void UnselectCard(HandModel handModel, int cardID)
+    public void UnselectCard(HandModel _handModel, int _cardID)
     {
-        handModel.RemoveList(cardID); // 手札のカードを再選択してフィールドから削除
+        _handModel.List_Remove(true, _cardID); // 手札のカードを再選択してフィールドから削除
     }
-    public int GetIndex(int cardID)
+    public int GetIndex(int _cardID)
     {
-        return PlayerHandModel.GetIndex(cardID);
+        return PlayerHandModel.List_GetIndex(_cardID);
     }
 }

@@ -7,29 +7,29 @@ using UnityEngine;
 /// </summary>
 public class CardManager : MonoBehaviour
 {
-    [SerializeField] CardController playerHandCardPrefab;       // プレハブを取得
-    [SerializeField] CardController playerFieldCardPrefab;      // プレハブを取得
-    [SerializeField] CardController opponentHandCardPrefab;     // プレハブを取得
-    [SerializeField] CardController opponentFieldCardPrefab;    // プレハブを取得
-    [SerializeField] Transform PlayerHandTransform;             // プレイヤーの手札のTransformを取得
-    [SerializeField] Transform PlayerFieldTransform;            // プレイヤーのフィールドのTransfromを取得
-    [SerializeField] Transform OpponentHandTransform;           // 対戦相手の手札のTransfromを取得
-    [SerializeField] Transform OpponentFieldTransform;          // 対戦相手のフィールドのTransfromを取得
-    [SerializeField] ListController listController;             // ListControllerのインスタンス化
+    [SerializeField] CardController _playerHandCardPrefab;       // プレハブを取得
+    [SerializeField] CardController _playerFieldCardPrefab;      // プレハブを取得
+    [SerializeField] CardController _opponentHandCardPrefab;     // プレハブを取得
+    [SerializeField] CardController _opponentFieldCardPrefab;    // プレハブを取得
+    [SerializeField] Transform _playerHandTransform;             // プレイヤーの手札のTransformを取得
+    [SerializeField] Transform _playerFieldTransform;            // プレイヤーのフィールドのTransfromを取得
+    [SerializeField] Transform _opponentHandTransform;           // 対戦相手の手札のTransfromを取得
+    [SerializeField] Transform _opponentFieldTransform;          // 対戦相手のフィールドのTransfromを取得
+    [SerializeField] ListController _listController;             // ListControllerのインスタンス化
 
     int _elementNum = -1; // 選択された属性番号を-1で初期化
     int _fieldCardNum = 0; // フィールドに出ているカードの枚数を0で初期化
 
     public void GeneratePlayerHand(Transform _handTransform, int _cardID) // プレイヤーの手札にカードUIを生成するメソッド
     {
-        CardController card = Instantiate(playerHandCardPrefab, _handTransform, false); // playerHandにカードプレハブを生成
+        CardController card = Instantiate(_playerHandCardPrefab, _handTransform, false); // playerHandにカードプレハブを生成
         ReceiveEvent re = card.GetComponent<ReceiveEvent>(); // クリックイベントを受け取るコンポーネントを取得
         re.SetCardManager(this); // GameManagerの情報をプレハブに渡す
         card.Init(_cardID);
     }
     public void GenerateOpponentHand(Transform _handTransform, int _cardID) // 対戦相手の手札にカードUIを生成するメソッド
     {
-        CardController card = Instantiate(opponentHandCardPrefab, _handTransform, false); // opponentHandにカードプレハブを生成
+        CardController card = Instantiate(_opponentHandCardPrefab, _handTransform, false); // opponentHandにカードプレハブを生成
         card.Init(_cardID);
     }
     /// <summary>
@@ -38,11 +38,11 @@ public class CardManager : MonoBehaviour
     /// <param name="_num">引くカードの枚数</param>
     public void DrawPlayerHandRandom(int _num)
     {
-        listController.PlayerHandModel.DrawCards(listController.DeckModel, _num); // デッキからカードを引く処理を実行
-        foreach (int _cardID in listController.PlayerHandModel.HandCardList)
+        _listController.PlayerHandModel.DrawCards(_listController.DeckModel, _num); // デッキからカードを引く処理を実行
+        foreach (int _cardID in _listController.PlayerHandModel.HandCardList)
         {
             // Debug.Log("HandCardID:" + _cardID);
-            GeneratePlayerHand(PlayerHandTransform, _cardID); // 手札にカードを生成
+            GeneratePlayerHand(_playerHandTransform, _cardID); // 手札にカードを生成
         }
     }
     /// <summary>
@@ -51,86 +51,59 @@ public class CardManager : MonoBehaviour
     /// <param name="_num">引くカードの枚数</param>
     public void DrawOpponentHandRandom(int _num)
     {
-        listController.OpponentHandModel.DrawCards(listController.DeckModel, _num); // デッキからカードを引く処理を実行
-        foreach (int _cardID in listController.OpponentHandModel.HandCardList)
+        _listController.OpponentHandModel.DrawCards(_listController.DeckModel, _num); // デッキからカードを引く処理を実行
+        foreach (int _cardID in _listController.OpponentHandModel.HandCardList)
         {
-            Debug.Log("HandCardID:" + _cardID);
-            GenerateOpponentHand(OpponentHandTransform, _cardID); // 手札にカードを生成
+            // Debug.Log("HandCardID:" + _cardID);
+            GenerateOpponentHand(_opponentHandTransform, _cardID); // リストをもとに手札にカードを生成
         }
     }
-    public void GeneratePlayerFieldCard(int cardID) // フィールとにカードを生成するメソッド
+    public void GeneratePlayerFieldCard(int _cardID) // フィールとにカードを生成するメソッド
     {
-        CardController card = Instantiate(playerFieldCardPrefab, PlayerFieldTransform, false); // playerFieldにカードを生成
-        card.Init(cardID); // カードIDを渡して初期化
+        CardController card = Instantiate(_playerFieldCardPrefab, _playerFieldTransform, false); // playerFieldにカードを生成
+        card.Init(_cardID); // カードIDを渡して初期化
         _fieldCardNum++; // フィールドに出ているカードの枚数をカウント
         _elementNum = card.GetCardElement(); // カードの属性番号を取得
-        listController.SelectCard(listController.PlayerHandModel, cardID);
+        _listController.SelectCard(_listController.PlayerHandModel, _cardID);
     }
-    public void GenerateOpponentFieldCard(int cardID) // フィールとにカードを生成するメソッド
+    public void GenerateOpponentFieldCard(int _cardID) // フィールとにカードを生成するメソッド
     {
-        CardController card = Instantiate(playerFieldCardPrefab, PlayerFieldTransform, false); // opponentFieldにカードを生成
-        card.Init(cardID); // カードIDを渡して初期化
+        CardController card = Instantiate(_playerFieldCardPrefab, _playerFieldTransform, false); // opponentFieldにカードを生成
+        card.Init(_cardID); // カードIDを渡して初期化
         _fieldCardNum++; // フィールドに出ているカードの枚数をカウント
         _elementNum = card.GetCardElement(); // カードの属性番号を取得
     }
 
-    /// <summary>
-    /// 属性を考慮してフィールドにカードを生成するメソッド
-    /// </summary>
-    /// <param name="cardID">カードID</param>
-    public void GenerateFieldCardByElement(int cardID)
+    public bool distinctElement(int _cardID) // 属性が一致するかどうかを判定するメソッド
     {
+        bool b = false;
         switch ((int)_elementNum)
         {
             case -1: // 属性が選択されていない場合
-                GeneratePlayerFieldCard(cardID);
+                b = true;
                 break;
             case 0: // 火属性が選択されている場合
-                if (cardID / 10 == 1) GeneratePlayerFieldCard(cardID);
+                if (_cardID / 10 == 1) b = true;
                 break;
             case 1: // 水属性が選択されている場合
-                if (cardID / 10 == 2) GeneratePlayerFieldCard(cardID);
+                if (_cardID / 10 == 2) b = true;
                 break;
             case 2: // 木属性が選択されている場合
-                if (cardID / 10 == 3) GeneratePlayerFieldCard(cardID);
+                if (_cardID / 10 == 3) b = true;
                 break;
         }
+        return b;
     }
     /// <summary>
     /// フィールドのカードを消去するメソッド
     /// </summary>
-    /// <param name="cardID">カードID</param>
-    public void RemoveFieldCard(int cardID)
+    /// <param name="_cardID">カードID</param>
+    public void RemoveFieldCard(int _cardID)
     {
-        Destroy(GameObject.Find("/PlayCanvas/PlayerField/" + cardID)); // フィールド内に作成したオブジェクトを破壊
-        listController.UnselectCard(listController.PlayerHandModel, cardID);
+        Destroy(GameObject.Find("/PlayCanvas/PlayerField/" + _cardID)); // フィールド内に作成したオブジェクトを破壊
+        _listController.UnselectCard(_listController.PlayerHandModel, _cardID);
         _fieldCardNum--; // フィールドに出ているカードの枚数をカウント
         if (_fieldCardNum == 0) _elementNum = -1; // 属性番号をリセット
-    }
-    /// <summary>
-    /// 属性を考慮してbool値を反転させるメソッド
-    /// </summary>
-    /// <param name="b">対称のbool値</param>
-    /// <param name="cardID">属性を判定するためのカードID</param>
-    /// <returns></returns>
-    public bool untiBoolByElement(bool b, int cardID)
-    {
-        switch ((int)_elementNum)
-        {
-            case -1: // 属性が選択されていない場合
-                b = !b;
-                break;
-            case 0: // 火属性が選択されている場合
-                if (cardID / 10 == 1) b = !b;
-                break;
-            case 1: // 水属性が選択されている場合
-                if (cardID / 10 == 2) b = !b;
-                break;
-            case 2: // 木属性が選択されている場合
-                if (cardID / 10 == 3) b = !b;
-                break;
-        }
-        return b;
     }
 }
 

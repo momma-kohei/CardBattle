@@ -29,16 +29,17 @@ public class ReceiveEvent : MonoBehaviour
         if(_inField)
         {
             _cardManager.RemoveFieldCard(int.Parse(this.name)); // フィールド内に作成したオブジェクトを削除
-            _inField = _cardManager.untiBoolByElement(_inField, int.Parse(this.name));
-            this.gameObject.transform.localPosition = new Vector3(this.transform.localPosition.x, 0, 0);
+            _inField = !_inField; // カードがフィールド内にあるかどうかのフラグを反転
+            this.gameObject.transform.localPosition = new Vector3(this.transform.localPosition.x, 0, 0); // ローカルY座標を0に戻す
         }
         else
         {
-            _cardManager.GenerateFieldCardByElement(int.Parse(this.name)); // フィールド内に自身と同じカードを作成
-            _inField = _cardManager.untiBoolByElement(_inField, int.Parse(this.name));
-            Debug.Log(this.transform.localPosition);
-            this.gameObject.transform.localPosition = new Vector3(this.transform.localPosition.x, 10, 0);
-            Debug.Log(this.transform.localPosition);
+            if (_cardManager.distinctElement(int.Parse(this.name))) // フィールド内のカードと属性が一致する場合
+            {
+                _cardManager.GeneratePlayerFieldCard(int.Parse(this.name)); // フィールド内に自身と同じカードを作成
+                _inField = !_inField; // カードがフィールド内にあるかどうかのフラグを反転
+                this.gameObject.transform.localPosition = new Vector3(this.transform.localPosition.x, 10, 0); // ローカルY座標を10に変更
+            }
         }
     }
 }

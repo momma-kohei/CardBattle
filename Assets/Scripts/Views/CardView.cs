@@ -3,7 +3,7 @@ using UnityEngine.UI;
 using TMPro;
 
 /// <summary>
-/// データ情報をもとに画面に表示するクラス
+/// データ情報をもとにカードを画面に表示するクラス
 /// </summary>
 public class CardView : MonoBehaviour // data -> display
 {

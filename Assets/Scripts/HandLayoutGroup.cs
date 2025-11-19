@@ -2,26 +2,26 @@
 
 public class HandLayoutGroup : MonoBehaviour
 {
-    private float width;
-    private float height;
-    private int childCount;
+    private float _width;
+    private float _height;
+    private int _childCount;
     void Start()
     {
         // 親オブジェクトの高さと幅を取得
-        RectTransform rect = GetComponent<RectTransform>();
-        width = rect.sizeDelta.x;
-        height = rect.sizeDelta.y;
-        childCount = 0;
+        RectTransform _rect = GetComponent<RectTransform>();
+        _width = _rect.sizeDelta.x;
+        _height = _rect.sizeDelta.y;
+        _childCount = 0;
     }
 
     void Update()
     {
         // 要素数が変更になったら並びを整える
-        if (childCount != this.transform.childCount)
+        if (_childCount != this.transform.childCount)
         {
             SetHorizontalLayout();
         }
-        childCount = this.transform.childCount;
+        _childCount = this.transform.childCount;
     }
 
     public void SetHorizontalLayout()
@@ -29,15 +29,9 @@ public class HandLayoutGroup : MonoBehaviour
         for (int i = 0; i < this.transform.childCount; i++)
         {
             // 子オブジェクトを均等間隔に並べる
-            Transform child = this.transform.GetChild(i);
-            float left = width * (i + 1) / (this.transform.childCount + 1) - width / 2;
-            child.localPosition = new Vector3(left, 0, 0);
+            Transform _child = this.transform.GetChild(i);
+            float _left = _width * (i + 1) / (this.transform.childCount + 1) - _width / 2;
+            _child.localPosition = new Vector3(_left, 0, 0); // 他属性選択中に実行されないよう修正が必要
         }
-    }
-    public void SetVerticalLayout(int index)
-    {
-        Transform selectedChild = this.transform.GetChild(index);
-        float left = width * (index + 1) / (this.transform.childCount + 1) - width / 2;
-        selectedChild.localPosition = new Vector3(left, 10, 0);
     }
 }
