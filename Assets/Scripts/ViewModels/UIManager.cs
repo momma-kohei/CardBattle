@@ -17,7 +17,6 @@ public class UIManager : MonoBehaviour
         if (_childCount != fieldCard.transform.childCount)
         {
             playerPowerSum.UpdatePlayerPowerSum();
-            Debug.Log("Player Power Sum Updated");
         }
         _childCount = fieldCard.transform.childCount;
     }
