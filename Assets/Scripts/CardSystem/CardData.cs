@@ -10,7 +10,7 @@ public class CardData : ScriptableObject // unity -> data
     public string cardName; // 名前
     public int power; // カードのパワー（攻撃力）
     public ElementType element; // 属性（enum:選択式になる）
-    public Sprite cardImage; // 画像
+    public Sprite cardTexture; // 画像
     public string description; // 説明
 }
 

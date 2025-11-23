@@ -7,13 +7,11 @@ using UnityEngine;
 /// </summary>
 public class GameManager : MonoBehaviour
 {
-    [SerializeField] CardManager CardManager;
-    // [SerializeField] CardManager opponentCardManager;
+    [SerializeField] CardListView _cardListView;
 
     void Start()
     {
-        CardManager.DrawPlayerHandRandom(7); // プレイヤーの初期手札を生成
-        CardManager.DrawOpponentHandRandom(7); // 対戦相手の初期手札を生成
+        _cardListView.CardPresenter.StartGame();
     }
 }
 

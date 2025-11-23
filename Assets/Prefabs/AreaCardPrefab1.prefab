@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6420583291657760158}
   - component: {fileID: 2443455897773751928}
   m_Layer: 5
-  m_Name: FieldCardPrefab
+  m_Name: AreaCardPrefab1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -75,7 +75,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CardView
   nameText: {fileID: 2027039405251160347}
   powerText: {fileID: 6526969164154180643}
-  cardImage: {fileID: 6256218074205678451}
+  cardTexture: {fileID: 6256218074205678451}
 --- !u!1 &5375001184158760624
 GameObject:
   m_ObjectHideFlags: 0
