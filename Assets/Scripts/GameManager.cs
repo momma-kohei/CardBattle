@@ -8,10 +8,12 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     [SerializeField] CardListView _cardListView;
+    [SerializeField] UIView _uiView;
 
     void Start()
     {
         _cardListView.CardPresenter.StartGame();
+        //_uiView.UIpresenter.SetUI();
     }
 }
 

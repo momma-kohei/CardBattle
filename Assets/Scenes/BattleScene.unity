@@ -130,7 +130,6 @@ GameObject:
   - component: {fileID: 273573}
   - component: {fileID: 273576}
   - component: {fileID: 273575}
-  - component: {fileID: 273574}
   m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -157,20 +156,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 70, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &273574
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 273572}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 494b124a4aafd3d4d8923be3a72e5689, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::NumberView
-  numberText: {fileID: 0}
-  iconImage: {fileID: 0}
 --- !u!114 &273575
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -829,7 +814,6 @@ GameObject:
   - component: {fileID: 502868693}
   - component: {fileID: 502868694}
   - component: {fileID: 502868695}
-  - component: {fileID: 502868697}
   - component: {fileID: 502868696}
   m_Layer: 5
   m_Name: Icon1
@@ -908,20 +892,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UIController
   listController: {fileID: 0}
---- !u!114 &502868697
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 502868692}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 494b124a4aafd3d4d8923be3a72e5689, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::UIView
-  numberText: {fileID: 0}
-  iconImage: {fileID: 502868695}
+  _UIView: {fileID: 0}
+  _sum: 0
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -1070,7 +1042,6 @@ GameObject:
   - component: {fileID: 561794607}
   - component: {fileID: 561794610}
   - component: {fileID: 561794609}
-  - component: {fileID: 561794608}
   m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -1097,20 +1068,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 70, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &561794608
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 561794606}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 494b124a4aafd3d4d8923be3a72e5689, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::NumberView
-  numberText: {fileID: 0}
-  iconImage: {fileID: 0}
 --- !u!114 &561794609
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1210,59 +1167,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 561794606}
   m_CullTransparentMesh: 1
---- !u!1 &565462354
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 565462356}
-  - component: {fileID: 565462355}
-  m_Layer: 0
-  m_Name: CardManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!114 &565462355
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 565462354}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 54d2d2cb15c34e54591f397b2df7b9e2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::CardManager02
-  _playerHandCardPrefab: {fileID: 7701147545126566288, guid: 22e37c38a3f6ac444b66b9068418dbc5, type: 3}
-  _playerFieldCardPrefab: {fileID: 0}
-  _opponentHandCardPrefab: {fileID: 19564549751770895, guid: b6f7475637d4ab148918b2952a5b76ba, type: 3}
-  _opponentFieldCardPrefab: {fileID: 2545800191015468091, guid: 3e7a8b41c0279b746bf5dd68732710bb, type: 3}
-  _playerHandTransform: {fileID: 142866442}
-  _playerFieldTransform: {fileID: 1881383833}
-  _opponentHandTransform: {fileID: 1872305363}
-  _opponentFieldTransform: {fileID: 1487234795}
-  _listController: {fileID: 737263724}
---- !u!4 &565462356
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 565462354}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.24468, y: -1.25214, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &618470758
 GameObject:
   m_ObjectHideFlags: 0
@@ -1274,7 +1178,6 @@ GameObject:
   - component: {fileID: 618470759}
   - component: {fileID: 618470761}
   - component: {fileID: 618470760}
-  - component: {fileID: 618470763}
   - component: {fileID: 618470762}
   m_Layer: 5
   m_Name: Power1
@@ -1353,21 +1256,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7166277accbe2d42b89de28dac523bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UIController
-  listController: {fileID: 737263724}
---- !u!114 &618470763
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 618470758}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 494b124a4aafd3d4d8923be3a72e5689, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::UIView
-  numberText: {fileID: 1949300984}
-  iconImage: {fileID: 0}
+  listController: {fileID: 0}
+  _UIView: {fileID: 0}
+  _sum: 0
 --- !u!1 &619394800
 GameObject:
   m_ObjectHideFlags: 0
@@ -1588,50 +1479,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 662764716}
   m_CullTransparentMesh: 1
---- !u!1 &737263723
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 737263725}
-  - component: {fileID: 737263724}
-  m_Layer: 0
-  m_Name: ListController
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!114 &737263724
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 737263723}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 87a4c4d92e15d28418b5f47f6d0bfe76, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ListController
---- !u!4 &737263725
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 737263723}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.24468, y: -1.25214, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &741558104
 GameObject:
   m_ObjectHideFlags: 0
@@ -1793,7 +1640,6 @@ GameObject:
   - component: {fileID: 795080941}
   - component: {fileID: 795080945}
   - component: {fileID: 795080944}
-  - component: {fileID: 795080943}
   - component: {fileID: 795080942}
   m_Layer: 5
   m_Name: Power2
@@ -1834,21 +1680,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7166277accbe2d42b89de28dac523bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UIController
-  listController: {fileID: 737263724}
---- !u!114 &795080943
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 795080940}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 494b124a4aafd3d4d8923be3a72e5689, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::UIView
-  numberText: {fileID: 561794609}
-  iconImage: {fileID: 0}
+  listController: {fileID: 0}
+  _UIView: {fileID: 0}
+  _sum: 0
 --- !u!114 &795080944
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2171,7 +2005,6 @@ GameObject:
   - component: {fileID: 1215577984}
   - component: {fileID: 1215577987}
   - component: {fileID: 1215577986}
-  - component: {fileID: 1215577985}
   - component: {fileID: 1215577988}
   m_Layer: 5
   m_Name: HP1
@@ -2200,20 +2033,6 @@ RectTransform:
   m_AnchoredPosition: {x: -545, y: 70}
   m_SizeDelta: {x: 75, y: 75}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1215577985
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1215577983}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 494b124a4aafd3d4d8923be3a72e5689, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::UIView
-  numberText: {fileID: 273575}
-  iconImage: {fileID: 0}
 --- !u!114 &1215577986
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2264,7 +2083,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7166277accbe2d42b89de28dac523bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UIController
-  listController: {fileID: 737263724}
+  listController: {fileID: 0}
+  _UIView: {fileID: 0}
+  _sum: 0
 --- !u!1 &1349540685
 GameObject:
   m_ObjectHideFlags: 0
@@ -2351,7 +2172,6 @@ GameObject:
   - component: {fileID: 1372902232}
   - component: {fileID: 1372902235}
   - component: {fileID: 1372902234}
-  - component: {fileID: 1372902233}
   m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -2378,20 +2198,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 70, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1372902233
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1372902231}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 494b124a4aafd3d4d8923be3a72e5689, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::NumberView
-  numberText: {fileID: 0}
-  iconImage: {fileID: 0}
 --- !u!114 &1372902234
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3017,7 +2823,6 @@ GameObject:
   - component: {fileID: 1880401094}
   - component: {fileID: 1880401097}
   - component: {fileID: 1880401096}
-  - component: {fileID: 1880401095}
   - component: {fileID: 1880401098}
   m_Layer: 5
   m_Name: HP2
@@ -3046,20 +2851,6 @@ RectTransform:
   m_AnchoredPosition: {x: 545, y: -70}
   m_SizeDelta: {x: 75, y: 75}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1880401095
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1880401093}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 494b124a4aafd3d4d8923be3a72e5689, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::UIView
-  numberText: {fileID: 1372902234}
-  iconImage: {fileID: 0}
 --- !u!114 &1880401096
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3110,7 +2901,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7166277accbe2d42b89de28dac523bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UIController
-  listController: {fileID: 737263724}
+  listController: {fileID: 0}
+  _UIView: {fileID: 0}
+  _sum: 0
 --- !u!1 &1881383832
 GameObject:
   m_ObjectHideFlags: 0
@@ -3249,6 +3042,8 @@ MonoBehaviour:
   opponentHP: {fileID: 1880401098}
   playerIcon: {fileID: 502868695}
   opponentIcon: {fileID: 771503032}
+  _playerFieldChildCount: 0
+  _opponentFieldChildCount: 0
 --- !u!4 &1888469984
 Transform:
   m_ObjectHideFlags: 0
@@ -3320,7 +3115,6 @@ GameObject:
   - component: {fileID: 1949300983}
   - component: {fileID: 1949300985}
   - component: {fileID: 1949300984}
-  - component: {fileID: 1949300986}
   m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -3446,20 +3240,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1949300982}
   m_CullTransparentMesh: 1
---- !u!114 &1949300986
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1949300982}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 494b124a4aafd3d4d8923be3a72e5689, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::NumberView
-  numberText: {fileID: 0}
-  iconImage: {fileID: 0}
 --- !u!1 &2014485670
 GameObject:
   m_ObjectHideFlags: 0
@@ -3590,6 +3370,4 @@ SceneRoots:
   - {fileID: 1042613660}
   - {fileID: 1760533322}
   - {fileID: 1948438323}
-  - {fileID: 565462356}
-  - {fileID: 737263725}
   - {fileID: 1888469984}
