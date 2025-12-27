@@ -11,7 +11,7 @@ public class UIPresenter
 
     public UIPresenter()
     {
-        this._player1Model = new PlayerModel(_player1Name, null);
-        this._player2Model = new PlayerModel(_player2Name, null);
+        //this._player1Model = new PlayerModel(_player1Name, null);
+        //this._player2Model = new PlayerModel(_player2Name, null);
     }
 }
