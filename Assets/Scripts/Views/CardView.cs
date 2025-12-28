@@ -1,7 +1,6 @@
 ﻿using System;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.EventSystems;
 using TMPro;
 
 /// <summary>
@@ -30,7 +29,7 @@ public class CardView : MonoBehaviour // data -> display
         //Debug.Log($"{this.name}がクリックされました。");
         OnClicked?.Invoke(this); // カードがクリックされたときにイベントを引き起こす
 
-
+        // カードを浮かせる処理に関係するコード
         //if (_isSelected)
         //{
         //    _isSelected = false;
@@ -43,28 +42,8 @@ public class CardView : MonoBehaviour // data -> display
         //}
     }
 
-    ///// <summary>
-    ///// カードモデルの情報をUIとして表示するメソッド
-    ///// </summary>
-    ///// <param name="cardModel"></param>
-    //public void Show(CardModel _cardModel, CardListView _cardListView)
-    //{
-    //    if (nameText != null) nameText.text = _cardModel.cardName;
-    //    if (powerText != null) powerText.text = _cardModel.power.ToString();
-    //    if (cardTexture != null) cardTexture.sprite = _cardModel.cardTexture;
-    //    this._cardModel = _cardModel; // 引数で受け取ったカードモデルを保持
-    //    this._cardListView = _cardListView; // 引数で受け取ったListViewのインスタンスを保持
-    //    this.name = $"Card_{_cardModel.cardID}"; // わかりやすいようにオブジェクト名を設定
-    //}
-
     public void ShowCard(CardModel _cardModel, char cardState)
     {
-        //if (nameText != null && cardState == 'F') nameText.text = _cardModel.cardName;
-        //if (powerText != null && cardState == 'F') powerText.text = _cardModel.power.ToString();
-        //if (cardTexture != null && (cardState == 'F' || cardState == 'E')) cardTexture.sprite = _cardModel.cardTexture;
-        //this._cardModel = _cardModel; // 引数で受け取ったカードモデルを保持
-        //this.name = $"Card_{_cardModel.cardID}_{cardState}"; // わかりやすいようにオブジェクト名を設定
-
         switch (cardState)
         {
             case 'F':

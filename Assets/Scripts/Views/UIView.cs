@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
-using UnityEngine.UI;
-using TMPro;
+//using UnityEngine.EventSystems;
 using System;
 
 /// <summary>
@@ -8,15 +7,19 @@ using System;
 /// </summary>
 public class UIView : MonoBehaviour
 {
-    [SerializeField] TextMeshProUGUI _powerText1 = null;
-    [SerializeField] TextMeshProUGUI _powerText2 = null;
-    [SerializeField] TextMeshProUGUI _hpText1 = null;
-    [SerializeField] TextMeshProUGUI _hpText2 = null;
-    [SerializeField] Image _iconImage1 = null;
-    [SerializeField] Image _iconImage2 = null;
+    //[SerializeField] TextMeshProUGUI _powerText1 = null;
+    //[SerializeField] TextMeshProUGUI _powerText2 = null;
+    //[SerializeField] TextMeshProUGUI _hpText1 = null;
+    //[SerializeField] TextMeshProUGUI _hpText2 = null;
+    //[SerializeField] Image _iconImage1 = null;
+    //[SerializeField] Image _iconImage2 = null;
+
+    [SerializeField] GameObject _turnEndButton = null; // ターン終了ボタンのUIオブジェクト
+    [SerializeField] GameObject _exitButton = null; // ゲーム終了ボタンのUIオブジェクト
+    [SerializeField] GameObject _infoButton = null; // 情報表示ボタンのUIオブジェクト
 
     public event Action InitGameEvent; // ゲーム開始時の初期化イベント
-    public event Action OnClickBattleButton; // Battleボタンが押されたときのイベント
+    public event Action OnClickTurnEndButton; // Battleボタンが押されたときのイベント
     public event Action OnClickExitButton; // Exitボタンが押されたときのイベント
     public event Action OnClickInfoButton; // Infoボタンが押されたときのイベント
 
@@ -25,19 +28,15 @@ public class UIView : MonoBehaviour
         InitGameEvent?.Invoke(); // ゲーム開始時の初期化イベントを発火
     }
 
-    public void ShowPower(int _power1, int _power2) // 合計パワーを表示するメソッド
+    public void ClickTurnEndButton()
     {
-        _powerText1.text = _power1.ToString();
-        _powerText2.text = _power2.ToString();
-    }
-    public void ShowHP(int _hp1, int _hp2) // 残り体力を表示するメソッド
-    {
-        _hpText1.text = _hp1.ToString();
-        _hpText2.text = _hp2.ToString();
-    }
-    public void ShowIcon(Sprite _icon1, Sprite _icon2) // アイコンを表示するメソッド
-    {
-        _iconImage1.sprite = _icon1;
-        _iconImage2.sprite = _icon2;
+        OnClickTurnEndButton?.Invoke(); // Battleボタンが押されたときのイベントを発火
+
+        // Turn終了処理
+        // Areaの同期
+        // phaseの変更リクエスト
+        //   _isTurnFinishedがtrueならばダメージ計算処理
+        //   HPの同期
+        //     Next Turn
     }
 }

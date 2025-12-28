@@ -524,8 +524,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b56f2fea08530134fa75db95fbcae3c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerCardView
-  _handCardPrefab: {fileID: 4732031153348363076, guid: 22e37c38a3f6ac444b66b9068418dbc5, type: 3}
-  _areaCardPrefab: {fileID: 4732031153348363076, guid: 22e37c38a3f6ac444b66b9068418dbc5, type: 3}
+  _cardPrefab: {fileID: 4732031153348363076, guid: 22e37c38a3f6ac444b66b9068418dbc5, type: 3}
   _handTransform: {fileID: 142866442}
   _areaTransform: {fileID: 1881383833}
 --- !u!1 &250711769
@@ -1632,8 +1631,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b56f2fea08530134fa75db95fbcae3c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerCardView
-  _handCardPrefab: {fileID: 4732031153348363076, guid: 22e37c38a3f6ac444b66b9068418dbc5, type: 3}
-  _areaCardPrefab: {fileID: 4732031153348363076, guid: 22e37c38a3f6ac444b66b9068418dbc5, type: 3}
+  _cardPrefab: {fileID: 4732031153348363076, guid: 22e37c38a3f6ac444b66b9068418dbc5, type: 3}
   _handTransform: {fileID: 1872305363}
   _areaTransform: {fileID: 1487234795}
 --- !u!1 &771503031

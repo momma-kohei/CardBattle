@@ -14,10 +14,11 @@ public class BattleTest : MonoBehaviour
     {
         Debug.Log("--------‰Šú‰»ˆ—--------");
         _deck = new DeckModel();
-        _P1 = new PlayerModel(_deck, "Player 1", null, _isP1Turn);
+        _P1 = new PlayerModel(_deck, "Player 1", null);
         _P1.DrawCards();
-        _P2 = new PlayerModel(_deck, "Player 2", null, !_isP1Turn);
+        _P2 = new PlayerModel(_deck, "Player 2", null);
         _P2.DrawCards();
+        _P1.DecideFirstAttacker(_P1, _P2);
         PrintAll();
         Debug.Log("---------èD‘I‘ğ---------");
         SelectP1Attack();

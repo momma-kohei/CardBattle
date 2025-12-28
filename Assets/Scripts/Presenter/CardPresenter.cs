@@ -17,40 +17,23 @@ public class CardPresenter
         _playerCardView2 = playerCardView2;
     }
 
-    public void StartTurn() // ターン開始時の処理メソッド
+    public void StartGame() // ターン開始時の処理メソッド
     {
-        StartTurnPlayer(_playerCardView1, _playerModel1, true); // プレイヤー１のターン開始処理
-        StartTurnPlayer(_playerCardView2, _playerModel2, false); // プレイヤー２のターン開始処理
+        SetPlayerHands(_playerCardView1, _playerModel1, true); // プレイヤー１のターン開始処理
+        SetCardClickEvent(true);
+        SetPlayerHands(_playerCardView2, _playerModel2, false); // プレイヤー２のターン開始処理
+    }
 
-        //if (_playerModel1.IsMe)
-        //{
-        //    StartTurnPlayer(_playerCardView, _playerModel1); // プレイヤー１のターン開始処理
-        //    StartTurnPlayer(_opponentCardView, _playerModel2); // プレイヤー２のターン開始処理
-        //}
-        //else
-        //{
-        //    StartTurnPlayer(_opponentCardView, _playerModel1); // プレイヤー１のターン開始処理
-        //    StartTurnPlayer(_playerCardView, _playerModel2); // プレイヤー２のターン開始処理
-        //}
+    public void EndTurn()
+    {
+
     }
 
     public void OnCardClicked(CardView _cardView)
     {
         _playerModel1.SelectCard(_cardView.CardModel); // プレイヤー１の手札からエリアにカードを選択してコピー
         _playerCardView1.ShowCards(_playerModel1, "Area", 'F'); // プレイヤー１の場札を表示
-        //_playerCardView1.ShowAreaCards(_playerModel1); // プレイヤー１の場札を表示
-        foreach (CardView _cv in _playerCardView1.AreaTransform.GetComponentsInChildren<CardView>()) _cv.OnClicked += OnCardClicked; // クリックイベントを登録
-
-        //if (_playerModel1.IsMe) {
-        //    _playerModel1.SelectCard(_cardView.CardModel); // プレイヤー１の手札からエリアにカードを選択してコピー
-        //    _playerCardView.ShowAreaCards(_playerModel1); // プレイヤー１の場札を表示
-        //    foreach (CardView _cv in _playerCardView.AreaTransform.GetComponentsInChildren<CardView>()) _cv.OnClicked += OnCardClicked; // クリックイベントを登録
-        //}
-        //else
-        //{
-        //    _playerModel2.SelectCard(_cardView.CardModel); // プレイヤー２の手札からエリアにカードを選択してコピー
-        //    _playerCardView.ShowAreaCards(_playerModel2); // プレイヤー２の場札を表示
-        //}
+        foreach (CardView _cv in _playerCardView1.AreaTransform.GetComponentsInChildren<CardView>()) _cv.OnClicked += OnCardClicked; // Areaにクリックイベントを登録
 
         // 手札を浮かせる処理を追加する場合はここに記述
     }
@@ -58,8 +41,8 @@ public class CardPresenter
     public void EndAttackerPhase() // アタッカーフェーズの処理メソッド
     {
         // 自分がアタッカーの場合は既に場札が表示されている
-        // 手札のクリックイベントを解除
-        if (_playerModel1.IsAttacker) foreach (CardView _cv in _playerCardView1.HandTransform.GetComponentsInChildren<CardView>()) _cv.OnClicked -= OnCardClicked; // クリックイベントを削除
+        if (_playerModel1.IsAttacker) SetCardClickEvent(false);  // クリックイベントを解除
+
 
         // Areaを同期
 
@@ -74,8 +57,7 @@ public class CardPresenter
     public void EndDefenderPhase() // ディフェンダーフェーズの処理メソッド
     {
         // 自分がディフェンダーの場合は既に場札が表示されている
-        // 手札のクリックイベントを解除
-        if (!_playerModel1.IsAttacker) foreach (CardView _cv in _playerCardView1.HandTransform.GetComponentsInChildren<CardView>()) _cv.OnClicked -= OnCardClicked; // クリックイベントを解除
+        if (!_playerModel1.IsAttacker) SetCardClickEvent(false); // クリックイベントを解除
 
         // Areaを同期
 
@@ -96,7 +78,7 @@ public class CardPresenter
     }
 
     // サブルーチン
-    void StartTurnPlayer(PlayerCardView _playerCardView, PlayerModel _playerModel, bool _isMyPlayer)
+    void SetPlayerHands(PlayerCardView _playerCardView, PlayerModel _playerModel, bool _isMyPlayer)
     {
         char _areaState;
         char _handState;
@@ -111,11 +93,15 @@ public class CardPresenter
         }
 
         _playerCardView.ShowCards(_playerModel, "Area", _areaState); // プレイヤーの場札を更新
-        //_playerCardView.ShowAreaCards(_playerModel); // プレイヤーの場札を削除
         _playerModel.DrawCards(); // プレイヤーの手札を補充
         _playerCardView.ShowCards(_playerModel, "Hand", _handState); // プレイヤーの手札を表示
-        //_playerCardView.ShowHandCards(_playerModel, _cardState); // プレイヤーの手札を表示
-        if (_playerModel == _playerModel1) foreach (CardView _cardView in _playerCardView.HandTransform.GetComponentsInChildren<CardView>()) _cardView.OnClicked += OnCardClicked; // クリックイベントを登録
+        //if (_playerModel == _playerModel1) foreach (CardView _cardView in _playerCardView.HandTransform.GetComponentsInChildren<CardView>()) _cardView.OnClicked += OnCardClicked; // クリックイベントを登録
+    }
+
+    public void SetCardClickEvent(bool _on)
+    {
+        if (_on) foreach (CardView _cardView in _playerCardView1.HandTransform.GetComponentsInChildren<CardView>()) _cardView.OnClicked += OnCardClicked; // クリックイベントを登録
+        else foreach (CardView _cardView in _playerCardView1.HandTransform.GetComponentsInChildren<CardView>()) _cardView.OnClicked -= OnCardClicked; // クリックイベントを解除
     }
 
 

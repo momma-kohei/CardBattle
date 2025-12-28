@@ -2,16 +2,23 @@
 
 public class UIPresenter
 {
-    PlayerModel _player1Model;
-    PlayerModel _player2Model;
+    PlayerModel _playerModel1;
+    PlayerModel _playerModel2;
+    CardPresenter _cardPresenter;
+    [SerializeField] PlayerUIView _playerUIView;
+    [SerializeField] UIView _uiView;
 
-    string _player1Name = "Player 1"; // プレイヤー1の名前
-    string _player2Name = "Player 2"; // プレイヤー2の名前
-
-
-    public UIPresenter()
+    public UIPresenter(PlayerModel playerModel1, PlayerModel playerModel2, CardPresenter cardPresenter)
     {
-        //this._player1Model = new PlayerModel(_player1Name, null);
-        //this._player2Model = new PlayerModel(_player2Name, null);
+        _playerModel1 = playerModel1;
+        _playerModel2 = playerModel2;
+        _cardPresenter = cardPresenter;
+    }
+
+    public void TurnEndEvent(PlayerModel _playerModel)
+    {
+        _uiView.OnClickTurnEndButton += _playerModel.TurnEnd;
+        _uiView.OnClickTurnEndButton += _cardPresenter.StartGame;
+
     }
 }

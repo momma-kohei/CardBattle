@@ -27,10 +27,12 @@ public class PlayerModel
     public List<CardModel> Area { get { return _area; } }
     int _hitPoint; // ヒットポイント
     bool _isAttacker; // 攻撃側か防御側か
+    bool _isTurnFinished = false; // ターン終了フラグ
     public int HitPoint { get { return _hitPoint; } }
     public bool IsAttacker { get { return _isAttacker; } }
+    public bool IsTurnFinished { get { return _isTurnFinished; } }
 
-    public PlayerModel(DeckModel deckModel, string _playerName, Image _playerIcon, bool _isAttacker)
+    public PlayerModel(DeckModel deckModel, string _playerName, Image _playerIcon)
     {
         Debug.Log("PlayerModelのコンストラクタが呼ばれました。");
         _deckModel = deckModel; // 共通のデッキモデルを受け取る
@@ -38,7 +40,6 @@ public class PlayerModel
         // プレイヤー固有の情報の初期化
         this._playerName = _playerName;
         this._playerIcon = _playerIcon;
-        this._isAttacker = _isAttacker;
 
         // バトルに関する情報の初期化
         this._hitPoint = _maxHP;
@@ -96,10 +97,10 @@ public class PlayerModel
         }
         else Debug.Log("手札のインデックスが不正です。");
     }
-    public void CalculateDamege(PlayerModel _P2) // ダメージ計算メソッド
+    public void CalculateDamege(PlayerModel _playerModel2) // ダメージ計算メソッド
     {
         int _power1 = this.GetPower();
-        int _power2 = _P2.GetPower();
+        int _power2 = _playerModel2.GetPower();
         if (_isAttacker)
         {
             // _P2.CalculateDamege(this); // 自分が防御側の場合、相手に再度計算を依頼
@@ -107,13 +108,13 @@ public class PlayerModel
         else
         {
             int _def = (_power2 - _power1 < 0) ? 0 : _power2 - _power1;
-            int _effectiveness = GetEffectiveness(_P2.GetElement(), this.GetElement());
+            int _effectiveness = GetEffectiveness(_playerModel2.GetElement(), this.GetElement());
             int _damage = _def * _effectiveness;
             this._hitPoint -= _damage;
         }
     }
 
-    int GetPower()
+    public int GetPower()
     {
         int totalPower = 0;
         for (int i = 0; i < this._area.Count; i++)
@@ -141,9 +142,43 @@ public class PlayerModel
         TrashCards(); // 選択したカードを捨て札に移動
         DrawCards(); // 手札を補充
         _isAttacker = !_isAttacker; // 攻撃側・防御側を交代
+        _isTurnFinished = false; // ターン終了フラグをリセット
     }
 
+    public void DecideFirstAttacker(PlayerModel _playerModel1, PlayerModel _playerModel2)
+    {
+        int num = UnityEngine.Random.Range(0, 2);
+        if (num == 0)
+        {
+            _playerModel1._isAttacker = true;
+            _playerModel2._isAttacker = false;
+        }
+        else
+        {
+            _playerModel1._isAttacker = false;
+            _playerModel2._isAttacker = true;
+        }
+    }
 
+    public void TurnEnd()
+    {
+        _isTurnFinished = true; // ターン終了フラグを立てる
+    }
+
+    public void TurnRequest(PlayerModel _opponent)
+    {
+        if (this._isTurnFinished && _opponent._isTurnFinished)
+        {
+            CalculateDamege(_opponent); // ダメージ計算
+            _opponent.CalculateDamege(this); // 相手にもダメージ計算を依頼
+            NextTurn(); // 次のターンへ
+            _opponent.NextTurn(); // 相手も次のターンへ
+        }
+        else
+        {
+
+        }
+    }
 
     // BattleTest用メソッド
     public void PrintHand()

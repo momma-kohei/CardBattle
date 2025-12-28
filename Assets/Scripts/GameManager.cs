@@ -22,15 +22,20 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        // モデルとプレゼンターの初期化
         Debug.Log("GameManager Start");
-        _deckModel = new DeckModel();
-        _playerModel1 = new PlayerModel(_deckModel, "Player1", _playerIcon1, _oneIsFirstAttacker);
 
-        _playerModel2 = new PlayerModel(_deckModel, "Player2", _playerIcon2, !_oneIsFirstAttacker);
+        // 初期化
+        // モデルのインスタンス化
+        _deckModel = new DeckModel();
+        _playerModel1 = new PlayerModel(_deckModel, "Player1", _playerIcon1);
+        _playerModel2 = new PlayerModel(_deckModel, "Player2", _playerIcon2);
+        // 先手後手の決定
+        _playerModel1.DecideFirstAttacker(_playerModel1, _playerModel2);
+        // プレゼンターのインスタンス化
         _cardPresenter = new CardPresenter(_playerModel1, _playerModel2, _playerCardView, _opponentCardView);
 
-        _cardPresenter.StartTurn(); // ターン開始処理
+        // ゲーム開始
+        _cardPresenter.StartGame();
     }
 }
 

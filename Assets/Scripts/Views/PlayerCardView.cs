@@ -5,8 +5,6 @@ using UnityEngine;
 public class PlayerCardView : MonoBehaviour
 {
     [SerializeField] CardView _cardPrefab; // カードプレハブの参照
-    //[SerializeField] CardView _handCardPrefab; // カードプレハブの参照
-    //[SerializeField] CardView _areaCardPrefab; // カードプレハブの参照
     [SerializeField] Transform _handTransform; // 手札を表示するTransformの参照
     [SerializeField] Transform _areaTransform; // 場札を表示するTransformの参照
 
@@ -63,98 +61,6 @@ public class PlayerCardView : MonoBehaviour
         }
     }
 
-    //public void ShowHandCards(PlayerModel _playerModel, char _cardState)
-    //{
-    //    // 手札を表示
-    //    foreach (Transform _oldcard in _handTransform) GameObject.Destroy(_oldcard.gameObject);
-    //    foreach (CardModel _cardModel in _playerModel.Hand)
-    //    {
-    //        switch (_cardState)
-    //        {
-    //            case 'F':
-    //                {
-    //                    CardView _card = Instantiate(_handCardPrefab, _handTransform, true);
-    //                    _card.ShowCard(_cardModel, 'F'); // 表面を表示
-    //                    break;
-    //                }
-    //            case 'B':
-    //                {
-    //                    CardView _card = Instantiate(_handCardPrefab, _handTransform, false);
-    //                    _card.ShowCard(_cardModel, 'B'); // 裏面を表示
-    //                    break;
-    //                }
-    //            case 'E':
-    //                {
-    //                    CardView _card = Instantiate(_handCardPrefab, _handTransform, false);
-    //                    _card.ShowCard(_cardModel, 'E'); // 属性面を表示
-    //                    break;
-    //                }
-    //            default:
-    //                {
-    //                    Debug.LogError("Invalid card state. Use 'F', 'B', or 'E'.");
-    //                    break;
-    //                }
-    //        }
-
-            
-    //        //CardView _card = Instantiate(_handCardPrefab, _handTransform, false);
-    //        //if (_playerModel.IsMe) _card.ShowCard(_cardModel, 'F'); // 自分の手札は表面を表示
-    //        //else _card.ShowCard(_cardModel, 'B'); // 相手の手札は裏面を表示
-    //    }
-    //}
-
-    //public void ShowAreaCards(PlayerModel _playerModel, char _cardState)
-    //{
-    //    // 場札を表示
-    //    foreach (Transform _oldcard in _areaTransform) GameObject.Destroy(_oldcard.gameObject);
-    //    switch (_cardState)
-    //    {
-    //        case 'F':
-    //            {
-    //                foreach (CardModel _cardModel in _playerModel.Area)
-    //                {
-    //                    CardView _card = Instantiate(_areaCardPrefab, _areaTransform, true);
-    //                    _card.ShowCard(_cardModel, 'F'); // 表面を表示
-    //                }
-    //                break;
-    //            }
-    //        case 'E':
-    //            {
-    //                foreach (CardModel _cardModel in _playerModel.Area)
-    //                {
-    //                    CardView _card = Instantiate(_areaCardPrefab, _areaTransform, false);
-    //                    _card.ShowCard(_cardModel, 'E'); // 属性面を表示
-    //                }
-    //                break;
-    //            }
-    //        default:
-    //            {
-    //                Debug.LogError("Invalid card state. Use 'F' or 'E'.");
-    //                break;
-    //            }
-    //    }
-
-    //    foreach (CardModel _cardModel in _playerModel.Area)
-    //    {
-    //        CardView _card = Instantiate(_areaCardPrefab, _areaTransform, true);
-    //        if (_playerModel.IsMe) _card.ShowCard(_cardModel, 'F'); // 自分の場札は表面を表示
-    //        else _card.ShowCard(_cardModel, 'F'); // 相手の場札は表面を表示
-    //    }
-    //}
-
-
-
-    //public void ShowAreaElements(PlayerModel _playerModel)
-    //{
-    //    // 場札を表示
-    //    foreach (Transform _oldcard in _areaTransform) GameObject.Destroy(_oldcard.gameObject);
-    //    foreach (CardModel _cardModel in _playerModel.Area)
-    //    {
-    //        CardView _card = Instantiate(_areaCardPrefab, _areaTransform, false);
-    //        if (_playerModel.IsMe) _card.ShowCard(_cardModel, 'F'); // 自分の場札は表面を表示
-    //        else _card.ShowCard(_cardModel, 'E'); // 相手の場札は属性面を表示
-    //    }
-    //}
 
 
     // 選択されたカードを浮かせる処理を実装
