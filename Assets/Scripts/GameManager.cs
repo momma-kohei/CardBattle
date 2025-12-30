@@ -16,6 +16,10 @@ public class GameManager : MonoBehaviour
     PlayerModel _playerModel1;
     PlayerModel _playerModel2;
     CardPresenter _cardPresenter;
+    [SerializeField] PlayerUIView _playerUIView1;
+    [SerializeField] PlayerUIView _playerUIView2;
+    [SerializeField] UIView _uiView;
+    UIPresenter _uiPresenter;
 
     bool _oneIsMe = true;
     bool _oneIsFirstAttacker = true;
@@ -32,10 +36,12 @@ public class GameManager : MonoBehaviour
         // 先手後手の決定
         _playerModel1.DecideFirstAttacker(_playerModel1, _playerModel2);
         // プレゼンターのインスタンス化
-        _cardPresenter = new CardPresenter(_playerModel1, _playerModel2, _playerCardView, _opponentCardView);
+        _cardPresenter = new CardPresenter(_playerModel1, _playerModel2, _playerCardView, _opponentCardView, _playerUIView1, _playerUIView2);
+        _uiPresenter = new UIPresenter(_playerModel1, _playerModel2, _cardPresenter, _uiView, _playerUIView1, _playerUIView2);
+
 
         // ゲーム開始
-        _cardPresenter.StartGame();
+        _cardPresenter.StartTurn();
     }
 }
 

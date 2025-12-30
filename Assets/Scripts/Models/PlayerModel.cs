@@ -47,6 +47,9 @@ public class PlayerModel
         this._area = new List<CardModel>();
     }
 
+    /// <summary>
+    /// デッキからカードを計７枚まで引き，手札をソートするメソッド
+    /// </summary>
     public void DrawCards()
     {
         while (this._hand.Count < _handNum)
@@ -54,6 +57,9 @@ public class PlayerModel
         this._hand.Sort((a, b) => a.cardID.CompareTo(b.cardID)); // 手札をカードID昇順にソート
     }
 
+    /// <summary>
+    /// 選択してAreaにコピーしたカードをArea，Handから削除し捨て札に移動するメソッド
+    /// </summary>
     public void TrashCards()
     {
         for (int i = 0; i < this._area.Count; i++)
@@ -63,6 +69,10 @@ public class PlayerModel
         this._area.Clear(); // エリアをクリア
     }
 
+    /// <summary>
+    /// クリックしたカードを選択して場札に出す/戻すメソッド
+    /// </summary>
+    /// <param name="_cardModel">選択（クリック）されたカード</param>
     public void SelectCard(CardModel _cardModel)
     {
         int _handIndex = _hand.IndexOf(_cardModel); // 手札リストから選択されたカードのインデックスを取得
@@ -97,23 +107,39 @@ public class PlayerModel
         }
         else Debug.Log("手札のインデックスが不正です。");
     }
-    public void CalculateDamege(PlayerModel _playerModel2) // ダメージ計算メソッド
+
+    //public void CalculateDamege(PlayerModel _playerModel2) // ダメージ計算メソッド
+    //{
+    //    int _power1 = this.GetPower();
+    //    int _power2 = _playerModel2.GetPower();
+    //    if (_isAttacker)
+    //    {
+    //        // _P2.CalculateDamege(this); // 自分が防御側の場合、相手に再度計算を依頼
+    //    }
+    //    else
+    //    {
+    //        int _def = (_power2 - _power1 < 0) ? 0 : _power2 - _power1;
+    //        int _effectiveness = GetEffectiveness(_playerModel2.GetElement(), this.GetElement());
+    //        int _damage = _def * _effectiveness;
+    //        this._hitPoint -= _damage;
+    //    }
+    //}
+
+    /// <summary>
+    /// PlayerModelのHPをダメージ分減少させるメソッド
+    /// </summary>
+    /// <param name="_damage">ダメージ</param>
+    public void Damage(int _damage)
     {
-        int _power1 = this.GetPower();
-        int _power2 = _playerModel2.GetPower();
-        if (_isAttacker)
-        {
-            // _P2.CalculateDamege(this); // 自分が防御側の場合、相手に再度計算を依頼
-        }
-        else
-        {
-            int _def = (_power2 - _power1 < 0) ? 0 : _power2 - _power1;
-            int _effectiveness = GetEffectiveness(_playerModel2.GetElement(), this.GetElement());
-            int _damage = _def * _effectiveness;
-            this._hitPoint -= _damage;
-        }
+        int tempHP = this._hitPoint - _damage;
+        if (tempHP < 0) this._hitPoint = 0; // HPが0未満にならないようにする
+        else this._hitPoint = tempHP;
     }
 
+    /// <summary>
+    /// 選択して場札に出したカードのパワーを合計して返すメソッド
+    /// </summary>
+    /// <returns>合計パワーの整数値</returns>
     public int GetPower()
     {
         int totalPower = 0;
@@ -122,32 +148,21 @@ public class PlayerModel
         return totalPower;
     }
 
-    ElementType GetElement()
+    /// <summary>
+    /// 選択して場札に出したカードの属性を返すメソッド
+    /// </summary>
+    /// <returns>属性</returns>
+    /// <exception cref="InvalidOperationException"></exception>
+    public ElementType GetAreaElement()
     {
         if (this._area.Count == 0) throw new InvalidOperationException("エリアにカードがありません。");
         else return this._area[0].element; // エリア内の先頭カードの属性を返す
     }
 
-    int GetEffectiveness(ElementType _attack, ElementType _defense)
-    {
-        if (_attack == _defense) return 1; // 等倍
-        else if ((_attack == ElementType.Fire && _defense == ElementType.Grass) ||
-                 (_attack == ElementType.Water && _defense == ElementType.Fire) ||
-                 (_attack == ElementType.Grass && _defense == ElementType.Water)) return 2; // 効果抜群
-        else return 0; // 効果なし
-    }
-
-    public void NextTurn()
-    {
-        TrashCards(); // 選択したカードを捨て札に移動
-        DrawCards(); // 手札を補充
-        _isAttacker = !_isAttacker; // 攻撃側・防御側を交代
-        _isTurnFinished = false; // ターン終了フラグをリセット
-    }
-
     public void DecideFirstAttacker(PlayerModel _playerModel1, PlayerModel _playerModel2)
     {
-        int num = UnityEngine.Random.Range(0, 2);
+        //int num = UnityEngine.Random.Range(0, 2);
+        int num = 0; // テスト用に固定
         if (num == 0)
         {
             _playerModel1._isAttacker = true;
@@ -165,19 +180,26 @@ public class PlayerModel
         _isTurnFinished = true; // ターン終了フラグを立てる
     }
 
-    public void TurnRequest(PlayerModel _opponent)
-    {
-        if (this._isTurnFinished && _opponent._isTurnFinished)
-        {
-            CalculateDamege(_opponent); // ダメージ計算
-            _opponent.CalculateDamege(this); // 相手にもダメージ計算を依頼
-            NextTurn(); // 次のターンへ
-            _opponent.NextTurn(); // 相手も次のターンへ
-        }
-        else
-        {
+    //public void TurnRequest(PlayerModel _opponent)
+    //{
+    //    if (this._isTurnFinished && _opponent._isTurnFinished)
+    //    {
+    //        CalculateDamege(_opponent); // ダメージ計算
+    //        _opponent.CalculateDamege(this); // 相手にもダメージ計算を依頼
+    //        NextTurn(); // 次のターンへ
+    //        _opponent.NextTurn(); // 相手も次のターンへ
+    //    }
+    //    else
+    //    {
+    //        // 対戦相手の行動を返す関数を呼び出す
+    //        CPUAction();
+    //    }
+    //}
 
-        }
+    void CPUAction()
+    {
+        // CPUの行動を決定するロジックをここに実装する
+
     }
 
     // BattleTest用メソッド
@@ -193,5 +215,26 @@ public class PlayerModel
     public CardModel GetHandCard (int _index)
     {
         return this._hand[_index];
+    }
+
+    public void NextTurn()
+    {
+        TrashCards(); // 選択したカードを捨て札に移動
+        // -> EndTurn
+        DrawCards(); // 手札を補充
+        // -> StartTurn ---- EndTurnの最後で処理すべきかも
+        _isAttacker = !_isAttacker; // 攻撃側・防御側を交代
+        // -> EndTurn
+        _isTurnFinished = false; // ターン終了フラグをリセット
+        // -> EndTurn
+    }
+
+    public void EndTurn()
+    {
+        TrashCards(); // 選択したカードを捨て札に移動
+        DrawCards(); // 手札を補充
+        _isAttacker = !_isAttacker; // 攻撃側・防御側を交代
+        _isTurnFinished = false; // ターン終了フラグをリセット
+
     }
 }

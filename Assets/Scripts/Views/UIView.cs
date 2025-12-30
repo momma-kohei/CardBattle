@@ -17,11 +17,14 @@ public class UIView : MonoBehaviour
     [SerializeField] GameObject _turnEndButton = null; // ターン終了ボタンのUIオブジェクト
     [SerializeField] GameObject _exitButton = null; // ゲーム終了ボタンのUIオブジェクト
     [SerializeField] GameObject _infoButton = null; // 情報表示ボタンのUIオブジェクト
+    [SerializeField] GameObject _nextButton = null; // NextボタンのUIオブジェクト
 
     public event Action InitGameEvent; // ゲーム開始時の初期化イベント
     public event Action OnClickTurnEndButton; // Battleボタンが押されたときのイベント
     public event Action OnClickExitButton; // Exitボタンが押されたときのイベント
     public event Action OnClickInfoButton; // Infoボタンが押されたときのイベント
+
+    public event Action OnClickNextButton; // Nextボタンが押されたときのイベント
 
     public void Start()
     {
@@ -38,5 +41,10 @@ public class UIView : MonoBehaviour
         //   _isTurnFinishedがtrueならばダメージ計算処理
         //   HPの同期
         //     Next Turn
+    }
+
+    public void ClickNextButton()
+    {
+        OnClickNextButton?.Invoke(); // Nextボタンが押されたときのイベントを発火
     }
 }

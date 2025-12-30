@@ -24,8 +24,8 @@ public class BattleTest : MonoBehaviour
         SelectP1Attack();
         PrintAll();
         Debug.Log("-------ダメージ計算-------");
-        _P1.CalculateDamege(_P2);
-        _P2.CalculateDamege(_P1);
+        //_P1.CalculateDamege(_P2);
+        //_P2.CalculateDamege(_P1);
         PrintHP();
         Debug.Log("--------次のターン--------");
         _P1.NextTurn();
@@ -35,8 +35,8 @@ public class BattleTest : MonoBehaviour
         SelectP2Attack();
         PrintAll();
         Debug.Log("-------ダメージ計算-------");
-        _P1.CalculateDamege(_P2);
-        _P2.CalculateDamege(_P1);
+        //_P1.CalculateDamege(_P2);
+        //_P2.CalculateDamege(_P1);
         PrintHP();
     }
 
