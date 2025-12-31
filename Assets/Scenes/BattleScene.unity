@@ -625,7 +625,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 250711772}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1032670831}
+        m_TargetAssemblyTypeName: UIView, Assembly-CSharp
+        m_MethodName: ClickExitButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &250711772
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3089,7 +3101,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1783931480}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1032670831}
+        m_TargetAssemblyTypeName: UIView, Assembly-CSharp
+        m_MethodName: ClickInfoButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1783931480
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3677,7 +3701,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2014485673}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1032670831}
+        m_TargetAssemblyTypeName: UIView, Assembly-CSharp
+        m_MethodName: ClickTurnEndButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2014485673
 MonoBehaviour:
   m_ObjectHideFlags: 0

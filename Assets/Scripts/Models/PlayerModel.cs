@@ -8,9 +8,9 @@ using Debug = UnityEngine.Debug;
 /// </summary>
 public class PlayerModel
 {
-    DeckModel _deckModel; // 共通のデッキのモデル
+    DeckModel _deckModel; // 共有する山札
 
-    // プレイヤー固有の情報
+    // プレイヤー固有の情報　※別のシーンで入力を受け付ける
     string _playerName; // プレイヤー名
     Image _playerIcon; // プレイヤーアイコン    
     public string PlayerName { get { return _playerName; } }
@@ -21,21 +21,20 @@ public class PlayerModel
     int _handNum = 7; // 最大手札枚数
 
     // バトルに関する情報
-    List<CardModel> _hand;
-    List<CardModel> _area;
-    public List<CardModel> Hand { get { return _hand; } }
-    public List<CardModel> Area { get { return _area; } }
+    List<CardModel> _hand; // 手札
+    List<CardModel> _area; // 場札
     int _hitPoint; // ヒットポイント
     bool _isAttacker; // 攻撃側か防御側か
-    bool _isTurnFinished = false; // ターン終了フラグ
     public int HitPoint { get { return _hitPoint; } }
     public bool IsAttacker { get { return _isAttacker; } }
-    public bool IsTurnFinished { get { return _isTurnFinished; } }
+    public List<CardModel> Hand { get { return _hand; } }
+    public List<CardModel> Area { get { return _area; } }
 
-    public PlayerModel(DeckModel deckModel, string _playerName, Image _playerIcon)
+    public PlayerModel(DeckModel deckModel, string _playerName, Image _playerIcon) // コンストラクタ
     {
-        Debug.Log("PlayerModelのコンストラクタが呼ばれました。");
-        _deckModel = deckModel; // 共通のデッキモデルを受け取る
+        //Debug.Log("PlayerModelのコンストラクタが呼ばれました。");
+
+        _deckModel = deckModel; // 共有する山札のモデルを受け取る
 
         // プレイヤー固有の情報の初期化
         this._playerName = _playerName;
@@ -81,7 +80,7 @@ public class PlayerModel
         {
             if (_area.Count == 0) // 場札が空の場合
             {
-                Debug.Log("未選択なので場札に追加します。");
+                //Debug.Log("未選択なので場札に追加します。");
                 _area.Add(_hand[_handIndex]); // 未選択ならば場札に追加
                 _cardModel.isSelected = true;
             }
@@ -89,13 +88,13 @@ public class PlayerModel
             {
                 if (_cardModel.isSelected)
                 {
-                    Debug.Log("選択済みなので場札から削除します。");
+                    //Debug.Log("選択済みなので場札から削除します。");
                     _area.Remove(_hand[_handIndex]); // 選択済みならば場札から削除
                     _cardModel.isSelected = false;
                 }
                 else
                 {
-                    Debug.Log("未選択なので場札に追加します。");
+                    //Debug.Log("未選択なので場札に追加します。");
                     _area.Add(_hand[_handIndex]); // 未選択ならば場札に追加
                     _cardModel.isSelected = true;
                 }
@@ -107,23 +106,6 @@ public class PlayerModel
         }
         else Debug.Log("手札のインデックスが不正です。");
     }
-
-    //public void CalculateDamege(PlayerModel _playerModel2) // ダメージ計算メソッド
-    //{
-    //    int _power1 = this.GetPower();
-    //    int _power2 = _playerModel2.GetPower();
-    //    if (_isAttacker)
-    //    {
-    //        // _P2.CalculateDamege(this); // 自分が防御側の場合、相手に再度計算を依頼
-    //    }
-    //    else
-    //    {
-    //        int _def = (_power2 - _power1 < 0) ? 0 : _power2 - _power1;
-    //        int _effectiveness = GetEffectiveness(_playerModel2.GetElement(), this.GetElement());
-    //        int _damage = _def * _effectiveness;
-    //        this._hitPoint -= _damage;
-    //    }
-    //}
 
     /// <summary>
     /// PlayerModelのHPをダメージ分減少させるメソッド
@@ -161,8 +143,8 @@ public class PlayerModel
 
     public void DecideFirstAttacker(PlayerModel _playerModel1, PlayerModel _playerModel2)
     {
-        //int num = UnityEngine.Random.Range(0, 2);
-        int num = 0; // テスト用に固定
+        int num = UnityEngine.Random.Range(0, 2); // 先後をランダムに決定
+        //int num = 0; // テスト用に固定
         if (num == 0)
         {
             _playerModel1._isAttacker = true;
@@ -175,33 +157,25 @@ public class PlayerModel
         }
     }
 
-    public void TurnEnd()
-    {
-        _isTurnFinished = true; // ターン終了フラグを立てる
-    }
-
-    //public void TurnRequest(PlayerModel _opponent)
-    //{
-    //    if (this._isTurnFinished && _opponent._isTurnFinished)
-    //    {
-    //        CalculateDamege(_opponent); // ダメージ計算
-    //        _opponent.CalculateDamege(this); // 相手にもダメージ計算を依頼
-    //        NextTurn(); // 次のターンへ
-    //        _opponent.NextTurn(); // 相手も次のターンへ
-    //    }
-    //    else
-    //    {
-    //        // 対戦相手の行動を返す関数を呼び出す
-    //        CPUAction();
-    //    }
-    //}
-
-    void CPUAction()
+    public void CPUAction()
     {
         // CPUの行動を決定するロジックをここに実装する
 
+        // CPU1
+        SelectCard(_hand[0]);
     }
 
+    /// <summary>
+    /// PlayerModelに対するターン終了処理
+    /// </summary>
+    public void EndTurn()
+    {
+        TrashCards(); // AreaカードをTrashに移動
+        DrawCards(); // DeckからHandにカードを補充
+        _isAttacker = !_isAttacker; // 攻守交代
+    }
+
+    #region For BattleTest
     // BattleTest用メソッド
     public void PrintHand()
     {
@@ -225,16 +199,8 @@ public class PlayerModel
         // -> StartTurn ---- EndTurnの最後で処理すべきかも
         _isAttacker = !_isAttacker; // 攻撃側・防御側を交代
         // -> EndTurn
-        _isTurnFinished = false; // ターン終了フラグをリセット
+        //_isTurnFinished = false; // ターン終了フラグをリセット
         // -> EndTurn
     }
-
-    public void EndTurn()
-    {
-        TrashCards(); // 選択したカードを捨て札に移動
-        DrawCards(); // 手札を補充
-        _isAttacker = !_isAttacker; // 攻撃側・防御側を交代
-        _isTurnFinished = false; // ターン終了フラグをリセット
-
-    }
+    #endregion
 }

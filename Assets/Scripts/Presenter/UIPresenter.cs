@@ -22,13 +22,6 @@ public class UIPresenter
         _uiView.OnClickNextButton += AttackerToDefender;
     }
 
-    public void TurnEndEvent(PlayerModel _playerModel)
-    {
-        _uiView.OnClickTurnEndButton += _playerModel.TurnEnd;
-        // _uiView.OnClickTurnEndButton += _cardPresenter.StartGame;
-
-    }
-
     void AttackerToDefender()
     {
         Debug.Log("Defender Phase");
@@ -41,8 +34,7 @@ public class UIPresenter
     {
         Debug.Log("Battle Phase");
         _uiView.OnClickNextButton -= DefenderToBattle;
-        _cardPresenter.BattlePhase();
-        _cardPresenter.PrintHP();
+        _cardPresenter.BattlePhase();;
         _playerUIView1.ShowHP(_playerModel1);
         _playerUIView2.ShowHP(_playerModel2);
         _uiView.OnClickNextButton += BattleToNextTurn;
@@ -52,7 +44,7 @@ public class UIPresenter
     {
         Debug.Log("Attacker Phase");
         _uiView.OnClickNextButton -= BattleToNextTurn;
-        _cardPresenter.NextTurn();
+        _cardPresenter.EndTurn();
         _cardPresenter.AttackerPhase();
         _uiView.OnClickNextButton += AttackerToDefender;
     }

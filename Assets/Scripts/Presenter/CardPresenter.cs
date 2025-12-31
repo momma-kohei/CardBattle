@@ -10,61 +10,48 @@ public class CardPresenter
     PlayerUIView _playerUIView1;
     PlayerUIView _playerUIView2;
 
-    // bool _selectedSameElement = false; // 同じ属性が選択されたかどうかを判定するフラグ
-
-    public CardPresenter(PlayerModel playerModel1, PlayerModel playerModel2, PlayerCardView playerCardView1, PlayerCardView playerCardView2, PlayerUIView playerUIView1, PlayerUIView playerUIView2) // コンストラクタ
+    public CardPresenter(PlayerModel pm1, PlayerModel pm2, PlayerCardView pcv1, PlayerCardView pcv2, PlayerUIView pUIv1, PlayerUIView pUIv2) // コンストラクタ
     {
-        _playerModel1 = playerModel1;
-        _playerModel2 = playerModel2;
-        _playerCardView1 = playerCardView1;
-        _playerCardView2 = playerCardView2;
-        _playerUIView1 = playerUIView1;
-        _playerUIView2 = playerUIView2;
+        _playerModel1 = pm1;
+        _playerModel2 = pm2;
+        _playerCardView1 = pcv1;
+        _playerCardView2 = pcv2;
+        _playerUIView1 = pUIv1;
+        _playerUIView2 = pUIv2;
     }
 
-    public void OnCardClicked(CardView _cardView)
+    void OnCardClicked(CardView _cardView)　// プレイヤー１がカードをクリックしたときのイベントハンドラ
     {
-        _playerModel1.SelectCard(_cardView.CardModel); // プレイヤー１の手札からエリアにカードを選択してコピー
-        _playerUIView1.ShowPower(_playerModel1); // プレイヤー１の攻撃力を表示
-        _playerCardView1.ShowCards(_playerModel1, "Area", 'F'); // プレイヤー１の場札を表示
-        foreach (CardView _cv in _playerCardView1.AreaTransform.GetComponentsInChildren<CardView>()) _cv.OnClicked += OnCardClicked; // Areaにクリックイベントを登録
+        _playerModel1.SelectCard(_cardView.CardModel); // Areaにカードを出す/戻す処理
+        _playerUIView1.ShowPower(_playerModel1); // その都度Areaの合計攻撃力を表示
+        _playerCardView1.ShowCards(_playerModel1, "Area", 'F'); // Areaを更新
+        foreach (CardView _cv in _playerCardView1.AreaTransform.GetComponentsInChildren<CardView>()) _cv.OnClicked += OnCardClicked; // 表示したAreaにもクリックイベントを登録
 
         // 手札を浮かせる処理を追加する場合はここに記述
     }
 
-    // ゲーム進行メソッド
+    // ゲーム進行に関するメソッド
 
     /// <summary>
-    /// ターン開始メソッド：インスタンス化したPlayerModelの手札をPlaerCardViewを用いて表示する
+    /// ゲーム開始メソッド：初期化処理と先手後手の確認を行い，アタッカーフェーズへ移行する
     /// </summary>
-    public void StartTurn() // ターン開始メソッド
+    public void StartGame() // ターン開始メソッド
     {
-        // ボタンにイベントを登録
-        SetPlayerHands(_playerCardView1, _playerModel1, true); // プレイヤー１の手札を表示
-        //SetCardClickEvent(true); // クリックイベントを登録
-        SetPlayerHands(_playerCardView2, _playerModel2, false); // プレイヤー２の手札を表示
+        // 両者の手札と場札を表示
+        SetPlayerCards(_playerCardView1, _playerModel1, true);
+        SetPlayerCards(_playerCardView2, _playerModel2, false);
 
+        // 先手後手の確認
         PlayerModel _attacker = (_playerModel1.IsAttacker) ? _playerModel1 : _playerModel2;
         PlayerModel _defender = (_playerModel1.IsAttacker) ? _playerModel2 : _playerModel1;
 
-        AttackerPhase(); // アタッカーフェーズを準備
-        //SetAttackerPhase(_attacker); // アタッカーフェーズを準備
-        //SetDefenderPhase(_defender); // ディフェンダーフェーズを準備
+        AttackerPhase(); // アタッカーフェーズへ移行
     }
 
-    // ボタンによって呼ばれるメソッド
-    public void EndTurn() // ターン終了メソッド
-    {
-        SetCardClickEvent(false); // クリックイベントを解除
-        // 両者のAreaを同期
-        // 両者のAreaを表面で表示
-        _playerCardView1.ShowCards(_playerModel1, "Area", 'F'); // プレイヤー１の場札を表示
-        _playerCardView2.ShowCards(_playerModel2, "Area", 'F'); // プレイヤー２の場札を表示
-        
-        BattlePhase(); // バトルフェーズを実行
-    }
-
-    public void BattlePhase() // バトルフェーズの処理メソッド
+    /// <summary>
+    /// 選択されたカードからバトルの結果を反映するメソッド
+    /// </summary>
+    public void BattlePhase()
     {
         SetCardClickEvent(false); // クリックイベントを解除
         foreach (CardView _cv in _playerCardView1.AreaTransform.GetComponentsInChildren<CardView>()) _cv.OnClicked -= OnCardClicked; // Areaのクリックイベントを解除
@@ -74,13 +61,93 @@ public class CardPresenter
         if (_playerModel1.IsAttacker)
         {
             CalculateDamage(_playerModel1, _playerModel2);
-            _playerUIView1.ShowFinalPower(CalculatePower(_playerModel1, _playerModel2)); // プレイヤー１の攻撃力を表示
+            _playerUIView1.ShowPowerNum(CalculatePower(_playerModel1, _playerModel2)); // プレイヤー１(Attacker)の攻撃力を表示
         }
         else
         {
             CalculateDamage(_playerModel2, _playerModel1);
-            _playerUIView2.ShowFinalPower(CalculatePower(_playerModel2, _playerModel1)); // プレイヤー２の攻撃力を表示
+            _playerUIView2.ShowPowerNum(CalculatePower(_playerModel2, _playerModel1)); // プレイヤー２(Attacker)の攻撃力を表示
         }
+    }
+
+    /// <summary>
+    /// Attacker側の処理を行うメソッド
+    /// </summary>
+    public void AttackerPhase()
+    {
+        // StartPhase(); // フェーズ開始処理
+        if ( _playerModel1.IsAttacker) SetCardClickEvent(true); // クリックイベントを登録
+        else
+        {
+            // --------ここで対戦相手の操作--------
+            _playerModel2.CPUAction(); // 仮で手札の先頭を選択
+        }
+        EndPhase(); // フェーズ終了処理
+    }
+
+    /// <summary>
+    /// Defender側の処理を行うメソッド
+    /// </summary>
+    public void DefenderPhase()
+    {
+        // StartPhase(); // フェーズ開始処理
+        if (_playerModel1.IsAttacker)
+        {
+            // --------ここで対戦相手の操作--------
+            _playerModel2.CPUAction(); // 仮で手札の先頭を選択
+        }
+        else SetCardClickEvent(true); // クリックイベントを登録
+        EndPhase(); // フェーズ終了処理
+    }
+
+    void EndPhase() // フェーズ終了メソッド
+    {
+
+        // --------ここでAreaを同期--------
+
+        _playerCardView2.ShowCards(_playerModel2, "Area", 'B'); // プレイヤー２の場札を裏面で表示
+    }
+
+    /// <summary>
+    /// ターン終了時の処理を行うメソッド
+    /// </summary>
+    public void EndTurn()
+    {
+        // 各PlayerModelに対してターン移行処理
+        _playerModel1.EndTurn();
+        _playerModel2.EndTurn();
+        // 最終的な状態を開示
+        _playerCardView1.ShowCards(_playerModel1, "Area", 'F'); // プレイヤー１の場札を表面で表示
+        _playerCardView2.ShowCards(_playerModel2, "Area", 'F'); // プレイヤー１の場札を表面で表示
+        _playerCardView1.ShowCards(_playerModel1, "Hand", 'F'); // プレイヤー１の手札を表面で表示
+        _playerCardView2.ShowCards(_playerModel2, "Hand", 'E'); // プレイヤー２の手札を属性面で表示
+    }
+
+    // サブルーチン（このスクリプト内のコードを簡潔に書くためのメソッド群）
+
+    void SetPlayerCards(PlayerCardView _playerCardView, PlayerModel _playerModel, bool _isMyPlayer) // 手札と場札を表示するメソッド
+    {
+        char _areaState;
+        char _handState;
+
+        if (_isMyPlayer) {
+            _areaState = 'F';
+            _handState = 'F';
+        }
+        else {
+            _areaState = 'B';
+            _handState = 'E';
+        }
+
+        _playerModel.DrawCards(); // プレイヤーの手札を補充
+        _playerCardView.ShowCards(_playerModel, "Area", _areaState); // プレイヤーの場札を更新
+        _playerCardView.ShowCards(_playerModel, "Hand", _handState); // プレイヤーの手札を表示
+    }
+
+    void SetCardClickEvent(bool _on) // 手札に対してクリック判定を登録/解除するメソッド
+    {
+        if (_on) foreach (CardView _cardView in _playerCardView1.HandTransform.GetComponentsInChildren<CardView>()) _cardView.OnClicked += OnCardClicked; // クリックイベントを登録
+        else foreach (CardView _cardView in _playerCardView1.HandTransform.GetComponentsInChildren<CardView>()) _cardView.OnClicked -= OnCardClicked; // クリックイベントを解除
     }
 
     int CalculatePower(PlayerModel _attacker, PlayerModel _defender)
@@ -109,105 +176,11 @@ public class CardPresenter
         else return 0; // 効果なし
     }
 
-    public void AttackerPhase()
-    {
-        StartPhase();
-        if ( _playerModel1.IsAttacker)
-        {
-            // ボタンへのEndPhaseイベントを登録
-            SetCardClickEvent(true); // クリックイベントを登録
-        }
-        else
-        {
-            // 対戦相手の操作
-            _playerModel2.SelectCard(_playerModel2.Hand[0]); // 仮で手札の先頭を選択
-        }
-        EndPhase();
-    }
-
-    public void DefenderPhase()
-    {
-        StartPhase();
-        if (_playerModel1.IsAttacker)
-        {
-            // 対戦相手の操作
-            _playerModel2.SelectCard(_playerModel2.Hand[0]); // 仮で手札の先頭を選択
-        }
-        else
-        {
-            // ボタンへのEndPhaseイベントを登録
-            SetCardClickEvent(true); // クリックイベントを登録
-        }
-        EndPhase();
-    }
-
-    void StartPhase()
-    {
-        // 同期された相手のAreaを表示
-        
-        _playerCardView2.ShowCards(_playerModel2, "Area", 'B'); // プレイヤー２の場札を属性面で表示
-    }
-
-    // ボタンによって呼ばれるメソッド
-    public void EndPhase()
-    {
-        //SetCardClickEvent(false); // クリックイベントを解除
-        // ボタンのイベントを解除
-        // Areaを同期
-        _playerCardView2.ShowCards(_playerModel2, "Area", 'B'); // プレイヤー２の場札を裏面で表示
-    }
-
-    public void EndDefenderPhase()
-    {
-        SetCardClickEvent(false); // クリックイベントを解除
-        // ボタンのイベントを解除
-        // Areaを同期
-        _playerCardView1.ShowCards(_playerModel1, "Area", 'F'); // プレイヤー１の場札を表面で表示
-    }
-
-    // サブルーチン
-    void SetPlayerHands(PlayerCardView _playerCardView, PlayerModel _playerModel, bool _isMyPlayer)
-    {
-        char _areaState;
-        char _handState;
-
-        if (_isMyPlayer) {
-            _areaState = 'F';
-            _handState = 'F';
-        }
-        else {
-            _areaState = 'B';
-            _handState = 'E';
-        }
-
-        _playerModel.DrawCards(); // プレイヤーの手札を補充
-        _playerCardView.ShowCards(_playerModel, "Area", _areaState); // プレイヤーの場札を更新
-        _playerCardView.ShowCards(_playerModel, "Hand", _handState); // プレイヤーの手札を表示
-    }
-
-    void SetCardClickEvent(bool _on)
-    {
-        if (_on) foreach (CardView _cardView in _playerCardView1.HandTransform.GetComponentsInChildren<CardView>()) _cardView.OnClicked += OnCardClicked; // クリックイベントを登録
-        else foreach (CardView _cardView in _playerCardView1.HandTransform.GetComponentsInChildren<CardView>()) _cardView.OnClicked -= OnCardClicked; // クリックイベントを解除
-    }
 
 
-    public void PrintHP()
-    {
-        Debug.Log($"{_playerModel1.PlayerName} HP: {_playerModel1.HitPoint}");
-        Debug.Log($"{_playerModel2.PlayerName} HP: {_playerModel2.HitPoint}");
-    }
 
-    public void NextTurn()
-    {
-        // ターン交代処理
-        _playerModel1.EndTurn();
-        _playerModel2.EndTurn();
-        _playerCardView1.ShowCards(_playerModel1, "Area", 'F'); // プレイヤー１の場札を裏面で表示
-        _playerCardView2.ShowCards(_playerModel2, "Area", 'F'); // プレイヤー１の場札を裏面で表示
-        _playerCardView1.ShowCards(_playerModel1, "Hand", 'F'); // プレイヤー１の手札を表示
-        _playerCardView2.ShowCards(_playerModel2, "Hand", 'E'); // プレイヤー２の手札を表示
-    }
+
+    // --------カードを浮かせる処理の参考--------
 
     //public void NextTurn()
     //{

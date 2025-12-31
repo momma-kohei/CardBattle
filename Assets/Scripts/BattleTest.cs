@@ -7,7 +7,7 @@ public class BattleTest : MonoBehaviour
     DeckModel _deck;
     PlayerModel _P1;
     PlayerModel _P2;
-    bool _isP1Turn = true;
+    //bool _isP1Turn = true;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()

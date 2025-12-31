@@ -11,6 +11,12 @@ public class PlayerCardView : MonoBehaviour
     public Transform HandTransform { get { return _handTransform; } } // 手札表示Transformのプロパティ
     public Transform AreaTransform { get { return _areaTransform; } } // 場札表示Transformのプロパティ
 
+    /// <summary>
+    /// PlayerModelの(Hand/Area)を状態を指定して表示するメソッド
+    /// </summary>
+    /// <param name="_playerModel">PlayerModel</param>
+    /// <param name="_cardPlace">"Hand" or "Area"</param>
+    /// <param name="_cardState">'F', 'B' or 'E'</param>
     public void ShowCards(PlayerModel _playerModel, string _cardPlace, char _cardState)
     {
         Transform _transform;

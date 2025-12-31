@@ -21,9 +21,6 @@ public class GameManager : MonoBehaviour
     [SerializeField] UIView _uiView;
     UIPresenter _uiPresenter;
 
-    bool _oneIsMe = true;
-    bool _oneIsFirstAttacker = true;
-
     void Start()
     {
         Debug.Log("GameManager Start");
@@ -41,7 +38,7 @@ public class GameManager : MonoBehaviour
 
 
         // ゲーム開始
-        _cardPresenter.StartTurn();
+        _cardPresenter.StartGame();
     }
 }
 

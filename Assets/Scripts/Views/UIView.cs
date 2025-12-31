@@ -7,17 +7,12 @@ using System;
 /// </summary>
 public class UIView : MonoBehaviour
 {
-    //[SerializeField] TextMeshProUGUI _powerText1 = null;
-    //[SerializeField] TextMeshProUGUI _powerText2 = null;
-    //[SerializeField] TextMeshProUGUI _hpText1 = null;
-    //[SerializeField] TextMeshProUGUI _hpText2 = null;
-    //[SerializeField] Image _iconImage1 = null;
-    //[SerializeField] Image _iconImage2 = null;
+    // ここいらないかも↓
 
-    [SerializeField] GameObject _turnEndButton = null; // ターン終了ボタンのUIオブジェクト
-    [SerializeField] GameObject _exitButton = null; // ゲーム終了ボタンのUIオブジェクト
-    [SerializeField] GameObject _infoButton = null; // 情報表示ボタンのUIオブジェクト
-    [SerializeField] GameObject _nextButton = null; // NextボタンのUIオブジェクト
+    //[SerializeField] GameObject _turnEndButton = null; // ターン終了ボタンのUIオブジェクト
+    //[SerializeField] GameObject _exitButton = null; // ゲーム終了ボタンのUIオブジェクト
+    //[SerializeField] GameObject _infoButton = null; // 情報表示ボタンのUIオブジェクト
+    //[SerializeField] GameObject _nextButton = null; // NextボタンのUIオブジェクト
 
     public event Action InitGameEvent; // ゲーム開始時の初期化イベント
     public event Action OnClickTurnEndButton; // Battleボタンが押されたときのイベント
@@ -35,12 +30,19 @@ public class UIView : MonoBehaviour
     {
         OnClickTurnEndButton?.Invoke(); // Battleボタンが押されたときのイベントを発火
 
-        // Turn終了処理
-        // Areaの同期
-        // phaseの変更リクエスト
-        //   _isTurnFinishedがtrueならばダメージ計算処理
-        //   HPの同期
-        //     Next Turn
+        // Phaseによって変化
+        // Attacker -> 対戦相手のDefender Phaseへ
+        // Defender -> Battle Phaseへ
+    }
+
+    public void ClickExitButton()
+    {
+        OnClickExitButton?.Invoke();
+    }
+
+    public void ClickInfoButton()
+    {
+        OnClickInfoButton?.Invoke();
     }
 
     public void ClickNextButton()
