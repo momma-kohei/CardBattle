@@ -2,16 +2,50 @@
 
 public class UIPresenter
 {
-    PlayerModel _player1Model;
-    PlayerModel _player2Model;
+    PlayerModel _playerModel1;
+    PlayerModel _playerModel2;
+    CardPresenter _cardPresenter;
+    PlayerUIView _playerUIView1;
+    PlayerUIView _playerUIView2;
+    UIView _uiView;
 
-    string _player1Name = "Player 1"; // プレイヤー1の名前
-    string _player2Name = "Player 2"; // プレイヤー2の名前
+    public UIView UIView { get { return _uiView; } }
 
-
-    public UIPresenter()
+    public UIPresenter(PlayerModel playerModel1, PlayerModel playerModel2, CardPresenter cardPresenter, UIView uiView, PlayerUIView playerUIView1, PlayerUIView playerUIView2)
     {
-        this._player1Model = new PlayerModel(_player1Name, null);
-        this._player2Model = new PlayerModel(_player2Name, null);
+        _playerModel1 = playerModel1;
+        _playerModel2 = playerModel2;
+        _cardPresenter = cardPresenter;
+        _playerUIView1 = playerUIView1;
+        _playerUIView2 = playerUIView2;
+        _uiView = uiView;
+        _uiView.OnClickNextButton += AttackerToDefender;
+    }
+
+    void AttackerToDefender()
+    {
+        Debug.Log("Defender Phase");
+        _uiView.OnClickNextButton -= AttackerToDefender;
+        _cardPresenter.DefenderPhase();
+        _uiView.OnClickNextButton += DefenderToBattle;
+    }
+
+    void DefenderToBattle()
+    {
+        Debug.Log("Battle Phase");
+        _uiView.OnClickNextButton -= DefenderToBattle;
+        _cardPresenter.BattlePhase();;
+        _playerUIView1.ShowHP(_playerModel1);
+        _playerUIView2.ShowHP(_playerModel2);
+        _uiView.OnClickNextButton += BattleToNextTurn;
+    }
+
+    void BattleToNextTurn()
+    {
+        Debug.Log("Attacker Phase");
+        _uiView.OnClickNextButton -= BattleToNextTurn;
+        _cardPresenter.EndTurn();
+        _cardPresenter.AttackerPhase();
+        _uiView.OnClickNextButton += AttackerToDefender;
     }
 }

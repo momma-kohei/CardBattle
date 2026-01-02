@@ -1,7 +1,6 @@
 ﻿using System;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.EventSystems;
 using TMPro;
 
 /// <summary>
@@ -9,25 +8,28 @@ using TMPro;
 /// </summary>
 public class CardView : MonoBehaviour // data -> display
 {
-    public event Action<CardView> OnCardClicked; // カードがクリックされたときのイベント
+    public event Action<CardView> OnClicked; // カードがクリックされたときのイベント
 
     // Modelから受け取ったデータを表示するためのUI要素
     [SerializeField] TextMeshProUGUI nameText = null;
     [SerializeField] TextMeshProUGUI powerText = null;
     [SerializeField] Image cardTexture = null;
-    CardModel _cardModel; // カードを作成した後に自身のモデルを保持するための変数
-    CardListView _cardListView; // ListViewのインスタンスを保持する変数
+    [SerializeField] Sprite cardTextureBack = null;
 
-    public CardModel CardModel => _cardModel;
-    public CardListView CardListView => _cardListView;
+    // やっぱりモデルを保持しておくことにする
+    CardModel _cardModel; // このカードのモデル情報を保持する変数
+    public CardModel CardModel => _cardModel; // カードモデルのプロパティ
 
-    bool _isSelected = false; // このカードが選択されているかどうかを示すフラグ
-    public bool IsSelected => _isSelected; // 選択フラグのプロパティ
+    // カードを浮かせる処理に関係する変数
+    //bool _isSelected = false; // このカードが選択されているかどうかを示すフラグ
+    //public bool IsSelected => _isSelected; // 選択フラグのプロパティ
 
     public void OnPointerClick() // カードがクリックされたときに呼ばれるメソッド
     {
-        Debug.Log($"{_cardModel.cardName}がクリックされました。");
-        OnCardClicked?.Invoke(this); // カードがクリックされたときにイベントを引き起こす
+        //Debug.Log($"{this.name}がクリックされました。");
+        OnClicked?.Invoke(this); // カードがクリックされたときにイベントを引き起こす
+
+        // カードを浮かせる処理に関係するコード
         //if (_isSelected)
         //{
         //    _isSelected = false;
@@ -40,18 +42,31 @@ public class CardView : MonoBehaviour // data -> display
         //}
     }
 
-    /// <summary>
-    /// カードモデルの情報をUIとして表示するメソッド
-    /// </summary>
-    /// <param name="cardModel"></param>
-    public void Show(CardModel _cardModel, CardListView _cardListView)
+    public void ShowCard(CardModel _cardModel, char cardState)
     {
-        if (nameText != null) nameText.text = _cardModel.cardName;
-        if (powerText != null) powerText.text = _cardModel.power.ToString();
-        if (cardTexture != null) cardTexture.sprite = _cardModel.cardTexture;
+        switch (cardState)
+        {
+            case 'F':
+                if (nameText != null) nameText.text = _cardModel.cardName;
+                if (powerText != null) powerText.text = _cardModel.power.ToString();
+                if (cardTexture != null) cardTexture.sprite = _cardModel.cardTexture;
+                break;
+            case 'B':
+                if (nameText != null) Destroy(nameText.gameObject);
+                if (powerText != null) Destroy(powerText.gameObject);
+                if (cardTexture != null) cardTexture.sprite = cardTextureBack;
+                break;
+            case 'E':
+                if (nameText != null) Destroy(nameText.gameObject);
+                if (powerText != null) Destroy(powerText.gameObject);
+                if (cardTexture != null) cardTexture.sprite = _cardModel.cardTexture;
+                break;
+            default:
+                Debug.LogError("Invalid card state. Use 'F', 'B', or 'E'.");
+                break;
+        }
         this._cardModel = _cardModel; // 引数で受け取ったカードモデルを保持
-        this._cardListView = _cardListView; // 引数で受け取ったListViewのインスタンスを保持
-        this.name = $"Card_{_cardModel.cardID}"; // わかりやすいようにオブジェクト名を設定
+        this.name = $"Card_{_cardModel.cardID}_{cardState}"; // わかりやすいようにオブジェクト名を設定
     }
 }
 

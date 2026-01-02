@@ -1,45 +1,52 @@
 ﻿using UnityEngine;
-using UnityEngine.UI;
-using TMPro;
+//using UnityEngine.EventSystems;
+using System;
 
 /// <summary>
 /// カードを除く情報をUIとして画面に表示するクラス
 /// </summary>
 public class UIView : MonoBehaviour
 {
-    [SerializeField] TextMeshProUGUI powerText1 = null;
-    [SerializeField] TextMeshProUGUI powerText2 = null;
-    [SerializeField] TextMeshProUGUI hpText1 = null;
-    [SerializeField] TextMeshProUGUI hpText2 = null;
-    [SerializeField] Image iconImage1 = null;
-    [SerializeField] Image iconImage2 = null;
-    UIPresenter _uiPresenter;
+    // ここいらないかも↓
 
-    int _maxHP = 30; // 最大体力
+    //[SerializeField] GameObject _turnEndButton = null; // ターン終了ボタンのUIオブジェクト
+    //[SerializeField] GameObject _exitButton = null; // ゲーム終了ボタンのUIオブジェクト
+    //[SerializeField] GameObject _infoButton = null; // 情報表示ボタンのUIオブジェクト
+    //[SerializeField] GameObject _nextButton = null; // NextボタンのUIオブジェクト
+
+    public event Action InitGameEvent; // ゲーム開始時の初期化イベント
+    public event Action OnClickTurnEndButton; // Battleボタンが押されたときのイベント
+    public event Action OnClickExitButton; // Exitボタンが押されたときのイベント
+    public event Action OnClickInfoButton; // Infoボタンが押されたときのイベント
+
+    public event Action OnClickNextButton; // Nextボタンが押されたときのイベント
 
     public void Start()
     {
-        _uiPresenter = new UIPresenter();
-        // このあたりはplayerModelから情報を取得して初期化する想定
-        ShowPower(true, 0); // プレイヤー１のパワーを初期化
-        ShowPower(false, 0); // プレイヤー２のパワーを初期化
-        ShowHP(true, _maxHP); // プレイヤー１の体力を初期化
-        ShowHP(false, _maxHP); // プレイヤー２の体力を初期化
+        InitGameEvent?.Invoke(); // ゲーム開始時の初期化イベントを発火
     }
 
-    public void ShowPower(bool isP1, int _number) // 合計パワーを表示するメソッド
+    public void ClickTurnEndButton()
     {
-        if (isP1) if (powerText1 != null) powerText1.text = _number.ToString();
-        else if (powerText2 != null) powerText2.text = _number.ToString();
+        OnClickTurnEndButton?.Invoke(); // Battleボタンが押されたときのイベントを発火
+
+        // Phaseによって変化
+        // Attacker -> 対戦相手のDefender Phaseへ
+        // Defender -> Battle Phaseへ
     }
-    public void ShowHP(bool isP1, int _number) // 残り体力を表示するメソッド
+
+    public void ClickExitButton()
     {
-        if (isP1) if (hpText1 != null) hpText1.text = _number.ToString();
-        else if (hpText2 != null) hpText2.text = _number.ToString();
+        OnClickExitButton?.Invoke();
     }
-    public void ShowIcon(bool isP1, Sprite _iconSprite) // アイコンを表示するメソッド
+
+    public void ClickInfoButton()
     {
-        if (isP1) if (iconImage1 != null) iconImage1.sprite = _iconSprite;
-        else if (iconImage2 != null) iconImage2.sprite = _iconSprite;
+        OnClickInfoButton?.Invoke();
+    }
+
+    public void ClickNextButton()
+    {
+        OnClickNextButton?.Invoke(); // Nextボタンが押されたときのイベントを発火
     }
 }
