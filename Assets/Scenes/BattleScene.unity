@@ -2154,10 +2154,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 494b124a4aafd3d4d8923be3a72e5689, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UIView
-  _turnEndButton: {fileID: 2014485670}
-  _exitButton: {fileID: 250711769}
-  _infoButton: {fileID: 1783931477}
-  _nextButton: {fileID: 1095893653}
 --- !u!1 &1042613656
 GameObject:
   m_ObjectHideFlags: 0

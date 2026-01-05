@@ -10,7 +10,7 @@ public class CardModel // 設定資料集CardDatasを参照して実際のカー
     public int cardID; // カードID（属性番号と序列番号による）
     public string cardName; // 名前
     public int power; // カードのパワー（攻撃力）
-    public ElementType element; // 属性（enum:選択式になる）
+    public EleType element; // 属性（enum:選択式になる）
     public Sprite cardTexture; // 画像
     public string description; // 説明
     public bool isSelected = false; // 選択されているかどうかのフラグ

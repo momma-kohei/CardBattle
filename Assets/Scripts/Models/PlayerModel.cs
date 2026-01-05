@@ -135,7 +135,7 @@ public class PlayerModel
     /// </summary>
     /// <returns>属性</returns>
     /// <exception cref="InvalidOperationException"></exception>
-    public ElementType GetAreaElement()
+    public EleType GetAreaElement()
     {
         if (this._area.Count == 0) throw new InvalidOperationException("エリアにカードがありません。");
         else return this._area[0].element; // エリア内の先頭カードの属性を返す
