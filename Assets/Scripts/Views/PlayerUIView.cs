@@ -1,4 +1,4 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
@@ -9,7 +9,7 @@ public class PlayerUIView : MonoBehaviour
     [SerializeField] Image _iconImage = null;
 
     /// <summary>
-    /// PlayerModel‚Ìî•ñ‚ğ‚à‚Æ‚Éƒpƒ[‚ğ•\¦‚·‚éƒƒ\ƒbƒh
+    /// PlayerModelã®æƒ…å ±ã‚’ã‚‚ã¨ã«ãƒ‘ãƒ¯ãƒ¼ã‚’è¡¨ç¤ºã™ã‚‹ãƒ¡ã‚½ãƒƒãƒ‰
     /// </summary>
     /// <param name="_playerModel">PlayerModel</param>
     public void ShowPower(PlayerModel _playerModel)
@@ -18,16 +18,16 @@ public class PlayerUIView : MonoBehaviour
     }
 
     /// <summary>
-    /// ”’l‚ğw’è‚µ‚Äƒpƒ[‚ğã‘‚«‚·‚éƒƒ\ƒbƒh
+    /// æ•°å€¤ã‚’æŒ‡å®šã—ã¦ãƒ‘ãƒ¯ãƒ¼ã‚’ä¸Šæ›¸ãã™ã‚‹ãƒ¡ã‚½ãƒƒãƒ‰
     /// </summary>
-    /// <param name="_num">”’l</param>
+    /// <param name="_num">æ•°å€¤</param>
     public void ShowPowerNum(int _num)
     {
         _powerText.text = _num.ToString();
     }
 
     /// <summary>
-    /// PlayerModel‚Ìî•ñ‚ğ‚à‚Æ‚ÉHP‚ğ•\¦‚·‚éƒƒ\ƒbƒh
+    /// PlayerModelã®æƒ…å ±ã‚’ã‚‚ã¨ã«HPã‚’è¡¨ç¤ºã™ã‚‹ãƒ¡ã‚½ãƒƒãƒ‰
     /// </summary>
     /// <param name="_playerModel">PlayerModel</param>
     public void ShowHP(PlayerModel _playerModel)
@@ -36,7 +36,7 @@ public class PlayerUIView : MonoBehaviour
     }
 
     /// <summary>
-    /// PlayerModel‚Ìî•ñ‚ğ‚à‚Æ‚ÉƒAƒCƒRƒ“‚ğ•\¦‚·‚éƒƒ\ƒbƒh
+    /// PlayerModelã®æƒ…å ±ã‚’ã‚‚ã¨ã«ã‚¢ã‚¤ã‚³ãƒ³ã‚’è¡¨ç¤ºã™ã‚‹ãƒ¡ã‚½ãƒƒãƒ‰
     /// </summary>
     /// <param name="_playerModel">PlayerModel</param>
     public void ShowIcon(PlayerModel _playerModel)

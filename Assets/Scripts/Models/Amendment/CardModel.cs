@@ -1,29 +1,29 @@
-using System;
+ï»¿using System;
 using UnityEngine;
 
-// C³”Å
+// ä¿®æ­£ç‰ˆ
 public class CardInfoModel // -> CardModel
 {
-    // ƒJ[ƒhID
+    // ã‚«ãƒ¼ãƒ‰ID
     int _id;
 
-    // ID‚©‚çˆêˆÓ‚É’è‚Ü‚éî•ñ
+    // IDã‹ã‚‰ä¸€æ„ã«å®šã¾ã‚‹æƒ…å ±
     string _name;
     EleType _type;
     int _power;
 
-    // ScriptableObject‚©‚çæ“¾‚·‚éî•ñ
+    // ScriptableObjectã‹ã‚‰å–å¾—ã™ã‚‹æƒ…å ±
     Sprite _texture;
     string _description;
 
-    public CardInfoModel(int id) // ƒRƒ“ƒXƒgƒ‰ƒNƒ^ // -> CardModel
+    public CardInfoModel(int id) // ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ // -> CardModel
     {
         if (!IsVarid(id))
         {
-            throw new ArgumentOutOfRangeException("id"); // ID‚ª”ÍˆÍŠO‚Ìê‡‚Í—áŠO‚ğ“Š‚°‚é
+            throw new ArgumentOutOfRangeException("id"); // IDãŒç¯„å›²å¤–ã®å ´åˆã¯ä¾‹å¤–ã‚’æŠ•ã’ã‚‹
         }
         
-        _id = id; // ID‚ª”ÍˆÍ“à‚Ìê‡‚Ì‚İ”’l‚ğID‚ÉŠi”[
+        _id = id; // IDãŒç¯„å›²å†…ã®å ´åˆã®ã¿æ•°å€¤ã‚’IDã«æ ¼ç´
 
         _name = GuessName(id);
         _type = GuessType(id);
@@ -58,60 +58,60 @@ public class CardInfoModel // -> CardModel
         return _texture;
     }
 
-    // ----------“à•”ƒƒ\ƒbƒh----------
+    // ----------å†…éƒ¨ãƒ¡ã‚½ãƒƒãƒ‰----------
 
-    bool IsVarid(int id) // —áŠOˆ—
+    bool IsVarid(int id) // ä¾‹å¤–å‡¦ç†
     {
         return (id >= 10 && id <= 39 );
     }
-    string GuessName(int id) // ID‚©‚çƒJ[ƒh–¼‘O‚ğæ“¾
+    string GuessName(int id) // IDã‹ã‚‰ã‚«ãƒ¼ãƒ‰åå‰ã‚’å–å¾—
     {
         switch (id % 10)
         {
-            case 0: return "q”L";
-            case 1: return "ˆê”Ê”L";
-            case 2: return "”L•ºm";
-            case 3: return "”Lím";
-            case 4: return "”L–‚“±m";
-            case 5: return "”L‹Rm";
-            case 6: return "”L«ŒR";
-            case 7: return "”L—EÒ";
-            case 8: return "”L‰¤";
-            case 9: return "ƒ‰ƒCƒIƒ“";
+            case 0: return "å­çŒ«";
+            case 1: return "ä¸€èˆ¬çŒ«";
+            case 2: return "çŒ«å…µå£«";
+            case 3: return "çŒ«æˆ¦å£«";
+            case 4: return "çŒ«é­”å°å£«";
+            case 5: return "çŒ«é¨å£«";
+            case 6: return "çŒ«å°†è»";
+            case 7: return "çŒ«å‹‡è€…";
+            case 8: return "çŒ«ç‹";
+            case 9: return "ãƒ©ã‚¤ã‚ªãƒ³";
         }
-        return "ˆá–@”L";
+        return "é•æ³•çŒ«";
     }
 
-    EleType GuessType(int id) // ID‚©‚ç‘®«‚ğæ“¾
+    EleType GuessType(int id) // IDã‹ã‚‰å±æ€§ã‚’å–å¾—
     {
         return (EleType) (id / 10);
     }
 
-    int GuessPower(int id) // ID‚©‚çƒpƒ[‚ğæ“¾
+    int GuessPower(int id) // IDã‹ã‚‰ãƒ‘ãƒ¯ãƒ¼ã‚’å–å¾—
     {
         return (int) (id % 10) + 1;
     }
 
     Sprite GetTexture(int id)
     {
-        CardData cardData = Resources.Load<CardData>("CardDatas/Card" + id); // êŠ‚Æƒtƒ@ƒCƒ‹–¼‚Åƒ[ƒh‚·‚éƒf[ƒ^‚ğw’è
+        CardData cardData = Resources.Load<CardData>("CardDatas/Card" + id); // å ´æ‰€ã¨ãƒ•ã‚¡ã‚¤ãƒ«åã§ãƒ­ãƒ¼ãƒ‰ã™ã‚‹ãƒ‡ãƒ¼ã‚¿ã‚’æŒ‡å®š
         return cardData.cardTexture;
     }
 
     string GetDescription(int id)
     {
-        CardData cardData = Resources.Load<CardData>("CardDatas/Card" + id); // êŠ‚Æƒtƒ@ƒCƒ‹–¼‚Åƒ[ƒh‚·‚éƒf[ƒ^‚ğw’è
+        CardData cardData = Resources.Load<CardData>("CardDatas/Card" + id); // å ´æ‰€ã¨ãƒ•ã‚¡ã‚¤ãƒ«åã§ãƒ­ãƒ¼ãƒ‰ã™ã‚‹ãƒ‡ãƒ¼ã‚¿ã‚’æŒ‡å®š
         return cardData.description;
     }
 }
 
 /// <summary>
-/// ‘®«‚Ìí—Ş‚ğ’è‹`‚·‚é—ñ‹“Œ^
+/// å±æ€§ã®ç¨®é¡ã‚’å®šç¾©ã™ã‚‹åˆ—æŒ™å‹
 /// </summary>
 public enum EleType
 {
-    Fire, // ‰Î‘®«
-    Water, // …‘®«
-    Grass, // ‘‘®«Gƒ|ƒPƒ‚ƒ“‚É•í‚Á‚Ä‘‚ğGrass‚Æ‚µ‚½
-    None //‘®«–¢İ’è
+    Fire, // ç«å±æ€§
+    Water, // æ°´å±æ€§
+    Grass, // è‰å±æ€§ï¼›ãƒã‚±ãƒ¢ãƒ³ã«å€£ã£ã¦è‰ã‚’Grassã¨ã—ãŸ
+    None //å±æ€§æœªè¨­å®š
 }

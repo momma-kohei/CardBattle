@@ -1,38 +1,38 @@
-using System;
+ï»¿using System;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class DeckModel // ‹¤’Ê‚ÌƒfƒbƒL‚Ìƒ‚ƒfƒ‹
+public class DeckModel // å…±é€šã®ãƒ‡ãƒƒã‚­ã®ãƒ¢ãƒ‡ãƒ«
 {
-    List<CardModel> _deck;      // ƒfƒbƒL‚ÌƒJ[ƒhƒŠƒXƒg
-    List<CardModel> _trash;     // Ì‚ÄD‚ÌƒJ[ƒhƒŠƒXƒg
-    public List<CardModel> Deck { get { return _deck; } } // ƒfƒbƒL‚ÌƒvƒƒpƒeƒB
-    public List<CardModel> Trash { get { return _trash; } } // Ì‚ÄD‚ÌƒvƒƒpƒeƒB
+    List<CardModel> _deck;      // ãƒ‡ãƒƒã‚­ã®ã‚«ãƒ¼ãƒ‰ãƒªã‚¹ãƒˆ
+    List<CardModel> _trash;     // æ¨ã¦æœ­ã®ã‚«ãƒ¼ãƒ‰ãƒªã‚¹ãƒˆ
+    public List<CardModel> Deck { get { return _deck; } } // ãƒ‡ãƒƒã‚­ã®ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£
+    public List<CardModel> Trash { get { return _trash; } } // æ¨ã¦æœ­ã®ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£
 
-    public DeckModel() // ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+    public DeckModel() // ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
     {
         _deck = new List<CardModel>();
         _trash = new List<CardModel>();
 
-        InitializeDeck(); // ƒfƒbƒL‚ğ‰Šú‰»
+        InitializeDeck(); // ãƒ‡ãƒƒã‚­ã‚’åˆæœŸåŒ–
     }
 
-    // ƒfƒbƒL“à•”‚ÉŠÖ‚·‚éƒƒ\ƒbƒh
-    void InitializeDeck() // ƒfƒbƒL‚ğ‰Šú‰»‚·‚éƒƒ\ƒbƒhi‘®«1-3AŠe9–‡‚¸‚ÂAƒJ[ƒhID:11-19,21-29,31-39j
+    // ãƒ‡ãƒƒã‚­å†…éƒ¨ã«é–¢ã™ã‚‹ãƒ¡ã‚½ãƒƒãƒ‰
+    void InitializeDeck() // ãƒ‡ãƒƒã‚­ã‚’åˆæœŸåŒ–ã™ã‚‹ãƒ¡ã‚½ãƒƒãƒ‰ï¼ˆå±æ€§1-3ã€å„9æšãšã¤ã€ã‚«ãƒ¼ãƒ‰ID:11-19,21-29,31-39ï¼‰
     {
         for (int i = 1; i <= 3; i++) for (int j = 1; j <= 9; j++) _deck.Add(new CardModel(i * 10 + j));
-        ShuffleDeck(); // ƒfƒbƒL‚ğƒVƒƒƒbƒtƒ‹
+        ShuffleDeck(); // ãƒ‡ãƒƒã‚­ã‚’ã‚·ãƒ£ãƒƒãƒ•ãƒ«
     }
 
-    public void ReloadDeck() // Ì‚ÄD‚ğƒfƒbƒL‚É–ß‚µ‚ÄƒVƒƒƒbƒtƒ‹‚·‚éƒƒ\ƒbƒh
+    public void ReloadDeck() // æ¨ã¦æœ­ã‚’ãƒ‡ãƒƒã‚­ã«æˆ»ã—ã¦ã‚·ãƒ£ãƒƒãƒ•ãƒ«ã™ã‚‹ãƒ¡ã‚½ãƒƒãƒ‰
     {
-        _deck = new List<CardModel>(_trash); // Ì‚ÄD‚ğƒfƒbƒL‚É–ß‚·
-        _trash.Clear(); // Ì‚ÄDƒŠƒXƒg‚ğƒNƒŠƒA
-        ShuffleDeck(); // ƒfƒbƒL‚ğƒVƒƒƒbƒtƒ‹
+        _deck = new List<CardModel>(_trash); // æ¨ã¦æœ­ã‚’ãƒ‡ãƒƒã‚­ã«æˆ»ã™
+        _trash.Clear(); // æ¨ã¦æœ­ãƒªã‚¹ãƒˆã‚’ã‚¯ãƒªã‚¢
+        ShuffleDeck(); // ãƒ‡ãƒƒã‚­ã‚’ã‚·ãƒ£ãƒƒãƒ•ãƒ«
     }
 
-    void ShuffleDeck() // ƒfƒbƒL‚ğƒVƒƒƒbƒtƒ‹‚·‚éƒƒ\ƒbƒh
+    void ShuffleDeck() // ãƒ‡ãƒƒã‚­ã‚’ã‚·ãƒ£ãƒƒãƒ•ãƒ«ã™ã‚‹ãƒ¡ã‚½ãƒƒãƒ‰
     {
         for (int i = 0; i < _deck.Count; i++)
         {
@@ -43,20 +43,20 @@ public class DeckModel // ‹¤’Ê‚ÌƒfƒbƒL‚Ìƒ‚ƒfƒ‹
         }
     }
 
-    // ƒfƒbƒL‘€ì‚ÉŠÖ‚·‚éƒƒ\ƒbƒh
-    public CardModel PushCard() // ƒfƒbƒL‚©‚çƒJ[ƒh‚ğ1–‡ˆø‚­ƒƒ\ƒbƒh
+    // ãƒ‡ãƒƒã‚­æ“ä½œã«é–¢ã™ã‚‹ãƒ¡ã‚½ãƒƒãƒ‰
+    public CardModel PushCard() // ãƒ‡ãƒƒã‚­ã‹ã‚‰ã‚«ãƒ¼ãƒ‰ã‚’1æšå¼•ããƒ¡ã‚½ãƒƒãƒ‰
     {
-        if (_deck.Count == 0) ReloadDeck(); // ƒfƒbƒL‚ª‹ó‚Ìê‡AÌ‚ÄD‚ğƒfƒbƒL‚É–ß‚µ‚ÄƒVƒƒƒbƒtƒ‹
-        CardModel drawnCard = _deck[0]; // ƒfƒbƒL‚Ìˆê”Ôã‚ÌƒJ[ƒh‚ğæ“¾
-        _deck.RemoveAt(0); // æ“¾‚µ‚½ƒJ[ƒh‚ğƒfƒbƒL‚©‚çíœ
-        return drawnCard; // ˆø‚¢‚½ƒJ[ƒh‚ğ•Ô‚·
+        if (_deck.Count == 0) ReloadDeck(); // ãƒ‡ãƒƒã‚­ãŒç©ºã®å ´åˆã€æ¨ã¦æœ­ã‚’ãƒ‡ãƒƒã‚­ã«æˆ»ã—ã¦ã‚·ãƒ£ãƒƒãƒ•ãƒ«
+        CardModel drawnCard = _deck[0]; // ãƒ‡ãƒƒã‚­ã®ä¸€ç•ªä¸Šã®ã‚«ãƒ¼ãƒ‰ã‚’å–å¾—
+        _deck.RemoveAt(0); // å–å¾—ã—ãŸã‚«ãƒ¼ãƒ‰ã‚’ãƒ‡ãƒƒã‚­ã‹ã‚‰å‰Šé™¤
+        return drawnCard; // å¼•ã„ãŸã‚«ãƒ¼ãƒ‰ã‚’è¿”ã™
     }
 
-    public void PullTrashCard(CardModel card) // ƒJ[ƒh‚ğÌ‚ÄD‚É’Ç‰Á‚·‚éƒƒ\ƒbƒh
+    public void PullTrashCard(CardModel card) // ã‚«ãƒ¼ãƒ‰ã‚’æ¨ã¦æœ­ã«è¿½åŠ ã™ã‚‹ãƒ¡ã‚½ãƒƒãƒ‰
     {
-        _trash.Add(card); // Ì‚ÄDƒŠƒXƒg‚ÉƒJ[ƒh‚ğ’Ç‰Á
+        _trash.Add(card); // æ¨ã¦æœ­ãƒªã‚¹ãƒˆã«ã‚«ãƒ¼ãƒ‰ã‚’è¿½åŠ 
     }
 
-    // ‚»‚Ì‘¼‚ÌƒfƒbƒLŠÖ˜A‚Ìƒƒ\ƒbƒh‚ğ‚±‚±‚É’Ç‰Á‰Â”\
-    public void PrintDeckNum() { Debug.Log("ƒfƒbƒL–‡”: " + _deck.Count + " Ì‚ÄD–‡”: " + _trash.Count); }
+    // ãã®ä»–ã®ãƒ‡ãƒƒã‚­é–¢é€£ã®ãƒ¡ã‚½ãƒƒãƒ‰ã‚’ã“ã“ã«è¿½åŠ å¯èƒ½
+    public void PrintDeckNum() { Debug.Log("ãƒ‡ãƒƒã‚­æšæ•°: " + _deck.Count + " æ¨ã¦æœ­æšæ•°: " + _trash.Count); }
 }

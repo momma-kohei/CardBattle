@@ -1,4 +1,4 @@
-using System;
+ï»¿using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -12,15 +12,15 @@ public class CardInfoView : MonoBehaviour
 
     CardInfoModel _cardModel;
 
-    public event Action<CardInfoView> OnCardClicked; // ƒJ[ƒh‚ªƒNƒŠƒbƒN‚³‚ê‚½‚Æ‚«‚ÌƒCƒxƒ“ƒg
+    public event Action<CardInfoView> OnCardClicked; // ã‚«ãƒ¼ãƒ‰ãŒã‚¯ãƒªãƒƒã‚¯ã•ã‚ŒãŸã¨ãã®ã‚¤ãƒ™ãƒ³ãƒˆ
 
-    public void OnPointerClick() // ƒJ[ƒhƒNƒŠƒbƒN‚³‚ê‚½‚Æ‚«‚ÉŒÄ‚Î‚ê‚éƒƒ\ƒbƒh
+    public void OnPointerClick() // ã‚«ãƒ¼ãƒ‰ã‚¯ãƒªãƒƒã‚¯ã•ã‚ŒãŸã¨ãã«å‘¼ã°ã‚Œã‚‹ãƒ¡ã‚½ãƒƒãƒ‰
     {
-        OnCardClicked?.Invoke(this); // ƒCƒxƒ“ƒg‚ğ”­‰Î
+        OnCardClicked?.Invoke(this); // ã‚¤ãƒ™ãƒ³ãƒˆã‚’ç™ºç«
     }
 
     /// <summary>
-    /// ƒJ[ƒh‚Ìƒ‚ƒfƒ‹‚ğæ“¾
+    /// ã‚«ãƒ¼ãƒ‰ã®ãƒ¢ãƒ‡ãƒ«ã‚’å–å¾—
     /// </summary>
     /// <returns></returns>
     public CardInfoModel GetModel()
@@ -29,7 +29,7 @@ public class CardInfoView : MonoBehaviour
     }
 
     /// <summary>
-    /// ƒJ[ƒh‚ğ•\–Ê‚Å•\¦
+    /// ã‚«ãƒ¼ãƒ‰ã‚’è¡¨é¢ã§è¡¨ç¤º
     /// </summary>
     /// <param name="card"></param>
     /// <returns></returns>
@@ -52,7 +52,7 @@ public class CardInfoView : MonoBehaviour
     }
 
     /// <summary>
-    /// ƒJ[ƒh‚ğ— –Ê‚Å•\¦
+    /// ã‚«ãƒ¼ãƒ‰ã‚’è£é¢ã§è¡¨ç¤º
     /// </summary>
     /// <param name="card"></param>
     /// <returns></returns>
@@ -75,7 +75,7 @@ public class CardInfoView : MonoBehaviour
     }
 
     /// <summary>
-    /// ƒJ[ƒh‚ğ‘®«–Ê‚Å•\¦
+    /// ã‚«ãƒ¼ãƒ‰ã‚’å±æ€§é¢ã§è¡¨ç¤º
     /// </summary>
     /// <param name="card"></param>
     /// <returns></returns>
@@ -97,14 +97,14 @@ public class CardInfoView : MonoBehaviour
         return false;
     }
 
-    // ----------“à•”ƒƒ\ƒbƒh----------
+    // ----------å†…éƒ¨ãƒ¡ã‚½ãƒƒãƒ‰----------
 
-    bool SetCardInfo(CardInfoModel card, string how) // ‹¤’Ê‚Ì“®ì
+    bool SetCardInfo(CardInfoModel card, string how) // å…±é€šã®å‹•ä½œ
     {
-        _cardModel = card; // ˆø”‚Åó‚¯æ‚Á‚½ƒJ[ƒhƒ‚ƒfƒ‹‚ğ•Û
+        _cardModel = card; // å¼•æ•°ã§å—ã‘å–ã£ãŸã‚«ãƒ¼ãƒ‰ãƒ¢ãƒ‡ãƒ«ã‚’ä¿æŒ
         if (how == "Front" || how == "Back" || how == "Ele")
         {
-            this.name = $"Card_{_cardModel.GetID()}_{how}"; // ƒIƒuƒWƒFƒNƒg–¼‚ğİ’è
+            this.name = $"Card_{_cardModel.GetID()}_{how}"; // ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆåã‚’è¨­å®š
             return true;
         }
         return false;

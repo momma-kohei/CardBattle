@@ -1,4 +1,4 @@
-using cardLists;
+ï»¿using cardLists;
 using player;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
@@ -11,24 +11,24 @@ public class TableModel
     Sprite _icon1;
     Sprite _icon2;
 
-    public TableModel() // ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+    public TableModel() // ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
     {
         _deck = new Deck();
         _p1 = new PlayerModel_Re("Player1", _icon1, _deck);
         _p2 = new PlayerModel_Re("Player2", _icon2, _deck);
     }
 
-    public bool TurnStart() // ƒ^[ƒ“ŠJn‚Ì€”õ
+    public bool TurnStart() // ã‚¿ãƒ¼ãƒ³é–‹å§‹ã®æº–å‚™
     {
         if (_p1.GetPlayerStatus().GetHitPoint() > 0 && _p2.GetPlayerStatus().GetHitPoint() > 0)
         {
-            // g—pÏ‚İƒJ[ƒh‚ğˆ—
+            // ä½¿ç”¨æ¸ˆã¿ã‚«ãƒ¼ãƒ‰ã‚’å‡¦ç†
             _p1.Trash();
             _p2.Trash();
-            // UçŒğ‘Ö
+            // æ”»å®ˆäº¤æ›¿
             _p1.GetPlayerStatus().SwitchPhase();
             _p2.GetPlayerStatus().SwitchPhase();
-            // èD‚Ì•â[
+            // æ‰‹æœ­ã®è£œå……
             _p1.HandFill();
             _p2.HandFill();
             return true;
@@ -38,13 +38,13 @@ public class TableModel
 
     public bool PhaseBattle()
     {
-        // View‚Ì‘€ì‚Å—¼‘¤‚ÌêD‚ªo‘µ‚Á‚½Œã‚ÉŒÄ‚Î‚ê‚é
+        // Viewã®æ“ä½œã§ä¸¡å´ã®å ´æœ­ãŒå‡ºæƒã£ãŸå¾Œã«å‘¼ã°ã‚Œã‚‹
         if (PhaseAtk())
         {
             if (PhaseDef())
             {
-                int _damage = BattleSystem.CalcDamage(GetAreaAtk(), GetAreaDef()); // ƒ_ƒ[ƒW‚ğŒvZ
-                GetDefender().GetPlayerStatus().TakeDamage(_damage); // ƒ_ƒ[ƒW‚ğ”½‰f
+                int _damage = BattleSystem.CalcDamage(GetAreaAtk(), GetAreaDef()); // ãƒ€ãƒ¡ãƒ¼ã‚¸ã‚’è¨ˆç®—
+                GetDefender().GetPlayerStatus().TakeDamage(_damage); // ãƒ€ãƒ¡ãƒ¼ã‚¸ã‚’åæ˜ 
                 return true;
             }
         }
@@ -63,11 +63,11 @@ public class TableModel
 
 
 
-    // ----------“à•”ƒƒ\ƒbƒh----------
+    // ----------å†…éƒ¨ãƒ¡ã‚½ãƒƒãƒ‰----------
 
     bool PhaseAtk()
     {
-        // êD‚ğ‘I‘ğ‚·‚éˆ—‚ÍView‚ÅŠ®—¹‚µ‚Ä‚¢‚é
+        // å ´æœ­ã‚’é¸æŠã™ã‚‹å‡¦ç†ã¯Viewã§å®Œäº†ã—ã¦ã„ã‚‹
 
         PlayerModel_Re _attacker = GetAttacker();
         if (_attacker.GetArea().GetSize() > 0)
@@ -79,7 +79,7 @@ public class TableModel
 
     bool PhaseDef()
     {
-        // êD‚ğ‘I‘ğ‚·‚éˆ—‚ÍView‚ÅŠ®—¹‚µ‚Ä‚¢‚é
+        // å ´æœ­ã‚’é¸æŠã™ã‚‹å‡¦ç†ã¯Viewã§å®Œäº†ã—ã¦ã„ã‚‹
 
         PlayerModel_Re _defender = GetDefender();
         if (_defender.GetArea().GetSize() > 0)
@@ -99,18 +99,18 @@ public class TableModel
         return GetDefender().GetArea();
     }
 
-    void CoinToss() // æŒã‚ğŒˆ’è
+    void CoinToss() // å…ˆå¾Œã‚’æ±ºå®š
     {
         BattleSystem.CoinToss(_p1, _p2);
     }
 
-    PlayerModel_Re GetAttacker() // ƒAƒ^ƒbƒJ[‚ğæ“¾
+    PlayerModel_Re GetAttacker() // ã‚¢ã‚¿ãƒƒã‚«ãƒ¼ã‚’å–å¾—
     {
         if (_p1.GetPlayerStatus().GetIsAtk()) return _p1;
         else return _p2;
     }
 
-    PlayerModel_Re GetDefender() // ƒfƒBƒtƒFƒ“ƒ_[‚ğæ“¾
+    PlayerModel_Re GetDefender() // ãƒ‡ã‚£ãƒ•ã‚§ãƒ³ãƒ€ãƒ¼ã‚’å–å¾—
     {
         if (!_p1.GetPlayerStatus().GetIsAtk()) return _p1;
         else return _p2;

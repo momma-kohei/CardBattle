@@ -1,18 +1,18 @@
-using NUnit.Framework;
+ï»¿using NUnit.Framework;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerCardView : MonoBehaviour
 {
-    [SerializeField] CardView _cardPrefab; // ƒJ[ƒhƒvƒŒƒnƒu‚ÌQÆ
-    [SerializeField] Transform _handTransform; // èD‚ğ•\¦‚·‚éTransform‚ÌQÆ
-    [SerializeField] Transform _areaTransform; // êD‚ğ•\¦‚·‚éTransform‚ÌQÆ
+    [SerializeField] CardView _cardPrefab; // ã‚«ãƒ¼ãƒ‰ãƒ—ãƒ¬ãƒãƒ–ã®å‚ç…§
+    [SerializeField] Transform _handTransform; // æ‰‹æœ­ã‚’è¡¨ç¤ºã™ã‚‹Transformã®å‚ç…§
+    [SerializeField] Transform _areaTransform; // å ´æœ­ã‚’è¡¨ç¤ºã™ã‚‹Transformã®å‚ç…§
 
-    public Transform HandTransform { get { return _handTransform; } } // èD•\¦Transform‚ÌƒvƒƒpƒeƒB
-    public Transform AreaTransform { get { return _areaTransform; } } // êD•\¦Transform‚ÌƒvƒƒpƒeƒB
+    public Transform HandTransform { get { return _handTransform; } } // æ‰‹æœ­è¡¨ç¤ºTransformã®ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£
+    public Transform AreaTransform { get { return _areaTransform; } } // å ´æœ­è¡¨ç¤ºTransformã®ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£
 
     /// <summary>
-    /// PlayerModel‚Ì(Hand/Area)‚ğó‘Ô‚ğw’è‚µ‚Ä•\¦‚·‚éƒƒ\ƒbƒh
+    /// PlayerModelã®(Hand/Area)ã‚’çŠ¶æ…‹ã‚’æŒ‡å®šã—ã¦è¡¨ç¤ºã™ã‚‹ãƒ¡ã‚½ãƒƒãƒ‰
     /// </summary>
     /// <param name="_playerModel">PlayerModel</param>
     /// <param name="_cardPlace">"Hand" or "Area"</param>
@@ -43,19 +43,19 @@ public class PlayerCardView : MonoBehaviour
                 case 'F':
                     {
                         CardView _card = Instantiate(_cardPrefab, _transform);
-                        _card.ShowCard(_cardModel, 'F'); // •\–Ê‚ğ•\¦
+                        _card.ShowCard(_cardModel, 'F'); // è¡¨é¢ã‚’è¡¨ç¤º
                         break;
                     }
                 case 'B':
                     {
                         CardView _card = Instantiate(_cardPrefab, _transform);
-                        _card.ShowCard(_cardModel, 'B'); // — –Ê‚ğ•\¦
+                        _card.ShowCard(_cardModel, 'B'); // è£é¢ã‚’è¡¨ç¤º
                         break;
                     }
                 case 'E':
                     {
                         CardView _card = Instantiate(_cardPrefab, _transform);
-                        _card.ShowCard(_cardModel, 'E'); // ‘®«–Ê‚ğ•\¦
+                        _card.ShowCard(_cardModel, 'E'); // å±æ€§é¢ã‚’è¡¨ç¤º
                         break;
                     }
                 default:
@@ -69,9 +69,9 @@ public class PlayerCardView : MonoBehaviour
 
 
 
-    // ‘I‘ğ‚³‚ê‚½ƒJ[ƒh‚ğ•‚‚©‚¹‚éˆ—‚ğÀ‘•
-    // ‚½‚¾•K{‚Å‚Í‚È‚¢‚½‚ßŒã‰ñ‚µ
-    //public void FloatHand(PlayerModel _playerModel) // ƒvƒŒƒCƒ„[‚P‚ÌèD‚Å‘I‘ğ‚³‚ê‚Ä‚¢‚éƒJ[ƒh‚ğ•‚‚©‚¹‚éƒƒ\ƒbƒh
+    // é¸æŠã•ã‚ŒãŸã‚«ãƒ¼ãƒ‰ã‚’æµ®ã‹ã›ã‚‹å‡¦ç†ã‚’å®Ÿè£…
+    // ãŸã å¿…é ˆã§ã¯ãªã„ãŸã‚å¾Œå›ã—
+    //public void FloatHand(PlayerModel _playerModel) // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ï¼‘ã®æ‰‹æœ­ã§é¸æŠã•ã‚Œã¦ã„ã‚‹ã‚«ãƒ¼ãƒ‰ã‚’æµ®ã‹ã›ã‚‹ãƒ¡ã‚½ãƒƒãƒ‰
     //{
     //    if (_playerModel.Area.Count > 0)
     //    {
@@ -94,7 +94,7 @@ public class PlayerCardView : MonoBehaviour
     //        {
     //            _cardListView.MoveHand1(_handCardModel, false);
     //        }
-    //        Debug.Log("Area1‚ÌƒŠƒXƒg‚ÉƒJ[ƒh‚ª‚ ‚è‚Ü‚¹‚ñB");
+    //        Debug.Log("Area1ã®ãƒªã‚¹ãƒˆã«ã‚«ãƒ¼ãƒ‰ãŒã‚ã‚Šã¾ã›ã‚“ã€‚");
     //    }
     //}
 }

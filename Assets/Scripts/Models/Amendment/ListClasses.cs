@@ -1,37 +1,37 @@
-using System;
+ï»¿using System;
 using System.Collections.Generic;
 
 namespace cardLists
 {
-    public class Deck // RDƒNƒ‰ƒX
+    public class Deck // å±±æœ­ã‚¯ãƒ©ã‚¹
     {
         List<CardInfoModel> _deck;
         List<CardInfoModel> _trash;
 
-        public Deck() // ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+        public Deck() // ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
         {
             _deck = new List<CardInfoModel>();
             InitDeck();
         }
 
         /// <summary>
-        /// RD‚©‚çƒJ[ƒh‚ğ‚P–‡ƒhƒ[
+        /// å±±æœ­ã‹ã‚‰ã‚«ãƒ¼ãƒ‰ã‚’ï¼‘æšãƒ‰ãƒ­ãƒ¼
         /// </summary>
         /// <returns></returns>
         public CardInfoModel Draw()
         {
             while (_deck.Count > 0)
-            if (_deck.Count == 0) ReloadDeck(); // RD‚ª‹ó‚Ìê‡CƒŠƒ[ƒh
-            CardInfoModel drawn = _deck[0]; // RD‚Ìˆê”Ôã‚ÌƒJ[ƒh‚ğæ“¾
-            _deck.RemoveAt(0); // æ“¾‚µ‚½ƒJ[ƒh‚ğRD‚©‚çíœ
-            return drawn; // ƒhƒ[‚µ‚½ƒJ[ƒh‚ğ•Ô‚·
+            if (_deck.Count == 0) ReloadDeck(); // å±±æœ­ãŒç©ºã®å ´åˆï¼Œãƒªãƒ­ãƒ¼ãƒ‰
+            CardInfoModel drawn = _deck[0]; // å±±æœ­ã®ä¸€ç•ªä¸Šã®ã‚«ãƒ¼ãƒ‰ã‚’å–å¾—
+            _deck.RemoveAt(0); // å–å¾—ã—ãŸã‚«ãƒ¼ãƒ‰ã‚’å±±æœ­ã‹ã‚‰å‰Šé™¤
+            return drawn; // ãƒ‰ãƒ­ãƒ¼ã—ãŸã‚«ãƒ¼ãƒ‰ã‚’è¿”ã™
         }
 
         /// <summary>
-        /// Ì‚ÄD‚ÉƒJ[ƒh‚ğ’Ç‰Á
+        /// æ¨ã¦æœ­ã«ã‚«ãƒ¼ãƒ‰ã‚’è¿½åŠ 
         /// </summary>
         /// <param name="card"></param>
-        /// <returns>“®ì¬Œ÷‚©</returns>
+        /// <returns>å‹•ä½œæˆåŠŸã‹</returns>
         public bool AddTrash(CardInfoModel card)
         {
             if (!_trash.Contains(card))
@@ -43,9 +43,9 @@ namespace cardLists
         }
 
 
-        // ----------“à•”ƒƒ\ƒbƒh----------
+        // ----------å†…éƒ¨ãƒ¡ã‚½ãƒƒãƒ‰----------
 
-        void InitDeck() // RD‚ğ‰Šú‰»
+        void InitDeck() // å±±æœ­ã‚’åˆæœŸåŒ–
         {
             for (int i = 0; i < 40; i++)
             {
@@ -63,7 +63,7 @@ namespace cardLists
             }
         }
 
-        void ShuffleDeck() // RD‚ğƒVƒƒƒbƒtƒ‹
+        void ShuffleDeck() // å±±æœ­ã‚’ã‚·ãƒ£ãƒƒãƒ•ãƒ«
         {
             for (int i = 0; i < _deck.Count; i++)
             {
@@ -75,18 +75,18 @@ namespace cardLists
         }
     }
 
-    public class Hand // èDƒNƒ‰ƒX
+    public class Hand // æ‰‹æœ­ã‚¯ãƒ©ã‚¹
     {
         List<CardInfoModel> _hand;
         public const int maxSize = 7;
 
-        public Hand() // ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+        public Hand() // ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
         {
             _hand = new List<CardInfoModel>();
         }
 
         /// <summary>
-        /// èD‚Ì–‡”‚ğæ“¾
+        /// æ‰‹æœ­ã®æšæ•°ã‚’å–å¾—
         /// </summary>
         /// <returns></returns>
         public int GetSize()
@@ -95,26 +95,26 @@ namespace cardLists
         }
 
         /// <summary>
-        /// èD‚ÉƒJ[ƒh‚ğ’Ç‰Á
+        /// æ‰‹æœ­ã«ã‚«ãƒ¼ãƒ‰ã‚’è¿½åŠ 
         /// </summary>
         /// <param name="card"></param>
-        /// <returns>“®ì¬Œ÷‚©</returns>
+        /// <returns>å‹•ä½œæˆåŠŸã‹</returns>
         public bool Add(CardInfoModel card)
         {
             if (_hand.Count < maxSize)
             {
                 _hand.Add(card);
-                _hand.Sort((a, b) => a.GetID().CompareTo(b.GetID())); // èD‚ğƒJ[ƒhID¸‡‚Éƒ\[ƒg
+                _hand.Sort((a, b) => a.GetID().CompareTo(b.GetID())); // æ‰‹æœ­ã‚’ã‚«ãƒ¼ãƒ‰IDæ˜‡é †ã«ã‚½ãƒ¼ãƒˆ
                 return true;
             }
             return false;
         }
 
         /// <summary>
-        /// èD‚©‚çƒJ[ƒh‚ğíœ
+        /// æ‰‹æœ­ã‹ã‚‰ã‚«ãƒ¼ãƒ‰ã‚’å‰Šé™¤
         /// </summary>
         /// <param name="card"></param>
-        /// <returns>“®ì¬Œ÷‚©</returns>
+        /// <returns>å‹•ä½œæˆåŠŸã‹</returns>
         public bool Remove(CardInfoModel card)
         {
             if (_hand.Contains(card))
@@ -126,9 +126,9 @@ namespace cardLists
         }
 
         /// <summary>
-        /// èD‚©‚çƒJ[ƒh‚ğæ“¾
+        /// æ‰‹æœ­ã‹ã‚‰ã‚«ãƒ¼ãƒ‰ã‚’å–å¾—
         /// </summary>
-        /// <param name="index">ƒCƒ“ƒfƒbƒNƒX</param>
+        /// <param name="index">ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹</param>
         /// <returns></returns>
         /// <exception cref="ArgumentOutOfRangeException"></exception>
         public CardInfoModel GetCard(int index)
@@ -141,17 +141,17 @@ namespace cardLists
         }
     }
 
-    public class Area // êDƒNƒ‰ƒX
+    public class Area // å ´æœ­ã‚¯ãƒ©ã‚¹
     {
         List<CardInfoModel> _area;
 
-        public Area() // ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+        public Area() // ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
         {
             _area = new List<CardInfoModel>();
         }
 
         /// <summary>
-        /// êD‚Ì–‡”‚ğæ“¾
+        /// å ´æœ­ã®æšæ•°ã‚’å–å¾—
         /// </summary>
         /// <returns></returns>
         public int GetSize()
@@ -160,22 +160,22 @@ namespace cardLists
         }
 
         /// <summary>
-        /// êD‚ÉƒJ[ƒh‚ğ’Ç‰Á
+        /// å ´æœ­ã«ã‚«ãƒ¼ãƒ‰ã‚’è¿½åŠ 
         /// </summary>
         /// <param name="card"></param>
-        /// <returns>“®ì¬Œ÷‚©</returns>
+        /// <returns>å‹•ä½œæˆåŠŸã‹</returns>
         public bool Add(CardInfoModel card)
         {
             if (!_area.Contains(card))
             {
-                if (_area.Count == 0) // êD‚ª‹ó
+                if (_area.Count == 0) // å ´æœ­ãŒç©º
                 {
                     _area.Add(card);
                     return true;
                 }
-                else if (_area.Count > 0) // êD‚ª”ñ‹ó
+                else if (_area.Count > 0) // å ´æœ­ãŒéç©º
                 {
-                    if (card.GetEleType() == GetEleType()) // ‘®«ˆê’v
+                    if (card.GetEleType() == GetEleType()) // å±æ€§ä¸€è‡´
                     {
                         _area.Add(card);
                         return true;
@@ -190,10 +190,10 @@ namespace cardLists
         }
 
         /// <summary>
-        /// êD‚©‚çƒJ[ƒh‚ğíœ
+        /// å ´æœ­ã‹ã‚‰ã‚«ãƒ¼ãƒ‰ã‚’å‰Šé™¤
         /// </summary>
         /// <param name="card"></param>
-        /// <returns>“®ì¬Œ÷‚©</returns>
+        /// <returns>å‹•ä½œæˆåŠŸã‹</returns>
         public bool Remove(CardInfoModel card)
         {
             if (_area.Contains(card))
@@ -205,7 +205,7 @@ namespace cardLists
         }
 
         /// <summary>
-        /// êD‚Ì‘®«‚ğæ“¾
+        /// å ´æœ­ã®å±æ€§ã‚’å–å¾—
         /// </summary>
         /// <returns></returns>
         public EleType GetEleType()
@@ -218,7 +218,7 @@ namespace cardLists
         }
 
         /// <summary>
-        /// êD‚Ì‡Œvƒpƒ[‚ğæ“¾
+        /// å ´æœ­ã®åˆè¨ˆãƒ‘ãƒ¯ãƒ¼ã‚’å–å¾—
         /// </summary>
         /// <returns></returns>
         public int GetPowerSum()
@@ -232,9 +232,9 @@ namespace cardLists
         }
 
         /// <summary>
-        /// êD‚©‚çƒJ[ƒh‚ğæ“¾
+        /// å ´æœ­ã‹ã‚‰ã‚«ãƒ¼ãƒ‰ã‚’å–å¾—
         /// </summary>
-        /// <param name="index">ƒCƒ“ƒfƒbƒNƒX</param>
+        /// <param name="index">ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹</param>
         /// <returns></returns>
         /// <exception cref="ArgumentOutOfRangeException"></exception>
         public CardInfoModel GetCard(int index)

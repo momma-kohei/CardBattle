@@ -1,21 +1,21 @@
-using cardLists;
+ï»¿using cardLists;
 using UnityEngine;
 
 public class Area1View : MonoBehaviour
 {
-    [SerializeField] CardInfoView _cardPrefab; // ƒJ[ƒhƒvƒŒƒnƒu‚ÌQÆ
-    [SerializeField] Transform _transform; // èD‚ğ•\¦‚·‚éTransform‚ÌQÆ
+    [SerializeField] CardInfoView _cardPrefab; // ã‚«ãƒ¼ãƒ‰ãƒ—ãƒ¬ãƒãƒ–ã®å‚ç…§
+    [SerializeField] Transform _transform; // æ‰‹æœ­ã‚’è¡¨ç¤ºã™ã‚‹Transformã®å‚ç…§
 
     public void Show(Area area)
     {
         foreach (Transform _oldcard in _transform)
         {
-            GameObject.Destroy(_oldcard.gameObject); // •\¦ƒGƒŠƒA‚ğ‰Šú‰»
+            GameObject.Destroy(_oldcard.gameObject); // è¡¨ç¤ºã‚¨ãƒªã‚¢ã‚’åˆæœŸåŒ–
         }
         for (int i = 0; i < area.GetSize(); i++)
         {
             CardInfoView card = Instantiate(_cardPrefab, _transform);
-            card.ShowCardFront(area.GetCard(i)); // •\–Ê‚Å•\¦
+            card.ShowCardFront(area.GetCard(i)); // è¡¨é¢ã§è¡¨ç¤º
         }   
     }
 

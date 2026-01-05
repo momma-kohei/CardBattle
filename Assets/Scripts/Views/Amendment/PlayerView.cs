@@ -1,4 +1,4 @@
-using player;
+ï»¿using player;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -7,10 +7,10 @@ public class PlayerView : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI _power = null;
     [SerializeField] TextMeshProUGUI _hitPoint = null;
-    //[SerializeField] TextMeshProUGUI _name = null; // –¢À‘•
+    //[SerializeField] TextMeshProUGUI _name = null; // æœªå®Ÿè£…
     [SerializeField] Image _icon = null;
 
-    public PlayerView(PlayerModel_Re player) // ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+    public PlayerView(PlayerModel_Re player) // ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
     {
         if (_power != null) ShowPower(player);
         if (_hitPoint != null) ShowHitPoint(player);
@@ -28,5 +28,5 @@ public class PlayerView : MonoBehaviour
         _hitPoint.text = player.GetPlayerStatus().GetHitPoint().ToString();
     }
 
-    // —]—T‚É‚æ‚Á‚ÄƒAƒCƒRƒ“‚É‚àƒNƒŠƒbƒNƒCƒxƒ“ƒg‚ğÀ‘•
+    // ä½™è£•ã«ã‚ˆã£ã¦ã‚¢ã‚¤ã‚³ãƒ³ã«ã‚‚ã‚¯ãƒªãƒƒã‚¯ã‚¤ãƒ™ãƒ³ãƒˆã‚’å®Ÿè£…
 }

@@ -1,4 +1,4 @@
-using System;
+ï»¿using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -27,5 +27,5 @@ public class ButtonView : MonoBehaviour
         OnPressInfo?.Invoke();
     }
 
-    // —]—T‚ª‚ ‚ê‚Î‰Ÿ‚¹‚é‚©‰Ÿ‚¹‚È‚¢‚©‚Åƒ{ƒ^ƒ“‚ÌF‚ğ•ÏX‚·‚éˆ—
+    // ä½™è£•ãŒã‚ã‚Œã°æŠ¼ã›ã‚‹ã‹æŠ¼ã›ãªã„ã‹ã§ãƒœã‚¿ãƒ³ã®è‰²ã‚’å¤‰æ›´ã™ã‚‹å‡¦ç†
 }

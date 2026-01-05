@@ -1,7 +1,7 @@
-using player;
+ï»¿using player;
 using UnityEngine;
 
-public class TablePresenter // ƒQ[ƒ€‚ğs‚¤‘ì‚ğ•\‚·ƒNƒ‰ƒX
+public class TablePresenter // ã‚²ãƒ¼ãƒ ã‚’è¡Œã†å“ã‚’è¡¨ã™ã‚¯ãƒ©ã‚¹
 {
     TableModel _model;
     Hand1View _hand1v;
@@ -22,18 +22,18 @@ public class TablePresenter // ƒQ[ƒ€‚ğs‚¤‘ì‚ğ•\‚·ƒNƒ‰ƒX
         _player1v = player1v;
         _player2v = player2v;
 
-        // ‰Šú•\¦
+        // åˆæœŸè¡¨ç¤º
         _hand1v.Show(_model.GetPlayer1().GetHand());
         _hand2v.Show(_model.GetPlayer2().GetHand());
         _area1v.Show(_model.GetPlayer1().GetArea());
         _area2v.Show(_model.GetPlayer2().GetArea());
-        // PlayerView‚ÉŠÖ‚µ‚Ä‚ÍƒRƒ“ƒXƒgƒ‰ƒNƒ^‚Å•\¦Ï
+        // PlayerViewã«é–¢ã—ã¦ã¯ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ã§è¡¨ç¤ºæ¸ˆ
 
 
     }
 
     /// <summary>
-    /// Player‚P‚ÌƒJ[ƒh‚ªƒNƒŠƒbƒN‚³‚ê‚½‚ÉŒÄ‚Î‚ê‚éƒƒ\ƒbƒh
+    /// Playerï¼‘ã®ã‚«ãƒ¼ãƒ‰ãŒã‚¯ãƒªãƒƒã‚¯ã•ã‚ŒãŸæ™‚ã«å‘¼ã°ã‚Œã‚‹ãƒ¡ã‚½ãƒƒãƒ‰
     /// </summary>
     /// <param name="card"></param>
     public void OnP1CardClicked(CardInfoView card)
@@ -44,17 +44,17 @@ public class TablePresenter // ƒQ[ƒ€‚ğs‚¤‘ì‚ğ•\‚·ƒNƒ‰ƒX
 
         foreach (CardInfoView civ in _hand1v.GetTransform().GetComponentsInChildren<CardInfoView>())
         {
-            civ.OnCardClicked += OnP1CardClicked; // êD‚É•\¦‚µ‚½ƒJ[ƒh‚É‚à“¯—l‚ÌƒNƒŠƒbƒNƒCƒxƒ“ƒg‚ğ“o˜^
+            civ.OnCardClicked += OnP1CardClicked; // å ´æœ­ã«è¡¨ç¤ºã—ãŸã‚«ãƒ¼ãƒ‰ã«ã‚‚åŒæ§˜ã®ã‚¯ãƒªãƒƒã‚¯ã‚¤ãƒ™ãƒ³ãƒˆã‚’ç™»éŒ²
         }
     }
 
     /// <summary>
-    /// TurnEndƒ{ƒ^ƒ“‚ªƒNƒŠƒbƒN‚³‚ê‚½i‚P•bŒãj‚ÉŒÄ‚Î‚ê‚éƒƒ\ƒbƒh
+    /// TurnEndãƒœã‚¿ãƒ³ãŒã‚¯ãƒªãƒƒã‚¯ã•ã‚ŒãŸæ™‚ï¼ˆï¼‘ç§’å¾Œï¼‰ã«å‘¼ã°ã‚Œã‚‹ãƒ¡ã‚½ãƒƒãƒ‰
     /// </summary>
     public void OnTurnEndButtonPressed()
     {
         _model.PhaseBattle();
-        // í“¬ŒãHP‚Ì•\¦
+        // æˆ¦é—˜å¾ŒHPã®è¡¨ç¤º
         _player1v.ShowHitPoint(_model.GetPlayer1());
         _player2v.ShowHitPoint(_model.GetPlayer2());
     }

@@ -1,4 +1,4 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 using System;
 using player;
 
@@ -12,7 +12,7 @@ namespace player
         cardLists.Area _area;
         cardLists.Deck _deck;
 
-        public PlayerModel_Re(string name, Sprite icon, cardLists.Deck deck) // ƒRƒ“ƒXƒgƒ‰ƒNƒ^ // -> PlayerModel
+        public PlayerModel_Re(string name, Sprite icon, cardLists.Deck deck) // ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ // -> PlayerModel
         {
             _info = new PlayerInfoModel(name, icon);
             _status = new PlayerStatusModel();
@@ -20,7 +20,7 @@ namespace player
         }
 
         /// <summary>
-        /// Å‘å–‡”‚É‚È‚é‚Ü‚ÅèD‚ğ•â[
+        /// æœ€å¤§æšæ•°ã«ãªã‚‹ã¾ã§æ‰‹æœ­ã‚’è£œå……
         /// </summary>
         public void HandFill()
         {
@@ -28,12 +28,12 @@ namespace player
             while (_hand.Add(_deck.Draw()))
             {
                 loop++;
-                if (loop == 10) break; // –³ŒÀƒ‹[ƒv‰ñ”ğ—p
+                if (loop == 10) break; // ç„¡é™ãƒ«ãƒ¼ãƒ—å›é¿ç”¨
             }
         }
 
         /// <summary>
-        /// êD‚ÆèD‚ğÌ‚ÄD‚ÉˆÚ“®
+        /// å ´æœ­ã¨æ‰‹æœ­ã‚’æ¨ã¦æœ­ã«ç§»å‹•
         /// </summary>
         /// <returns></returns>
         /// <exception cref="Exception"></exception>
@@ -49,20 +49,20 @@ namespace player
         }
 
         /// <summary>
-        /// ƒJ[ƒh‚ğêD‚É’Ç‰Á/íœ
+        /// ã‚«ãƒ¼ãƒ‰ã‚’å ´æœ­ã«è¿½åŠ /å‰Šé™¤
         /// </summary>
         /// <param name="card"></param>
         public void Toggle(CardInfoModel card)
         {
 
-            if (!_area.Add(card)) // ƒJ[ƒh‚ğêD‚É’Ç‰Á‚Å‚«‚È‚©‚Á‚½ê‡
+            if (!_area.Add(card)) // ã‚«ãƒ¼ãƒ‰ã‚’å ´æœ­ã«è¿½åŠ ã§ããªã‹ã£ãŸå ´åˆ
             {
-                _area.Remove(card); // Šù‘¶‚È‚ç‚ÎƒJ[ƒh‚ğêD‚©‚çíœ
+                _area.Remove(card); // æ—¢å­˜ãªã‚‰ã°ã‚«ãƒ¼ãƒ‰ã‚’å ´æœ­ã‹ã‚‰å‰Šé™¤
             }
         }
 
         /// <summary>
-        /// èDƒNƒ‰ƒX‚ğæ“¾
+        /// æ‰‹æœ­ã‚¯ãƒ©ã‚¹ã‚’å–å¾—
         /// </summary>
         /// <returns></returns>
         public cardLists.Hand GetHand()
@@ -71,7 +71,7 @@ namespace player
         }
 
         /// <summary>
-        /// êDƒNƒ‰ƒX‚ğæ“¾
+        /// å ´æœ­ã‚¯ãƒ©ã‚¹ã‚’å–å¾—
         /// </summary>
         /// <returns></returns>
         public cardLists.Area GetArea()
@@ -80,7 +80,7 @@ namespace player
         }
 
         /// <summary>
-        /// ƒvƒŒƒCƒ„[î•ñ‚ğæ“¾
+        /// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼æƒ…å ±ã‚’å–å¾—
         /// </summary>
         /// <returns></returns>
         public PlayerInfoModel GetPlayerInfo()
@@ -89,7 +89,7 @@ namespace player
         }
 
         /// <summary>
-        /// ƒvƒŒƒCƒ„[ó‘Ô‚ğæ“¾
+        /// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼çŠ¶æ…‹ã‚’å–å¾—
         /// </summary>
         /// <returns></returns>
         public PlayerStatusModel GetPlayerStatus()
@@ -98,7 +98,7 @@ namespace player
         }
     }
 
-    public class PlayerInfoModel // ƒvƒŒƒCƒ„[î•ñƒNƒ‰ƒX
+    public class PlayerInfoModel // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼æƒ…å ±ã‚¯ãƒ©ã‚¹
     {
         string _name;
         Sprite _icon;
@@ -110,7 +110,7 @@ namespace player
         }
 
         /// <summary>
-        /// –¼‘O‚ğ•ÏX
+        /// åå‰ã‚’å¤‰æ›´
         /// </summary>
         /// <param name="name"></param>
         public void SetName(string name)
@@ -119,7 +119,7 @@ namespace player
         }
 
         /// <summary>
-        /// –¼‘O‚ğæ“¾
+        /// åå‰ã‚’å–å¾—
         /// </summary>
         /// <returns></returns>
         public string GetName()
@@ -128,7 +128,7 @@ namespace player
         }
 
         /// <summary>
-        /// ƒAƒCƒRƒ“‚ğ•ÏX
+        /// ã‚¢ã‚¤ã‚³ãƒ³ã‚’å¤‰æ›´
         /// </summary>
         /// <param name="icon"></param>
         public void SetIcon(Sprite icon)
@@ -137,7 +137,7 @@ namespace player
         }
 
         /// <summary>
-        /// ƒAƒCƒRƒ“‚ğæ“¾
+        /// ã‚¢ã‚¤ã‚³ãƒ³ã‚’å–å¾—
         /// </summary>
         /// <returns></returns>
         public Sprite GetIcon()
@@ -146,7 +146,7 @@ namespace player
         }
     }
 
-    public class PlayerStatusModel // ƒvƒŒƒCƒ„[ó‘ÔƒNƒ‰ƒX
+    public class PlayerStatusModel // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼çŠ¶æ…‹ã‚¯ãƒ©ã‚¹
     {
         const int _maxHP = 30;
         int _hitPoint;
@@ -185,16 +185,16 @@ namespace player
     }
 }
 
-public class BattleSystem // ƒoƒgƒ‹ƒVƒXƒeƒ€ƒNƒ‰ƒX
+public class BattleSystem // ãƒãƒˆãƒ«ã‚·ã‚¹ãƒ†ãƒ ã‚¯ãƒ©ã‚¹
 {
     /// <summary>
-    /// Šm—¦‚ÅæŒã‚ğŒˆ’è
+    /// ç¢ºç‡ã§å…ˆå¾Œã‚’æ±ºå®š
     /// </summary>
     /// <param name="p1"></param>
     /// <param name="p2"></param>
     public static void CoinToss(PlayerModel_Re p1, PlayerModel_Re p2)
     {
-        int num = UnityEngine.Random.Range(0, 2); // ƒRƒCƒ“ƒgƒX
+        int num = UnityEngine.Random.Range(0, 2); // ã‚³ã‚¤ãƒ³ãƒˆã‚¹
         if (num == 0)
         {
             p1.GetPlayerStatus().SwitchPhase();
@@ -206,12 +206,12 @@ public class BattleSystem // ƒoƒgƒ‹ƒVƒXƒeƒ€ƒNƒ‰ƒX
     }
 
     /// <summary>
-    /// êD‚Ìó‘Ô‚©‚çƒoƒgƒ‹‚Ìˆ—‚ğÀs
+    /// å ´æœ­ã®çŠ¶æ…‹ã‹ã‚‰ãƒãƒˆãƒ«ã®å‡¦ç†ã‚’å®Ÿè¡Œ
     /// </summary>
-    /// <param name="atkArea">UŒ‚‘¤êD</param>
-    /// <param name="defArea">–hŒä‘¤êD</param>
-    /// <returns>–hŒä‘¤‚É—^‚¦‚ç‚ê‚éƒ_ƒ[ƒW</returns>
-    public static int CalcDamage(cardLists.Area atkArea, cardLists.Area defArea) // ƒNƒ‰ƒXƒƒ\ƒbƒh
+    /// <param name="atkArea">æ”»æ’ƒå´å ´æœ­</param>
+    /// <param name="defArea">é˜²å¾¡å´å ´æœ­</param>
+    /// <returns>é˜²å¾¡å´ã«ä¸ãˆã‚‰ã‚Œã‚‹ãƒ€ãƒ¡ãƒ¼ã‚¸</returns>
+    public static int CalcDamage(cardLists.Area atkArea, cardLists.Area defArea) // ã‚¯ãƒ©ã‚¹ãƒ¡ã‚½ãƒƒãƒ‰
     {
         int atk = atkArea.GetPowerSum();
         int def = defArea.GetPowerSum();
@@ -227,14 +227,14 @@ public class BattleSystem // ƒoƒgƒ‹ƒVƒXƒeƒ€ƒNƒ‰ƒX
         return 0;
     }
 
-    // ----------“à•”ƒƒ\ƒbƒh----------
+    // ----------å†…éƒ¨ãƒ¡ã‚½ãƒƒãƒ‰----------
 
-    static int GetWeakness(EleType _attack, EleType _defense) // –hŒä‘¤‚Æ‘®«‚ğ”äŠr‚µCUŒ‚‘¤‚Ì”{—¦‚ğ•Ô‚·ƒƒ\ƒbƒh
+    static int GetWeakness(EleType _attack, EleType _defense) // é˜²å¾¡å´ã¨å±æ€§ã‚’æ¯”è¼ƒã—ï¼Œæ”»æ’ƒå´ã®å€ç‡ã‚’è¿”ã™ãƒ¡ã‚½ãƒƒãƒ‰
     {
-        if (_attack == _defense) return 1; // “™”{
+        if (_attack == _defense) return 1; // ç­‰å€
         else if ((_attack == EleType.Fire && _defense == EleType.Grass) ||
                  (_attack == EleType.Water && _defense == EleType.Fire) ||
-                 (_attack == EleType.Grass && _defense == EleType.Water)) return 2; // Œø‰Ê”²ŒQ
-        else return 0; // Œø‰Ê‚È‚µ
+                 (_attack == EleType.Grass && _defense == EleType.Water)) return 2; // åŠ¹æœæŠœç¾¤
+        else return 0; // åŠ¹æœãªã—
     }
 }
