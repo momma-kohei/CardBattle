@@ -167,12 +167,12 @@ public class CardPresenter
         _defender.Damage(_damage);
     }
 
-    int GetEffectiveness(ElementType _attack, ElementType _defense) // 攻撃側と防御側の属性を比較し，効果を返すメソッド
+    int GetEffectiveness(EleType _attack, EleType _defense) // 攻撃側と防御側の属性を比較し，効果を返すメソッド
     {
         if (_attack == _defense) return 1; // 等倍
-        else if ((_attack == ElementType.Fire && _defense == ElementType.Grass) ||
-                 (_attack == ElementType.Water && _defense == ElementType.Fire) ||
-                 (_attack == ElementType.Grass && _defense == ElementType.Water)) return 2; // 効果抜群
+        else if ((_attack == EleType.Fire && _defense == EleType.Grass) ||
+                 (_attack == EleType.Water && _defense == EleType.Fire) ||
+                 (_attack == EleType.Grass && _defense == EleType.Water)) return 2; // 効果抜群
         else return 0; // 効果なし
     }
 
