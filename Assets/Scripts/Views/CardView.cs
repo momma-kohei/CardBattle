@@ -1,72 +1,113 @@
 ﻿using System;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
 
-/// <summary>
-/// データ情報をもとにカードを画面に表示するクラス
-/// </summary>
-public class CardView : MonoBehaviour // data -> display
+public class CardView : MonoBehaviour
 {
-    public event Action<CardView> OnClicked; // カードがクリックされたときのイベント
+    [SerializeField] TextMeshProUGUI _name = null;
+    [SerializeField] TextMeshProUGUI _power = null;
+    [SerializeField] Image _texture = null;
+    [SerializeField] Sprite _textureBack = null;
 
-    // Modelから受け取ったデータを表示するためのUI要素
-    [SerializeField] TextMeshProUGUI nameText = null;
-    [SerializeField] TextMeshProUGUI powerText = null;
-    [SerializeField] Image cardTexture = null;
-    [SerializeField] Sprite cardTextureBack = null;
+    CardModel _model;
 
-    // やっぱりモデルを保持しておくことにする
-    CardModel _cardModel; // このカードのモデル情報を保持する変数
-    public CardModel CardModel => _cardModel; // カードモデルのプロパティ
+    public event Action<CardView> OnCardClicked; // カードがクリックされたときのイベント
 
-    // カードを浮かせる処理に関係する変数
-    //bool _isSelected = false; // このカードが選択されているかどうかを示すフラグ
-    //public bool IsSelected => _isSelected; // 選択フラグのプロパティ
-
-    public void OnPointerClick() // カードがクリックされたときに呼ばれるメソッド
+    public void OnPointerClick() // カードクリックされたときに呼ばれるメソッド
     {
-        //Debug.Log($"{this.name}がクリックされました。");
-        OnClicked?.Invoke(this); // カードがクリックされたときにイベントを引き起こす
-
-        // カードを浮かせる処理に関係するコード
-        //if (_isSelected)
-        //{
-        //    _isSelected = false;
-        //    // 選択解除の視覚効果を追加する場合はここに記述
-        //}
-        //else
-        //{
-        //    _isSelected = true;
-        //    // 選択の視覚効果を追加する場合はここに記述
-        //}
+        OnCardClicked?.Invoke(this); // イベントを発火
     }
 
-    public void ShowCard(CardModel _cardModel, char cardState)
+    /// <summary>
+    /// カードのモデルを取得
+    /// </summary>
+    /// <returns></returns>
+    public CardModel GetModel()
     {
-        switch (cardState)
+        return _model;
+    }
+
+    /// <summary>
+    /// カードを表面で表示
+    /// </summary>
+    /// <param name="card"></param>
+    /// <returns></returns>
+    public bool ShowCardFront(CardModel card)
+    {
+        if (_name != null)
         {
-            case 'F':
-                if (nameText != null) nameText.text = _cardModel.cardName;
-                if (powerText != null) powerText.text = _cardModel.power.ToString();
-                if (cardTexture != null) cardTexture.sprite = _cardModel.cardTexture;
-                break;
-            case 'B':
-                if (nameText != null) Destroy(nameText.gameObject);
-                if (powerText != null) Destroy(powerText.gameObject);
-                if (cardTexture != null) cardTexture.sprite = cardTextureBack;
-                break;
-            case 'E':
-                if (nameText != null) Destroy(nameText.gameObject);
-                if (powerText != null) Destroy(powerText.gameObject);
-                if (cardTexture != null) cardTexture.sprite = _cardModel.cardTexture;
-                break;
-            default:
-                Debug.LogError("Invalid card state. Use 'F', 'B', or 'E'.");
-                break;
+            _name.text = card.GetName();
+            if (_power != null)
+            {
+                _power.text = card.GetPower().ToString();
+                if (_texture != null)
+                {
+                    _texture.sprite = card.GetTexture();
+                    return SetCardInfo(card, "Front");
+                }
+            }
         }
-        this._cardModel = _cardModel; // 引数で受け取ったカードモデルを保持
-        this.name = $"Card_{_cardModel.cardID}_{cardState}"; // わかりやすいようにオブジェクト名を設定
+        return false;
     }
-}
 
+    /// <summary>
+    /// カードを裏面で表示
+    /// </summary>
+    /// <param name="card"></param>
+    /// <returns></returns>
+    public bool ShowCardBack(CardModel card)
+    {
+        if (_name != null)
+        {
+            Destroy(_name.gameObject);
+            if (_power != null)
+            {
+                Destroy( _power.gameObject);
+                if (_texture != null)
+                {
+                    _texture.sprite = _textureBack;
+                    return SetCardInfo(card, "Back");
+                }
+            }
+        }
+        return false;
+    }
+
+    /// <summary>
+    /// カードを属性面で表示
+    /// </summary>
+    /// <param name="card"></param>
+    /// <returns></returns>
+    public bool ShowCardEle(CardModel card)
+    {
+        if (_name != null)
+        {
+            Destroy(_name.gameObject);
+            if (_power != null)
+            {
+                Destroy(_power.gameObject);
+                if (_texture != null)
+                {
+                    _texture.sprite = card.GetTexture();
+                    return SetCardInfo(card, "Ele");
+                }
+            }
+        }
+        return false;
+    }
+
+    // ----------内部メソッド----------
+
+    bool SetCardInfo(CardModel card, string how) // 共通の動作
+    {
+        _model = card; // 引数で受け取ったカードモデルを保持
+        if (how == "Front" || how == "Back" || how == "Ele")
+        {
+            this.name = $"Card_{_model.GetID()}_{how}"; // オブジェクト名を設定
+            return true;
+        }
+        return false;
+        
+    } // stringによる分岐は悪手だけど，privateな閉じた動作のため許容とする
+}

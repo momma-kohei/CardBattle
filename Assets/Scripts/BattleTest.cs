@@ -1,81 +1,81 @@
-using UnityEngine;
+ï»¿//using UnityEngine;
 
-// Model‚Ì“®ìŠm”F—pƒNƒ‰ƒX
-public class BattleTest : MonoBehaviour
-{
-    // •K—v‚Èƒ‚ƒfƒ‹‚ÌƒCƒ“ƒXƒ^ƒ“ƒX‚ğ’è‹`
-    DeckModel _deck;
-    PlayerModel _P1;
-    PlayerModel _P2;
-    //bool _isP1Turn = true;
+//// Modelã®å‹•ä½œç¢ºèªç”¨ã‚¯ãƒ©ã‚¹
+//public class BattleTest : MonoBehaviour
+//{
+//    // å¿…è¦ãªãƒ¢ãƒ‡ãƒ«ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã‚’å®šç¾©
+//    DeckModel _deck;
+//    PlayerModel _P1;
+//    PlayerModel _P2;
+//    //bool _isP1Turn = true;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        Debug.Log("--------‰Šú‰»ˆ—--------");
-        _deck = new DeckModel();
-        _P1 = new PlayerModel(_deck, "Player 1", null);
-        _P1.DrawCards();
-        _P2 = new PlayerModel(_deck, "Player 2", null);
-        _P2.DrawCards();
-        _P1.DecideFirstAttacker(_P1, _P2);
-        PrintAll();
-        Debug.Log("---------èD‘I‘ğ---------");
-        SelectP1Attack();
-        PrintAll();
-        Debug.Log("-------ƒ_ƒ[ƒWŒvZ-------");
-        //_P1.CalculateDamege(_P2);
-        //_P2.CalculateDamege(_P1);
-        PrintHP();
-        Debug.Log("--------Ÿ‚Ìƒ^[ƒ“--------");
-        _P1.NextTurn();
-        _P2.NextTurn();
-        PrintAll();
-        Debug.Log("---------èD‘I‘ğ---------");
-        SelectP2Attack();
-        PrintAll();
-        Debug.Log("-------ƒ_ƒ[ƒWŒvZ-------");
-        //_P1.CalculateDamege(_P2);
-        //_P2.CalculateDamege(_P1);
-        PrintHP();
-    }
+//    // Start is called once before the first execution of Update after the MonoBehaviour is created
+//    void Start()
+//    {
+//        Debug.Log("--------åˆæœŸåŒ–å‡¦ç†--------");
+//        _deck = new DeckModel();
+//        _P1 = new PlayerModel(_deck, "Player 1", null);
+//        _P1.DrawCards();
+//        _P2 = new PlayerModel(_deck, "Player 2", null);
+//        _P2.DrawCards();
+//        _P1.DecideFirstAttacker(_P1, _P2);
+//        PrintAll();
+//        Debug.Log("---------æ‰‹æœ­é¸æŠ---------");
+//        SelectP1Attack();
+//        PrintAll();
+//        Debug.Log("-------ãƒ€ãƒ¡ãƒ¼ã‚¸è¨ˆç®—-------");
+//        //_P1.CalculateDamege(_P2);
+//        //_P2.CalculateDamege(_P1);
+//        PrintHP();
+//        Debug.Log("--------æ¬¡ã®ã‚¿ãƒ¼ãƒ³--------");
+//        _P1.NextTurn();
+//        _P2.NextTurn();
+//        PrintAll();
+//        Debug.Log("---------æ‰‹æœ­é¸æŠ---------");
+//        SelectP2Attack();
+//        PrintAll();
+//        Debug.Log("-------ãƒ€ãƒ¡ãƒ¼ã‚¸è¨ˆç®—-------");
+//        //_P1.CalculateDamege(_P2);
+//        //_P2.CalculateDamege(_P1);
+//        PrintHP();
+//    }
 
-    void PrintAll()
-    {
-        _P1.PrintHand();
-        _P2.PrintHand();
-        _P1.PrintArea();
-        _P2.PrintArea();
-        _deck.PrintDeckNum();
-    }
+//    void PrintAll()
+//    {
+//        _P1.PrintHand();
+//        _P2.PrintHand();
+//        _P1.PrintArea();
+//        _P2.PrintArea();
+//        _deck.PrintDeckNum();
+//    }
 
-    void PrintHP()
-    {
-        Debug.Log($"{_P1.PlayerName}‚Ìc‚èHP: {_P1.HitPoint} / {_P2.PlayerName}‚Ìc‚èHP: {_P2.HitPoint}");
-    }
+//    void PrintHP()
+//    {
+//        Debug.Log($"{_P1.PlayerName}ã®æ®‹ã‚ŠHP: {_P1.HitPoint} / {_P2.PlayerName}ã®æ®‹ã‚ŠHP: {_P2.HitPoint}");
+//    }
 
-    void SelectP1Attack()
-    {
-        // P1‚Ì‘I‘ğ‚ÍƒNƒŠƒbƒN‚Ås‚¤‘z’è
-        _P1.SelectCard(_P1.GetHandCard(0));
-        _P1.SelectCard(_P1.GetHandCard(1));
-        _P1.SelectCard(_P1.GetHandCard(2));
-        _P1.SelectCard(_P1.GetHandCard(3));
-        // P2‚Ì‘I‘ğ‚Í’ÊMæ‚©‚çó‚¯æ‚é‘z’è
-        _P2.SelectCard(_P2.GetHandCard(0));
-        _P2.SelectCard(_P2.GetHandCard(1));
-        _P2.SelectCard(_P2.GetHandCard(1)); // “¯‚¶ƒJ[ƒh‚ğ2‰ñ‘I‘ğ‚·‚é‚Æ‰ğœ‚³‚ê‚é‚±‚Æ‚ğŠm”F
-    }
+//    void SelectP1Attack()
+//    {
+//        // P1ã®é¸æŠã¯ã‚¯ãƒªãƒƒã‚¯ã§è¡Œã†æƒ³å®š
+//        _P1.SelectCard(_P1.GetHandCard(0));
+//        _P1.SelectCard(_P1.GetHandCard(1));
+//        _P1.SelectCard(_P1.GetHandCard(2));
+//        _P1.SelectCard(_P1.GetHandCard(3));
+//        // P2ã®é¸æŠã¯é€šä¿¡å…ˆã‹ã‚‰å—ã‘å–ã‚‹æƒ³å®š
+//        _P2.SelectCard(_P2.GetHandCard(0));
+//        _P2.SelectCard(_P2.GetHandCard(1));
+//        _P2.SelectCard(_P2.GetHandCard(1)); // åŒã˜ã‚«ãƒ¼ãƒ‰ã‚’2å›é¸æŠã™ã‚‹ã¨è§£é™¤ã•ã‚Œã‚‹ã“ã¨ã‚’ç¢ºèª
+//    }
 
-    void SelectP2Attack() {
-        // P1‚Ì‘I‘ğ‚ÍƒNƒŠƒbƒN‚Ås‚¤‘z’è
-        _P1.SelectCard(_P1.GetHandCard(0));
-        _P1.SelectCard(_P1.GetHandCard(2));
-        _P1.SelectCard(_P1.GetHandCard(2)); // “¯‚¶ƒJ[ƒh‚ğ2‰ñ‘I‘ğ‚·‚é‚Æ‰ğœ‚³‚ê‚é‚±‚Æ‚ğŠm”F
-        // P2‚Ì‘I‘ğ‚Í’ÊMæ‚©‚çó‚¯æ‚é‘z’è
-        _P2.SelectCard(_P2.GetHandCard(0));
-        _P2.SelectCard(_P2.GetHandCard(1));
-        _P2.SelectCard(_P2.GetHandCard(2));
-        _P2.SelectCard(_P2.GetHandCard(3));
-    }
-}
+//    void SelectP2Attack() {
+//        // P1ã®é¸æŠã¯ã‚¯ãƒªãƒƒã‚¯ã§è¡Œã†æƒ³å®š
+//        _P1.SelectCard(_P1.GetHandCard(0));
+//        _P1.SelectCard(_P1.GetHandCard(2));
+//        _P1.SelectCard(_P1.GetHandCard(2)); // åŒã˜ã‚«ãƒ¼ãƒ‰ã‚’2å›é¸æŠã™ã‚‹ã¨è§£é™¤ã•ã‚Œã‚‹ã“ã¨ã‚’ç¢ºèª
+//        // P2ã®é¸æŠã¯é€šä¿¡å…ˆã‹ã‚‰å—ã‘å–ã‚‹æƒ³å®š
+//        _P2.SelectCard(_P2.GetHandCard(0));
+//        _P2.SelectCard(_P2.GetHandCard(1));
+//        _P2.SelectCard(_P2.GetHandCard(2));
+//        _P2.SelectCard(_P2.GetHandCard(3));
+//    }
+//}

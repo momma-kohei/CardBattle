@@ -1,206 +1,273 @@
-﻿using System;
-using System.Collections.Generic;
-using UnityEngine.UI;
-using Debug = UnityEngine.Debug;
+﻿using UnityEngine;
+using System;
+using player;
 
-/// <summary>
-/// プレイヤー情報を管理するモデルクラス
-/// </summary>
-public class PlayerModel
+namespace player
 {
-    DeckModel _deckModel; // 共有する山札
-
-    // プレイヤー固有の情報　※別のシーンで入力を受け付ける
-    string _playerName; // プレイヤー名
-    Image _playerIcon; // プレイヤーアイコン    
-    public string PlayerName { get { return _playerName; } }
-    public Image PlayerIcon { get { return _playerIcon; } }
-
-    // 定数情報
-    int _maxHP = 30; // 最大体力
-    int _handNum = 7; // 最大手札枚数
-
-    // バトルに関する情報
-    List<CardModel> _hand; // 手札
-    List<CardModel> _area; // 場札
-    int _hitPoint; // ヒットポイント
-    bool _isAttacker; // 攻撃側か防御側か
-    public int HitPoint { get { return _hitPoint; } }
-    public bool IsAttacker { get { return _isAttacker; } }
-    public List<CardModel> Hand { get { return _hand; } }
-    public List<CardModel> Area { get { return _area; } }
-
-    public PlayerModel(DeckModel deckModel, string _playerName, Image _playerIcon) // コンストラクタ
+    public class PlayerModel
     {
-        //Debug.Log("PlayerModelのコンストラクタが呼ばれました。");
+        PlayerInfoModel _info; // プレイヤーの情報
+        PlayerStatusModel _status; // プレイヤーの状態
+        cardLists.Hand _hand; // 手札
+        cardLists.Area _area; // 場札
+        cardLists.Deck _deck; // 共通の山札
 
-        _deckModel = deckModel; // 共有する山札のモデルを受け取る
-
-        // プレイヤー固有の情報の初期化
-        this._playerName = _playerName;
-        this._playerIcon = _playerIcon;
-
-        // バトルに関する情報の初期化
-        this._hitPoint = _maxHP;
-        this._hand = new List<CardModel>();
-        this._area = new List<CardModel>();
-    }
-
-    /// <summary>
-    /// デッキからカードを計７枚まで引き，手札をソートするメソッド
-    /// </summary>
-    public void DrawCards()
-    {
-        while (this._hand.Count < _handNum)
-            this._hand.Add(_deckModel.PushCard()); // デッキからカードを1枚引いて手札に追加
-        this._hand.Sort((a, b) => a.cardID.CompareTo(b.cardID)); // 手札をカードID昇順にソート
-    }
-
-    /// <summary>
-    /// 選択してAreaにコピーしたカードをArea，Handから削除し捨て札に移動するメソッド
-    /// </summary>
-    public void TrashCards()
-    {
-        for (int i = 0; i < this._area.Count; i++)
-            _deckModel.PullTrashCard(this._area[i]); // エリアのカードを捨て札に追加
-        foreach (CardModel card in this._area)
-            _hand.Remove(card); // 手札からエリアのカードを削除
-        this._area.Clear(); // エリアをクリア
-    }
-
-    /// <summary>
-    /// クリックしたカードを選択して場札に出す/戻すメソッド
-    /// </summary>
-    /// <param name="_cardModel">選択（クリック）されたカード</param>
-    public void SelectCard(CardModel _cardModel)
-    {
-        int _handIndex = _hand.IndexOf(_cardModel); // 手札リストから選択されたカードのインデックスを取得
-        // Debug.Log($"選択された手札のインデックス: {_handIndex}");
-        if (_handIndex >= 0 && _handIndex < _hand.Count) // 指定されたインデックスが正当であることと属性一致を確認
+        public PlayerModel(string name, Sprite icon, cardLists.Deck deck) // コンストラクタ
         {
-            if (_area.Count == 0) // 場札が空の場合
+            _info = new PlayerInfoModel(name, icon);
+            _status = new PlayerStatusModel();
+            _deck = deck; // 山札は外部から取得
+            _area = new cardLists.Area();
+            _hand = new cardLists.Hand();
+        }
+
+        /// <summary>
+        /// 最大枚数になるまで手札を補充
+        /// </summary>
+        public void HandFill()
+        {
+            int loop = 0;
+            while (_hand.Add(_deck.Draw(_hand)))
             {
-                //Debug.Log("未選択なので場札に追加します。");
-                _area.Add(_hand[_handIndex]); // 未選択ならば場札に追加
-                _cardModel.isSelected = true;
+                loop++;
+                if (loop == 10) break; // 無限ループ回避用
             }
-            else if (_cardModel.element == _area[0].element) // 属性が一致する場合
+		}
+
+        /// <summary>
+        /// 場札と手札を捨て札に移動
+        /// </summary>
+        /// <returns></returns>
+        /// <exception cref="Exception"></exception>
+        public void Trash()
+        {
+            int loop = 0;
+            while (_area.GetSize() > 0)
             {
-                if (_cardModel.isSelected)
-                {
-                    //Debug.Log("選択済みなので場札から削除します。");
-                    _area.Remove(_hand[_handIndex]); // 選択済みならば場札から削除
-                    _cardModel.isSelected = false;
-                }
-                else
-                {
-                    //Debug.Log("未選択なので場札に追加します。");
-                    _area.Add(_hand[_handIndex]); // 未選択ならば場札に追加
-                    _cardModel.isSelected = true;
-                }
-            }
-            else
-            {
-                Debug.Log("選択したカードの属性が場札と一致しません。");
+                if (!_deck.AddTrash(_area.GetCard(0))) throw new Exception("Area -> Trash");
+                if (!_hand.Remove(_area.GetCard(0))) throw new Exception("Hand Remove");
+                if (!_area.Remove(_area.GetCard(0))) throw new Exception("Area Remove");
+                loop++;
+                if (loop == 10) break; // 無限ループ回避用
             }
         }
-        else Debug.Log("手札のインデックスが不正です。");
+
+        /// <summary>
+        /// カードを場札に追加/削除
+        /// </summary>
+        /// <param name="card">対象のカード</param>
+        public void Toggle(CardModel card)
+        {
+            if (!_area.Add(card)) // 場札への追加に挑戦
+            {
+                _area.Remove(card); // 失敗ならば場札からの削除に挑戦
+            }
+        }
+
+        // 主にUI用のゲッター
+        #region Getter
+        /// <summary>
+        /// 手札クラスを取得
+        /// </summary>
+        /// <returns></returns>
+        public cardLists.Hand GetHand()
+        {
+            return _hand;
+        }
+
+        /// <summary>
+        /// 場札クラスを取得
+        /// </summary>
+        /// <returns></returns>
+        public cardLists.Area GetArea()
+        {
+            return _area;
+        }
+
+        /// <summary>
+        /// プレイヤー情報を取得
+        /// </summary>
+        /// <returns></returns>
+        public PlayerInfoModel GetPlayerInfo()
+        {
+            return _info;
+        }
+
+        /// <summary>
+        /// プレイヤー状態を取得
+        /// </summary>
+        /// <returns></returns>
+        public PlayerStatusModel GetPlayerStatus()
+        {
+            return _status;
+        }
+        #endregion
     }
 
+    public class PlayerInfoModel // プレイヤー固有の情報を扱うクラス
+    {
+        string _name;
+        Sprite _icon;
+
+        public PlayerInfoModel(string name, Sprite icon) // コンストラクタ
+        {
+            _name = name;
+            _icon = icon;
+        }
+
+        // システム画面やUI用のゲッターとセッター
+        #region Getter & Setter
+        /// <summary>
+        /// 名前を変更
+        /// </summary>
+        /// <param name="name"></param>
+        public void SetName(string name)
+        {
+            _name = name;
+        }
+
+        /// <summary>
+        /// 名前を取得
+        /// </summary>
+        /// <returns></returns>
+        public string GetName()
+        {
+            return _name;
+        }
+
+        /// <summary>
+        /// アイコンを変更
+        /// </summary>
+        /// <param name="icon"></param>
+        public void SetIcon(Sprite icon)
+        {
+            _icon = icon;
+        }
+
+        /// <summary>
+        /// アイコンを取得
+        /// </summary>
+        /// <returns></returns>
+        public Sprite GetIcon()
+        {
+            return _icon;
+        }
+        #endregion
+    }
+
+    public class PlayerStatusModel // プレイヤーの状態を扱うクラス
+    {
+        const int _maxHP = 30; // 最大HP
+        int _hitPoint; // 現在のHP
+        bool _isAtk; // Attackerかどうか
+
+        public PlayerStatusModel() // コンストラクタ
+        {
+            _hitPoint = _maxHP;
+            _isAtk = false;
+        }
+
+        /// <summary>
+        /// ダメージを受ける処理を行うメソッド
+        /// </summary>
+        /// <param name="damage">ダメージ数値</param>
+        /// <returns>動作成功か</returns>
+        public bool TakeDamage(int damage)
+        {
+            if (_hitPoint > 0 && !_isAtk) // HP正かつDefender
+            {
+                _hitPoint -= damage;
+                return true;
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// 攻守の切り替え
+        /// </summary>
+        public void SwitchPhase()
+        {
+            _isAtk = !_isAtk;
+        }
+
+        // UIや条件分岐用のゲッター
+        #region Getter
+        /// <summary>
+        /// Attackerかどうかを取得
+        /// </summary>
+        /// <returns></returns>
+        public bool GetIsAtk()
+        {
+            return _isAtk;
+        }
+
+        /// <summary>
+        /// HPを取得
+        /// </summary>
+        /// <returns></returns>
+        public int GetHitPoint()
+        {
+            return _hitPoint;
+        }
+        #endregion
+    }
+}
+
+public static class BattleSystem // バトルシステムクラス
+{
     /// <summary>
-    /// PlayerModelのHPをダメージ分減少させるメソッド
+    /// 確率で先後を決定
     /// </summary>
-    /// <param name="_damage">ダメージ</param>
-    public void Damage(int _damage)
+    /// <param name="p1"></param>
+    /// <param name="p2"></param>
+    public static void CoinToss(TableModel tableModel)
     {
-        int tempHP = this._hitPoint - _damage;
-        if (tempHP < 0) this._hitPoint = 0; // HPが0未満にならないようにする
-        else this._hitPoint = tempHP;
-    }
-
-    /// <summary>
-    /// 選択して場札に出したカードのパワーを合計して返すメソッド
-    /// </summary>
-    /// <returns>合計パワーの整数値</returns>
-    public int GetPower()
-    {
-        int totalPower = 0;
-        for (int i = 0; i < this._area.Count; i++)
-            totalPower += this._area[i].power; // エリア内のカードのパワーを合計
-        return totalPower;
-    }
-
-    /// <summary>
-    /// 選択して場札に出したカードの属性を返すメソッド
-    /// </summary>
-    /// <returns>属性</returns>
-    /// <exception cref="InvalidOperationException"></exception>
-    public EleType GetAreaElement()
-    {
-        if (this._area.Count == 0) throw new InvalidOperationException("エリアにカードがありません。");
-        else return this._area[0].element; // エリア内の先頭カードの属性を返す
-    }
-
-    public void DecideFirstAttacker(PlayerModel _playerModel1, PlayerModel _playerModel2)
-    {
-        int num = UnityEngine.Random.Range(0, 2); // 先後をランダムに決定
-        //int num = 0; // テスト用に固定
+        int num = UnityEngine.Random.Range(0, 2); // コイントス
         if (num == 0)
         {
-            _playerModel1._isAttacker = true;
-            _playerModel2._isAttacker = false;
+            tableModel.GetPlayer1().GetPlayerStatus().SwitchPhase();
         }
         else
         {
-            _playerModel1._isAttacker = false;
-            _playerModel2._isAttacker = true;
+            tableModel.GetPlayer2().GetPlayerStatus().SwitchPhase();
         }
     }
 
-    public void CPUAction()
-    {
-        // CPUの行動を決定するロジックをここに実装する
-
-        // CPU1
-        SelectCard(_hand[0]);
-    }
-
     /// <summary>
-    /// PlayerModelに対するターン終了処理
+    /// 場札の状態からバトルの処理を実行
     /// </summary>
-    public void EndTurn()
+    /// <param name="atkArea">攻撃側場札</param>
+    /// <param name="defArea">防御側場札</param>
+    /// <returns>防御側に与えられるダメージ</returns>
+    public static int CalcDamage(cardLists.Area atkArea, cardLists.Area defArea) // クラスメソッド
     {
-        TrashCards(); // AreaカードをTrashに移動
-        DrawCards(); // DeckからHandにカードを補充
-        _isAttacker = !_isAttacker; // 攻守交代
+        int atk = atkArea.GetPowerSum();
+        int def = defArea.GetPowerSum();
+        EleType atkEle = atkArea.GetEleType();
+        EleType defEle = defArea.GetEleType();
+
+        int sub = atk * GetWeakness(atkEle, defEle) - def;
+
+        if (sub > 0)
+        {
+            return sub;
+        }
+        return 0;
     }
 
-    #region For BattleTest
-    // BattleTest用メソッド
-    public void PrintHand()
+    public static void CPUAction(PlayerModel player)
     {
-        Debug.Log($"{_playerName}の手札:" + string.Join(", ", _hand.ConvertAll(card => $"{card.cardID}")));
-    }
-    public void PrintArea()
-    {
-        Debug.Log($"{_playerName}のエリア:" + string.Join(", ", _area.ConvertAll(card => $"{card.cardID}")));
+        player.Toggle(player.GetHand().GetCard(0)); // インデックス0のカードを選択する
     }
 
-    public CardModel GetHandCard (int _index)
-    {
-        return this._hand[_index];
-    }
+    // ----------内部メソッド----------
 
-    public void NextTurn()
+    static int GetWeakness(EleType _attack, EleType _defense) // 防御側と属性を比較し，攻撃側の倍率を返すメソッド
     {
-        TrashCards(); // 選択したカードを捨て札に移動
-        // -> EndTurn
-        DrawCards(); // 手札を補充
-        // -> StartTurn ---- EndTurnの最後で処理すべきかも
-        _isAttacker = !_isAttacker; // 攻撃側・防御側を交代
-        // -> EndTurn
-        //_isTurnFinished = false; // ターン終了フラグをリセット
-        // -> EndTurn
+        if (_attack == _defense) return 1; // 等倍
+        else if ((_attack == EleType.Fire && _defense == EleType.Grass) ||
+                 (_attack == EleType.Water && _defense == EleType.Fire) ||
+                 (_attack == EleType.Grass && _defense == EleType.Water)) return 2; // 効果抜群
+        else return 0; // 効果なし
     }
-    #endregion
 }
