@@ -1,4 +1,5 @@
 ﻿using cardLists;
+using player;
 using UnityEngine;
 
 public class Hand1View : MonoBehaviour
@@ -30,5 +31,69 @@ public class Hand1View : MonoBehaviour
     public Transform GetTransform()
     {
         return _transform;
+    }
+
+    // カードを浮かせる処理
+
+    /// <summary>
+    /// 選択して場札に出された手札のカードを浮かせる処理
+    /// </summary>
+    /// <param name="player">プレイヤーモデル</param>
+    /// <exception cref="System.Exception"></exception>
+    public void FloatSelectedHand(PlayerModel player)
+    {
+        if (player.GetArea().GetSize() > 0)
+        {
+            for (int i = 0; i < player.GetHand().GetSize(); i++)
+            {
+                CardModel _handi = player.GetHand().GetCard(i);
+                for (int j = 0; j < player.GetArea().GetSize(); j++)
+                {
+                    CardModel _areaj = player.GetArea().GetCard(j);
+                    if (_handi == _areaj)
+                    {
+                        FloatCard(_handi);
+                        break; // ある手札のカードが場札のカードと一致した時点でループを抜ける
+                    }
+                    else
+                    {
+                        SinkCard(_handi);
+                    }
+                }
+            }
+        }
+        else if (player.GetArea().GetSize() == 0)
+        {
+            for (int i = 0; i < player.GetHand().GetSize(); i++)
+            {
+                CardModel _handi = player.GetHand().GetCard(i);
+                SinkCard(_handi);
+            }
+            Debug.Log("Area1のリストにカードがありません。");
+        }
+        else
+        {
+            throw new System.Exception("negative area size");
+        }
+    }
+
+    void FloatCard(CardModel card)
+    {
+        Transform _ct = _transform.Find("Card_" + card.GetID().ToString() + "_Front");
+        if (_ct != null)
+        {
+            _ct.localPosition = new Vector3(_ct.transform.localPosition.x, 10, _ct.transform.localPosition.z);
+        }
+        else Debug.Log("選択されたカードが子オブジェクトに見つかりませんでした。");
+    }
+
+    void SinkCard(CardModel card)
+    {
+        Transform _ct = _transform.Find("Card_" + card.GetID().ToString() + "_Front");
+        if (_ct != null)
+        {
+            _ct.localPosition = new Vector3(_ct.transform.localPosition.x, 0, _ct.transform.localPosition.z);
+        }
+        else Debug.Log("選択されたカードが子オブジェクトに見つかりませんでした。");
     }
 }

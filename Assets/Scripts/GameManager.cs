@@ -173,6 +173,8 @@ public class GameManager : MonoBehaviour
         _isTurnEndButtonSet = false;
     }
 
+    #region Change Button Name
+    // Buttonの名前を変更するメソッド群
     void SetButtonStart()
     {
         _buttonView.SetButton("Start");
@@ -189,6 +191,7 @@ public class GameManager : MonoBehaviour
     {
         _buttonView.SetButton("Finish");
     }
+    #endregion
 }
 
 public enum PhaseState // ステート

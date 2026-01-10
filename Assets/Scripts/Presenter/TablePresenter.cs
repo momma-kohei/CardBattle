@@ -40,6 +40,8 @@ public class TablePresenter : MonoBehaviour // ゲームを行うテーブルを
         _area1v.Show(_model.GetPlayer1().GetArea()); // Model -> View
         _player1v.ShowPower(_model.GetPlayer1()); // Model -> View
 
+        _hand1v.FloatSelectedHand(_model.GetPlayer1());
+
         SetClicEventArea1(); // 表示した場札にもイベントを登録
     }
 
