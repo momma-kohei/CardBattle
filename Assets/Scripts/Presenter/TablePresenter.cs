@@ -73,7 +73,7 @@ public class TablePresenter : MonoBehaviour // ゲームを行うテーブルを
     /// <exception cref="System.Exception"></exception>
     public PhaseState EndPhaseAtk(PhaseState state)
     {
-        ShowAllCards(); // 場札を選択する処理はViewで完了している
+        ShowAllAreas(); // 場札を選択する処理はViewで完了している
 
         PlayerModel _attacker = _model.GetAttacker();
         if (!_model.CheckArea(_attacker))
@@ -98,7 +98,7 @@ public class TablePresenter : MonoBehaviour // ゲームを行うテーブルを
     /// <returns>次のフェーズ</returns>
     public PhaseState EndPhaseDef()
     {
-        ShowAllCards(); // 場札を選択する処理はViewで完了している
+        ShowAllAreas(); // 場札を選択する処理はViewで完了している
 
         PlayerModel _defender = _model.GetDefender();
         if (!_model.CheckArea(_defender))
@@ -208,6 +208,11 @@ public class TablePresenter : MonoBehaviour // ゲームを行うテーブルを
     {
         _hand1v.Show(_model.GetPlayer1().GetHand());
         _hand2v.Show(_model.GetPlayer2().GetHand());
+        ShowAllAreas();
+    }
+
+    void ShowAllAreas()
+    {
         _area1v.Show(_model.GetPlayer1().GetArea());
         _area2v.Show(_model.GetPlayer2().GetArea());
     }
