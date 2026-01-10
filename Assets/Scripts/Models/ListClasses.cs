@@ -1,9 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Net.NetworkInformation;
-using TMPro;
-using UnityEngine;
 
 namespace cardLists
 {
@@ -55,7 +51,7 @@ namespace cardLists
         }
 
         // ----------内部メソッド----------
-
+        #region SubRoutine
         void InitDeck() // 山札を初期化
         {
             for (int i = 10; i < 40; i++)
@@ -86,6 +82,7 @@ namespace cardLists
                 _deck[_randomIndex] = _temp;
             }
         }
+        #endregion
     }
 
     public class Hand // 手札クラス

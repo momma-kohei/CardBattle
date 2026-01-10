@@ -1,5 +1,4 @@
 ﻿using player;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class TablePresenter : MonoBehaviour // ゲームを行うテーブルを扱うクラス
@@ -34,7 +33,7 @@ public class TablePresenter : MonoBehaviour // ゲームを行うテーブルを
     /// Player１のカードがクリックされた時に呼ばれるメソッド
     /// </summary>
     /// <param name="card"></param>
-    public void OnP1CardClicked(CardView card)
+    void OnP1CardClicked(CardView card)
     {
         _model.GetPlayer1().Toggle(card.GetModel()); // View -> Model
         _area1v.Show(_model.GetPlayer1().GetArea()); // Model -> View
@@ -43,24 +42,6 @@ public class TablePresenter : MonoBehaviour // ゲームを行うテーブルを
         _hand1v.FloatSelectedHand(_model.GetPlayer1());
 
         SetClicEventArea1(); // 表示した場札にもイベントを登録
-    }
-
-    /// <summary>
-    /// 全員のHPを表示するメソッド
-    /// </summary>
-    public void ShowAllHitPoints()
-    {
-        _player1v.ShowHitPoint(_model.GetPlayer1());
-        _player2v.ShowHitPoint(_model.GetPlayer2());
-    }
-
-    /// <summary>
-    /// 全員のパワーを表示するメソッド
-    /// </summary>
-    public void ShowAllPowers()
-    {
-        _player1v.ShowPower(_model.GetPlayer1());
-        _player2v.ShowPower(_model.GetPlayer2());
     }
 
     // ゲームの進行に関するメソッド
@@ -151,24 +132,8 @@ public class TablePresenter : MonoBehaviour // ゲームを行うテーブルを
     }
     #endregion
 
-    //カードにクリックイベントをセット
-    void SetClicEventHand1()
-    {
-        foreach (CardView civ in _hand1v.GetTransform().GetComponentsInChildren<CardView>())
-        {
-            civ.OnCardClicked -= OnP1CardClicked; // ２重にならないよう一旦解除
-            civ.OnCardClicked += OnP1CardClicked;
-        }
-    }
-    void SetClicEventArea1()
-    {
-        foreach (CardView civ in _area1v.GetTransform().GetComponentsInChildren<CardView>())
-        {
-            civ.OnCardClicked -= OnP1CardClicked; // ２重にならないよう一旦解除
-            civ.OnCardClicked += OnP1CardClicked;
-        }
-    }
-
+    // ゲームマネージャ―からアクセスするメソッド群
+    #region For GameManager
     /// <summary>
     /// 自身のカードにイベントを登録するメソッド
     /// </summary>
@@ -200,17 +165,45 @@ public class TablePresenter : MonoBehaviour // ゲームを行うテーブルを
     {
         return _model;
     }
+    #endregion
+
+    // ----------内部メソッド----------
+    #region SubRoutine
+
+
+    //カードにクリックイベントをセット
+    void SetClicEventHand1()
+    {
+        foreach (CardView civ in _hand1v.GetTransform().GetComponentsInChildren<CardView>())
+        {
+            civ.OnCardClicked -= OnP1CardClicked; // ２重にならないよう一旦解除
+            civ.OnCardClicked += OnP1CardClicked;
+        }
+    }
+    void SetClicEventArea1()
+    {
+        foreach (CardView civ in _area1v.GetTransform().GetComponentsInChildren<CardView>())
+        {
+            civ.OnCardClicked -= OnP1CardClicked; // ２重にならないよう一旦解除
+            civ.OnCardClicked += OnP1CardClicked;
+        }
+    }
+
+    // 表示メソッド
 
     /// <summary>
     /// 全てのカードをデフォルト表示
     /// </summary>
-    public void ShowAllCards()
+    void ShowAllCards()
     {
         _hand1v.Show(_model.GetPlayer1().GetHand());
         _hand2v.Show(_model.GetPlayer2().GetHand());
         ShowAllAreas();
     }
 
+    /// <summary>
+    /// 全員の場札をデフォルト表示
+    /// </summary>
     void ShowAllAreas()
     {
         _area1v.Show(_model.GetPlayer1().GetArea());
@@ -220,11 +213,30 @@ public class TablePresenter : MonoBehaviour // ゲームを行うテーブルを
     /// <summary>
     /// 全員の場札を開示
     /// </summary>
-    public void ShowAllAreasOpen()
+    void ShowAllAreasOpen()
     {
         _area1v.Show(_model.GetPlayer1().GetArea());
         _area2v.Open(_model.GetPlayer2().GetArea());
     }
+
+    /// <summary>
+    /// 全員のHPを表示
+    /// </summary>
+    void ShowAllHitPoints()
+    {
+        _player1v.ShowHitPoint(_model.GetPlayer1());
+        _player2v.ShowHitPoint(_model.GetPlayer2());
+    }
+
+    /// <summary>
+    /// 全員のパワーを表示
+    /// </summary>
+    void ShowAllPowers()
+    {
+        _player1v.ShowPower(_model.GetPlayer1());
+        _player2v.ShowPower(_model.GetPlayer2());
+    }
+    #endregion
 }
 
-    
+

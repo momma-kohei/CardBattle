@@ -1,8 +1,4 @@
-﻿using System.Collections.Generic;
-using Unity.VisualScripting.Antlr3.Runtime.Tree;
-using UnityEngine.UI;
-using UnityEngine;
-using cardLists;
+﻿using UnityEngine;
 using player;
 
 /// <summary>
