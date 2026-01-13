@@ -78,3 +78,6 @@ crashlytics-build.properties
 /[Aa]ssets/[Tt]extMesh Pro/
 /[Aa]ssets/[Tt]extMeshPro/
 /[Aa]ssets/[Tt]extMesh Pro.meta
+
+# Unity拡張機能
+/.vscode
