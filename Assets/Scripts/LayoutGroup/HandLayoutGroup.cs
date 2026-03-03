@@ -31,7 +31,7 @@ public class HandLayoutGroup : MonoBehaviour
             // 子オブジェクトを均等間隔に並べる
             Transform _child = this.transform.GetChild(i);
             float _left = _width * (i + 1) / (this.transform.childCount + 1) - _width / 2;
-            _child.localPosition = new Vector3(_left, 0, 0); // 他属性選択中に実行されないよう修正が必要
+            _child.localPosition = new Vector3(_left, 0, 0);
         }
     }
 }

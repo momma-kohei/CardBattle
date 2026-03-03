@@ -11,6 +11,7 @@ public class CardView : MonoBehaviour
     [SerializeField] Sprite _textureBack = null;
 
     CardModel _model;
+    AudioSource _audioSource;
 
     public event Action<CardView> OnCardClicked; // カードがクリックされたときのイベント
 
@@ -95,6 +96,19 @@ public class CardView : MonoBehaviour
             }
         }
         return false;
+    }
+
+    /// <summary>
+    /// カードを置くときの音を再生
+    /// </summary>
+    /// <param name="card"></param>
+    public void PlaySound(CardModel card)
+    {
+        if (_audioSource == null)
+        {
+            _audioSource = gameObject.GetComponent<AudioSource>();
+        }
+        _audioSource.Play();
     }
 
     // ----------内部メソッド----------

@@ -69,7 +69,7 @@ public class Hand1View : MonoBehaviour
                 CardModel _handi = player.GetHand().GetCard(i);
                 SinkCard(_handi); // カードを戻す
             }
-            Debug.Log("Area1のリストにカードがありません。");
+            //Debug.Log("Area1のリストにカードがありません。");
         }
         else
         {
@@ -83,6 +83,7 @@ public class Hand1View : MonoBehaviour
         if (_ct != null)
         {
             _ct.localPosition = new Vector3(_ct.transform.localPosition.x, 10, _ct.transform.localPosition.z);
+            _ct.GetComponent<CardView>().PlaySound(card); // カードを置く音を再生
         }
         else Debug.Log("選択されたカードが子オブジェクトに見つかりませんでした。");
     }
@@ -93,6 +94,7 @@ public class Hand1View : MonoBehaviour
         if (_ct != null)
         {
             _ct.localPosition = new Vector3(_ct.transform.localPosition.x, 0, _ct.transform.localPosition.z);
+            _ct.GetComponent<CardView>().PlaySound(card); // カードを置く音を再生
         }
         else Debug.Log("選択されたカードが子オブジェクトに見つかりませんでした。");
     }
