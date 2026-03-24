@@ -4,19 +4,21 @@ using UnityEngine.SceneManagement;
 
 public class SelectController : MonoBehaviour
 {
-    [SerializeField] GameObject levelSelectPanel; // CPUレベルを選択するパネル
+    [SerializeField] GameObject _levelSelectPanel; // CPUレベルを選択するパネル
+    [SerializeField] GameObject _matchingWindow; // マッチングを開始するか確認するウインドウ
     [SerializeField] GameObject _screen; // 画面全体を覆うオブジェクト（クリックできなくするため）
 
 
     public void OnSoloButtonClicked()
     {
         Debug.Log("Solo button pressed");
-        levelSelectPanel.SetActive(true); // レベル選択パネルを表示
+        _levelSelectPanel.SetActive(true); // レベル選択パネルを表示
     }
 
     public void OnMultiButtonClicked()
     {
         Debug.Log("Multi button pressed");
+        _matchingWindow.SetActive(true); // マッチング確認ウインドウを表示
     }
 
     public void OnLevelOneButtonClicked()
@@ -30,12 +32,31 @@ public class SelectController : MonoBehaviour
     public void OnBackButtonClicked()
     {
         Debug.Log("Back button pressed");
-        levelSelectPanel.SetActive(false); // レベル選択パネルを非表示
+        _levelSelectPanel.SetActive(false); // レベル選択パネルを非表示
     }
 
 
     void SceneTransition() // BattleSceneをロードするメソッド
     {
         SceneManager.LoadScene("BattleScene");
+    }
+    void MatchingSceneTransition() // BattleSceneをロードするメソッド
+    {
+        SceneManager.LoadScene("****Scene");
+    }
+
+    // ---------- マッチング確認ダイアログに関するボタンイベント ----------
+    public void OnMatchingYesButtonClicked()
+    {
+        //マージ後に設定
+
+        //_screen.SetActive(true); // 画面をクリックできなくする
+        // Invoke("MatchingSceneTransition", 0.2f); // 0.2秒後にシーン遷移
+    }
+
+    public void OnMatchingNoButtonClicked()
+    {
+        Debug.Log("No button pressed");
+        _matchingWindow.SetActive(false); // 確認ダイアログを非表示
     }
 }

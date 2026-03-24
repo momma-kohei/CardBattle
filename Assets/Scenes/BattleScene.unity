@@ -2551,6 +2551,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1042613660}
     m_Modifications:
+    - target: {fileID: 15151006120817957, guid: 13e1115065997ca40b34d8ca1ce28298, type: 3}
+      propertyPath: m_Type
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 15151006120817957, guid: 13e1115065997ca40b34d8ca1ce28298, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 686702f99b717e948ac7411a005d058f, type: 3}
     - target: {fileID: 1960326031472153247, guid: 13e1115065997ca40b34d8ca1ce28298, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -2582,6 +2590,12 @@ PrefabInstance:
     - target: {fileID: 5685700084568113392, guid: 13e1115065997ca40b34d8ca1ce28298, type: 3}
       propertyPath: m_Name
       value: SubUI
+      objectReference: {fileID: 0}
+    - target: {fileID: 7686565865369674555, guid: 13e1115065997ca40b34d8ca1ce28298, type: 3}
+      propertyPath: m_text
+      value: '
+
+'
       objectReference: {fileID: 0}
     - target: {fileID: 8431619468435105195, guid: 13e1115065997ca40b34d8ca1ce28298, type: 3}
       propertyPath: m_AnchorMax.y
