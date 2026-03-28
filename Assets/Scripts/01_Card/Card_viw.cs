@@ -24,7 +24,7 @@ public class CardView : MonoBehaviour
     /// カードのモデルを取得
     /// </summary>
     /// <returns></returns>
-    public CardModel GetModel()
+    public CardModel GetModel() // クリックされたカードが自身の情報を取得できるようにするためのメソッド
     {
         return _model;
     }

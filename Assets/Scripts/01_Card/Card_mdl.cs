@@ -14,7 +14,7 @@ public class CardModel
 
     // ScriptableObjectから取得する情報
     Sprite _texture;
-    string _description; // 未使用
+    //string _description; // 未使用
 
     public CardModel(int id) // コンストラクタ
     {
@@ -30,7 +30,7 @@ public class CardModel
         _power = GuessPower(id);
 
         _texture = GetTexture(id);
-        _description = GetDescription(id);
+        //_description = GetDescription(id);
     }
 
     // UI表示用ゲッター
