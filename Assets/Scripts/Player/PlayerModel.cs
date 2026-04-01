@@ -56,7 +56,7 @@ namespace player
         /// カードを場札に追加/削除
         /// </summary>
         /// <param name="card">対象のカード</param>
-        public void Toggle(CardModel card)
+        public void Toggle(Card_mdl card)
         {
             if (!_area.Add(card)) // 場札への追加に挑戦
             {

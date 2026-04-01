@@ -2,7 +2,7 @@
 using UnityEngine;
 
 // 修正版
-public class CardModel
+public class Card_mdl
 {
     // カードID
     int _id;
@@ -16,7 +16,7 @@ public class CardModel
     Sprite _texture;
     //string _description; // 未使用
 
-    public CardModel(int id) // コンストラクタ
+    public Card_mdl(int id) // コンストラクタ
     {
         if (!IsVarid(id))
         {

@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class Area2View : MonoBehaviour
 {
-    [SerializeField] CardView _cardPrefab; // カードプレハブの参照
+    [SerializeField] Card_viw _cardPrefab; // カードプレハブの参照
     [SerializeField] Transform _transform; // 手札を表示するTransformの参照
 
     /// <summary>
@@ -19,7 +19,7 @@ public class Area2View : MonoBehaviour
         }
         for (int i = 0; i < area.GetSize(); i++)
         {
-            CardView card = Instantiate(_cardPrefab, _transform);
+            Card_viw card = Instantiate(_cardPrefab, _transform);
             card.ShowCardBack(area.GetCard(i)); // 裏面で表示
         }   
     }
@@ -36,7 +36,7 @@ public class Area2View : MonoBehaviour
         }
         for (int i = 0; i < area.GetSize(); i++)
         {
-            CardView card = Instantiate(_cardPrefab, _transform);
+            Card_viw card = Instantiate(_cardPrefab, _transform);
             card.ShowCardFront(area.GetCard(i)); // 表面で表示
         }
     }

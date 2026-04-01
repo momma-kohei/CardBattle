@@ -3,17 +3,18 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class CardView : MonoBehaviour
+public class Card_viw : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI _name = null;
     [SerializeField] TextMeshProUGUI _power = null;
     [SerializeField] Image _texture = null;
     [SerializeField] Sprite _textureBack = null;
 
-    CardModel _model;
+    Card_mdl _model;
     AudioSource _audioSource;
+    bool _isMoved = false;
 
-    public event Action<CardView> OnCardClicked; // カードがクリックされたときのイベント
+    public event Action<Card_viw> OnCardClicked; // カードがクリックされたときのイベント
 
     public void OnPointerClick() // カードクリックされたときに呼ばれるメソッド
     {
@@ -24,7 +25,7 @@ public class CardView : MonoBehaviour
     /// カードのモデルを取得
     /// </summary>
     /// <returns></returns>
-    public CardModel GetModel() // クリックされたカードが自身の情報を取得できるようにするためのメソッド
+    public Card_mdl GetModel() // クリックされたカードが自身の情報を取得できるようにするためのメソッド
     {
         return _model;
     }
@@ -34,7 +35,7 @@ public class CardView : MonoBehaviour
     /// </summary>
     /// <param name="card"></param>
     /// <returns></returns>
-    public bool ShowCardFront(CardModel card)
+    public bool ShowCardFront(Card_mdl card)
     {
         if (_name != null)
         {
@@ -57,7 +58,7 @@ public class CardView : MonoBehaviour
     /// </summary>
     /// <param name="card"></param>
     /// <returns></returns>
-    public bool ShowCardBack(CardModel card)
+    public bool ShowCardBack(Card_mdl card)
     {
         if (_name != null)
         {
@@ -80,7 +81,7 @@ public class CardView : MonoBehaviour
     /// </summary>
     /// <param name="card"></param>
     /// <returns></returns>
-    public bool ShowCardEle(CardModel card)
+    public bool ShowCardEle(Card_mdl card)
     {
         if (_name != null)
         {
@@ -99,10 +100,29 @@ public class CardView : MonoBehaviour
     }
 
     /// <summary>
+    /// Toggleでカードを上下に移動
+    /// </summary>
+    /// <param name="card"></param>
+    public void MoveCard(Card_mdl card)
+    {
+        Vector3 pos = this.transform.localPosition;
+        if (_isMoved)
+        {
+            pos = new Vector3(pos.x, 0, pos.z);
+            _isMoved = false;
+        }
+        else
+        {
+            pos = new Vector3(pos.x, 10, pos.z);
+            _isMoved = true;
+        }  
+    }
+
+    /// <summary>
     /// カードを置くときの音を再生
     /// </summary>
     /// <param name="card"></param>
-    public void PlaySound(CardModel card)
+    public void PlaySound(Card_mdl card)
     {
         if (_audioSource == null)
         {
@@ -113,7 +133,7 @@ public class CardView : MonoBehaviour
 
     // ----------内部メソッド----------
 
-    bool SetCardInfo(CardModel card, string how) // 共通の動作
+    bool SetCardInfo(Card_mdl card, string how) // 共通の動作
     {
         _model = card; // 引数で受け取ったカードモデルを保持
         if (how == "Front" || how == "Back" || how == "Ele")

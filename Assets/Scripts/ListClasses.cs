@@ -5,28 +5,28 @@ namespace cardLists
 {
     public class Deck // 山札クラス
     {
-        List<CardModel> _deck;
-        List<CardModel> _trash;
+        List<Card_mdl> _deck;
+        List<Card_mdl> _trash;
 
         public Deck() // コンストラクタ
         {
-            _deck = new List<CardModel>(); // 山札を初期化
+            _deck = new List<Card_mdl>(); // 山札を初期化
             InitDeck();
 
-            _trash = new List<CardModel>(); // 捨て札を初期化
+            _trash = new List<Card_mdl>(); // 捨て札を初期化
         }
 
         /// <summary>
         /// 山札からカードを１枚ドロー
         /// </summary>
         /// <returns>ドローしたカード</returns>
-        public CardModel Draw(Hand hand)
+        public Card_mdl Draw(Hand hand)
         {
             if (_deck.Count == 0)
             {
                 ReloadDeck(); // 山札が空の場合，リロード
             }
-            CardModel drawn = _deck[0]; // 山札の一番上のカードを取得
+            Card_mdl drawn = _deck[0]; // 山札の一番上のカードを取得
             if (hand.Add(drawn)) // 取得したカードを手札に入れてみる
             {
                 _deck.RemoveAt(0); // 取得したカードを山札から削除
@@ -40,7 +40,7 @@ namespace cardLists
         /// </summary>
         /// <param name="card"></param>
         /// <returns>動作成功か</returns>
-        public bool AddTrash(CardModel card)
+        public bool AddTrash(Card_mdl card)
         {
             if (!_trash.Contains(card))
             {
@@ -56,7 +56,7 @@ namespace cardLists
         {
             for (int i = 10; i < 40; i++)
             {
-                _deck.Add(new CardModel(i));
+                _deck.Add(new Card_mdl(i));
             }
             ShuffleDeck();
         }
@@ -66,7 +66,7 @@ namespace cardLists
             if (_deck.Count == 0 && _trash.Count > 0)
             {
                 //_deck.Clear();
-                _deck = new List<CardModel>(_trash);
+                _deck = new List<Card_mdl>(_trash);
                 ShuffleDeck();
                 _trash.Clear();
             }
@@ -77,7 +77,7 @@ namespace cardLists
             for (int i = 0; i < _deck.Count; i++)
             {
                 int _randomIndex = UnityEngine.Random.Range(0, _deck.Count);
-                CardModel _temp = _deck[i];
+                Card_mdl _temp = _deck[i];
                 _deck[i] = _deck[_randomIndex];
                 _deck[_randomIndex] = _temp;
             }
@@ -87,12 +87,12 @@ namespace cardLists
 
     public class Hand // 手札クラス
     {
-        List<CardModel> _hand;
+        List<Card_mdl> _hand;
         public const int maxSize = 7; // 手札の最大枚数
 
         public Hand() // コンストラクタ
         {
-            _hand = new List<CardModel>(); // 手札の初期化
+            _hand = new List<Card_mdl>(); // 手札の初期化
         }
 
         /// <summary>
@@ -100,7 +100,7 @@ namespace cardLists
         /// </summary>
         /// <param name="card"></param>
         /// <returns>動作成功か</returns>
-        public bool Add(CardModel card)
+        public bool Add(Card_mdl card)
         {
             if (_hand.Count < maxSize)
             {
@@ -116,7 +116,7 @@ namespace cardLists
         /// </summary>
         /// <param name="card"></param>
         /// <returns>動作成功か</returns>
-        public bool Remove(CardModel card)
+        public bool Remove(Card_mdl card)
         {
             if (_hand.Contains(card))
             {
@@ -132,7 +132,7 @@ namespace cardLists
         /// <param name="index">インデックス</param>
         /// <returns></returns>
         /// <exception cref="ArgumentOutOfRangeException"></exception>
-        public CardModel GetCard(int index)
+        public Card_mdl GetCard(int index)
         {
             if (index >=  0 && index < _hand.Count)
             {
@@ -153,11 +153,11 @@ namespace cardLists
 
     public class Area // 場札クラス
     {
-        List<CardModel> _area;
+        List<Card_mdl> _area;
 
         public Area() // コンストラクタ
         {
-            _area = new List<CardModel>();
+            _area = new List<Card_mdl>();
         }
 
         /// <summary>
@@ -165,7 +165,7 @@ namespace cardLists
         /// </summary>
         /// <param name="card"></param>
         /// <returns>動作成功か</returns>
-        public bool Add(CardModel card)
+        public bool Add(Card_mdl card)
         {
             if (!_area.Contains(card)) // 追加済ではない
             {
@@ -195,7 +195,7 @@ namespace cardLists
         /// </summary>
         /// <param name="card"></param>
         /// <returns>動作成功か</returns>
-        public bool Remove(CardModel card)
+        public bool Remove(Card_mdl card)
         {
             if (_area.Contains(card))
             {
@@ -238,7 +238,7 @@ namespace cardLists
         /// <param name="index">インデックス</param>
         /// <returns></returns>
         /// <exception cref="ArgumentOutOfRangeException"></exception>
-        public CardModel GetCard(int index)
+        public Card_mdl GetCard(int index)
         {
             if (index >= 0 && index < _area.Count)
             {

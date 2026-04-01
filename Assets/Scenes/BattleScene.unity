@@ -270,6 +270,7 @@ GameObject:
   - component: {fileID: 142866444}
   - component: {fileID: 142866446}
   - component: {fileID: 142866447}
+  - component: {fileID: 142866448}
   m_Layer: 5
   m_Name: Hand1
   m_TagString: Untagged
@@ -360,6 +361,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Hand1View
   _cardPrefab: {fileID: 5835935263170625886, guid: 80e949178ae29914f99d13cfc74432ca, type: 3}
   _transform: {fileID: 142866442}
+--- !u!114 &142866448
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 142866441}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9967a356f5f4984792cab16a855f3fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::List_viw
+  _cardPrefab: {fileID: 5835935263170625886, guid: 80e949178ae29914f99d13cfc74432ca, type: 3}
+  _transform: {fileID: 142866442}
+  _side: 2
 --- !u!1 &194616561
 GameObject:
   m_ObjectHideFlags: 0
@@ -416,6 +432,37 @@ MonoBehaviour:
   _power: {fileID: 1949300984}
   _hitPoint: {fileID: 273575}
   _icon: {fileID: 502868695}
+--- !u!1 &233610578
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 233610579}
+  m_Layer: 0
+  m_Name: Field_mng
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &233610579
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 233610578}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 640, y: 360, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &502868692
 GameObject:
   m_ObjectHideFlags: 0
@@ -935,7 +982,7 @@ GameObject:
   - component: {fileID: 753349750}
   - component: {fileID: 753349751}
   m_Layer: 5
-  m_Name: OpponentSide
+  m_Name: EnemySide
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1619,6 +1666,7 @@ GameObject:
   - component: {fileID: 1487234797}
   - component: {fileID: 1487234796}
   - component: {fileID: 1487234799}
+  - component: {fileID: 1487234800}
   m_Layer: 5
   m_Name: Area2
   m_TagString: Untagged
@@ -1723,6 +1771,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Area2View
   _cardPrefab: {fileID: 5835935263170625886, guid: 80e949178ae29914f99d13cfc74432ca, type: 3}
   _transform: {fileID: 1487234795}
+--- !u!114 &1487234800
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1487234794}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9967a356f5f4984792cab16a855f3fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::List_viw
+  _cardPrefab: {fileID: 5835935263170625886, guid: 80e949178ae29914f99d13cfc74432ca, type: 3}
+  _transform: {fileID: 1487234795}
+  _side: 0
 --- !u!1 &1760533319
 GameObject:
   m_ObjectHideFlags: 0
@@ -1815,6 +1878,7 @@ GameObject:
   - component: {fileID: 1872305365}
   - component: {fileID: 1872305364}
   - component: {fileID: 1872305367}
+  - component: {fileID: 1872305368}
   m_Layer: 5
   m_Name: Hand2
   m_TagString: Untagged
@@ -1919,6 +1983,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Hand2View
   _cardPrefab: {fileID: 5835935263170625886, guid: 80e949178ae29914f99d13cfc74432ca, type: 3}
   _transform: {fileID: 1872305363}
+--- !u!114 &1872305368
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1872305362}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9967a356f5f4984792cab16a855f3fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::List_viw
+  _cardPrefab: {fileID: 5835935263170625886, guid: 80e949178ae29914f99d13cfc74432ca, type: 3}
+  _transform: {fileID: 1872305363}
+  _side: 1
 --- !u!1 &1880401093
 GameObject:
   m_ObjectHideFlags: 0
@@ -2008,6 +2087,7 @@ GameObject:
   - component: {fileID: 1881383835}
   - component: {fileID: 1881383834}
   - component: {fileID: 1881383837}
+  - component: {fileID: 1881383838}
   m_Layer: 5
   m_Name: Area1
   m_TagString: Untagged
@@ -2112,6 +2192,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Area1View
   _cardPrefab: {fileID: 5835935263170625886, guid: 80e949178ae29914f99d13cfc74432ca, type: 3}
   _transform: {fileID: 1881383833}
+--- !u!114 &1881383838
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1881383832}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9967a356f5f4984792cab16a855f3fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::List_viw
+  _cardPrefab: {fileID: 5835935263170625886, guid: 80e949178ae29914f99d13cfc74432ca, type: 3}
+  _transform: {fileID: 1881383833}
+  _side: 2
 --- !u!1 &1924815033
 GameObject:
   m_ObjectHideFlags: 0
@@ -2559,6 +2654,14 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: 686702f99b717e948ac7411a005d058f, type: 3}
+    - target: {fileID: 68878732730585249, guid: 13e1115065997ca40b34d8ca1ce28298, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+    - target: {fileID: 68878732730585249, guid: 13e1115065997ca40b34d8ca1ce28298, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
     - target: {fileID: 1960326031472153247, guid: 13e1115065997ca40b34d8ca1ce28298, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -2885,3 +2988,4 @@ SceneRoots:
   - {fileID: 1948438323}
   - {fileID: 1472906431}
   - {fileID: 919425310}
+  - {fileID: 233610579}

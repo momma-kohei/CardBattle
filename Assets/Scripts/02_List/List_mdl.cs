@@ -8,14 +8,14 @@ namespace ListModels
     /// </summary>
     public class List_mdl // 各カードリストの継承元となるクラス
     {
-        protected List<CardModel> _list; // カードのリスト
+        protected List<Card_mdl> _list; // カードのリスト
 
         public List_mdl() // コンストラクタ
         {
-            _list = new List<CardModel>(); // カードのリストを初期化
+            _list = new List<Card_mdl>(); // カードのリストを初期化
         }
 
-        public bool Add(CardModel card) // カードをリストに追加
+        public bool Add(Card_mdl card) // カードをリストに追加
         {
             if (!_list.Contains(card))
             {
@@ -25,7 +25,7 @@ namespace ListModels
             return false;
         }
 
-        public bool Remove(CardModel card) // カードをリストから削除
+        public bool Remove(Card_mdl card) // カードをリストから削除
         {
             if (_list.Contains(card))
             {
@@ -35,12 +35,12 @@ namespace ListModels
             return false;
         }
 
-        public List<CardModel> GetList() // カードのリストを取得
+        public List<Card_mdl> GetList() // カードのリストを取得
         {
             return _list;
         }
 
-        public CardModel GetCard(int index) // カードのリストからインデックスでカードを取得
+        public Card_mdl GetCard(int index) // カードのリストからインデックスでカードを取得
         {
             if (index >= 0 && index < GetSize())
             {
@@ -66,7 +66,7 @@ namespace ListModels
         {
             for (int i = 10; i < 40; i++)
             {
-                Add(new CardModel(i)); // カードを追加
+                Add(new Card_mdl(i)); // カードを追加
             }
             Shuffle(); // 山札をシャッフル
         }
@@ -77,32 +77,25 @@ namespace ListModels
             for (int i = _list.Count - 1; i > 0; i--)
             {
                 int j = rand.Next(0, i + 1);
-                CardModel temp = _list[i];
+                Card_mdl temp = _list[i];
                 _list[i] = _list[j];
                 _list[j] = temp;
             }
         }
 
-        public void Reload(Trash_mdl trash) // 捨て札から山札をリロード
+        public Card_mdl Pop()
         {
-            if (_list.Count == 0)
+            Card_mdl card;
+            if (GetSize() > 0)
             {
-                _list = new List<CardModel>(trash.GetList());
-                Shuffle(); // 山札をシャッフル
-                trash.Clear(); // 捨て札をクリア
+                card = _list[0];
+                Remove(card);
             }
-        }
-    }
-
-    public class Trash_mdl : List_mdl // 捨て札クラス
-    {
-        public Trash_mdl() : base() // コンストラクタ
-        {
-        }
-
-        public void Clear() // 捨て札をクリア
-        {
-            _list.Clear();
+            else
+            {
+                card = null;
+            }
+                return card;
         }
     }
 
@@ -128,7 +121,7 @@ namespace ListModels
         public int GetTotalPower() // 場札のカードの合計パワーを取得
         {
             int totalPower = 0;
-            foreach (CardModel card in _list)
+            foreach (Card_mdl card in _list)
             {
                 totalPower += card.GetPower();
             }

@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class Hand2View : MonoBehaviour
 {
-    [SerializeField] CardView _cardPrefab; // カードプレハブの参照
+    [SerializeField] Card_viw _cardPrefab; // カードプレハブの参照
     [SerializeField] Transform _transform; // 手札を表示するTransformの参照
 
     /// <summary>
@@ -18,7 +18,7 @@ public class Hand2View : MonoBehaviour
         }
         for (int i = 0; i < hand.GetSize(); i++)
         {
-            CardView card = Instantiate(_cardPrefab, _transform);
+            Card_viw card = Instantiate(_cardPrefab, _transform);
             card.ShowCardEle(hand.GetCard(i)); // 属性面で表示
         }   
     }

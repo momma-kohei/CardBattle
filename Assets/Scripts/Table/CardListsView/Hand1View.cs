@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Hand1View : MonoBehaviour
 {
-    [SerializeField] CardView _cardPrefab; // カードプレハブの参照
+    [SerializeField] Card_viw _cardPrefab; // カードプレハブの参照
     [SerializeField] Transform _transform; // 手札を表示するTransformの参照
 
     /// <summary>
@@ -19,7 +19,7 @@ public class Hand1View : MonoBehaviour
         }
         for (int i = 0; i < hand.GetSize(); i++)
         {
-            CardView card = Instantiate(_cardPrefab, _transform);
+            Card_viw card = Instantiate(_cardPrefab, _transform);
             card.ShowCardFront(hand.GetCard(i)); // 表面で表示
         }
     }
@@ -46,10 +46,10 @@ public class Hand1View : MonoBehaviour
         {
             for (int i = 0; i < player.GetHand().GetSize(); i++) // 手札を探索
             {
-                CardModel _handi = player.GetHand().GetCard(i);
+                Card_mdl _handi = player.GetHand().GetCard(i);
                 for (int j = 0; j < player.GetArea().GetSize(); j++) // 場札を探索
                 {
-                    CardModel _areaj = player.GetArea().GetCard(j);
+                    Card_mdl _areaj = player.GetArea().GetCard(j);
                     if (_handi == _areaj)
                     {
                         FloatCard(_handi); // カードを浮かせる
@@ -66,7 +66,7 @@ public class Hand1View : MonoBehaviour
         {
             for (int i = 0; i < player.GetHand().GetSize(); i++) // 手札を探索
             {
-                CardModel _handi = player.GetHand().GetCard(i);
+                Card_mdl _handi = player.GetHand().GetCard(i);
                 SinkCard(_handi); // カードを戻す
             }
             //Debug.Log("Area1のリストにカードがありません。");
@@ -77,24 +77,24 @@ public class Hand1View : MonoBehaviour
         }
     }
 
-    void FloatCard(CardModel card) // 手札を浮かせる処理
+    void FloatCard(Card_mdl card) // 手札を浮かせる処理
     {
         Transform _ct = _transform.Find("Card_" + card.GetID().ToString() + "_Front");
         if (_ct != null)
         {
             _ct.localPosition = new Vector3(_ct.transform.localPosition.x, 10, _ct.transform.localPosition.z);
-            _ct.GetComponent<CardView>().PlaySound(card); // カードを置く音を再生
+            _ct.GetComponent<Card_viw>().PlaySound(card); // カードを置く音を再生
         }
         else Debug.Log("選択されたカードが子オブジェクトに見つかりませんでした。");
     }
 
-    void SinkCard(CardModel card) // 手札を元の位置に戻す処理
+    void SinkCard(Card_mdl card) // 手札を元の位置に戻す処理
     {
         Transform _ct = _transform.Find("Card_" + card.GetID().ToString() + "_Front");
         if (_ct != null)
         {
             _ct.localPosition = new Vector3(_ct.transform.localPosition.x, 0, _ct.transform.localPosition.z);
-            _ct.GetComponent<CardView>().PlaySound(card); // カードを置く音を再生
+            _ct.GetComponent<Card_viw>().PlaySound(card); // カードを置く音を再生
         }
         else Debug.Log("選択されたカードが子オブジェクトに見つかりませんでした。");
     }

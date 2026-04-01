@@ -33,7 +33,7 @@ public class TablePresenter : MonoBehaviour // ゲームを行うテーブルを
     /// Player１のカードがクリックされた時に呼ばれるメソッド
     /// </summary>
     /// <param name="card"></param>
-    void OnP1CardClicked(CardView card)
+    void OnP1CardClicked(Card_viw card)
     {
         _model.GetPlayer1().Toggle(card.GetModel()); // View -> Model
         _area1v.Show(_model.GetPlayer1().GetArea()); // Model -> View
@@ -147,11 +147,11 @@ public class TablePresenter : MonoBehaviour // ゲームを行うテーブルを
     /// </summary>
     public void UnsetMyCardEvent()
     {
-        foreach (CardView civ in _hand1v.GetTransform().GetComponentsInChildren<CardView>())
+        foreach (Card_viw civ in _hand1v.GetTransform().GetComponentsInChildren<Card_viw>())
         {
             civ.OnCardClicked -= OnP1CardClicked;
         }
-        foreach (CardView civ in _area1v.GetTransform().GetComponentsInChildren<CardView>())
+        foreach (Card_viw civ in _area1v.GetTransform().GetComponentsInChildren<Card_viw>())
         {
             civ.OnCardClicked -= OnP1CardClicked;
         }
@@ -174,7 +174,7 @@ public class TablePresenter : MonoBehaviour // ゲームを行うテーブルを
     //カードにクリックイベントをセット
     void SetClicEventHand1()
     {
-        foreach (CardView civ in _hand1v.GetTransform().GetComponentsInChildren<CardView>())
+        foreach (Card_viw civ in _hand1v.GetTransform().GetComponentsInChildren<Card_viw>())
         {
             civ.OnCardClicked -= OnP1CardClicked; // ２重にならないよう一旦解除
             civ.OnCardClicked += OnP1CardClicked;
@@ -182,7 +182,7 @@ public class TablePresenter : MonoBehaviour // ゲームを行うテーブルを
     }
     void SetClicEventArea1()
     {
-        foreach (CardView civ in _area1v.GetTransform().GetComponentsInChildren<CardView>())
+        foreach (Card_viw civ in _area1v.GetTransform().GetComponentsInChildren<Card_viw>())
         {
             civ.OnCardClicked -= OnP1CardClicked; // ２重にならないよう一旦解除
             civ.OnCardClicked += OnP1CardClicked;
