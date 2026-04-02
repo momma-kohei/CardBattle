@@ -14,19 +14,18 @@ public class Battle_mgr : MonoBehaviour
     [SerializeField] Button _centerButton;
 
     [SerializeField] int _maxHitPoint = 30;
-
-    public Action OnCenterButtonClicked; // センターボタンがクリックされたときのイベント
-
-    AudioSource _buttonSound;
     int _hitPoint1;
     int _hitPoint2;
-
-    public int HitPoint1 { get => _hitPoint1; set => _hitPoint1 = value; }
-    public int HitPoint2 { get => _hitPoint2; set => _hitPoint2 = value; }
+    public int HitPoint1 { get => _hitPoint1; }
+    public int HitPoint2 { get => _hitPoint2; }
 
     GamePhase _currentPhase;
 
-    bool _logOnce = false; // デバッグ用のフラグ
+    public Action OnCenterButtonClicked; // センターボタンがクリックされたときのイベント
+    AudioSource _buttonSound;
+
+    bool _logOnce = false; // Updateで１回だけログを出すためのフラグ
+    bool _isOnline = false; // オンラインかどうかのフラグ（必要に応じて設定）
 
 
     void Start()
@@ -34,32 +33,29 @@ public class Battle_mgr : MonoBehaviour
         _hitPoint1 = _maxHitPoint;
         _hitPoint2 = _maxHitPoint;
 
-        _fieldM.FillHand1(); // 自分の手札を満たす
-
-        // オフライン
-        _cpuM.FillHand2(); // CPUの手札を満たす
-
-        SetPhase(GamePhase.PlayerSelect1);
-
-        // オンラインの場合は、立場の弱い方（クライアント）がここでSetPhase(GamePhase.EnemySelect1)とか
+        FillHands(); // 手札を満たす処理
+        CoinToss(); // 先攻後攻の決定
     }
 
     void Update()
     {
-        if (_currentPhase == GamePhase.Finish && !_logOnce)
+        if (_currentPhase == GamePhase.Finish)
         {
-            if (_hitPoint1 <= 0)
+            if (!_logOnce)
             {
-                Debug.Log("Player2の勝利！");
-                _logOnce = true;
-            }
-            else if (_hitPoint2 <= 0)
-            {
-                Debug.Log("Player1の勝利！");
-                _logOnce = true;
-            }
+                if (_hitPoint1 <= 0)
+                {
+                    Debug.Log("Player2の勝利！");
+                    _logOnce = true;
+                }
+                else if (_hitPoint2 <= 0)
+                {
+                    Debug.Log("Player1の勝利！");
+                    _logOnce = true;
+                }
+            } 
         }
-        else if (_hitPoint1 <= 0 || _hitPoint2 <= 0)
+        else if (Finished())
         {
             SetPhase(GamePhase.Finish);
         }
@@ -75,29 +71,61 @@ public class Battle_mgr : MonoBehaviour
     {
         _fieldM.FillHand1(); // 自分の手札を満たす
 
-        // オフライン
-        _cpuM.FillHand2(); // CPUの手札を満たす
+        if (_isOnline) // ----------------------------------------------------------------------------
+        {
+            // オンライン
+            // 相手プレイヤーの手札を満たす処理
+            // (相手側)_fieldM.FillHand2();
+        }
+        else
+        {
+            // オフライン
+            _cpuM.FillHand2(); // CPUの手札を満たす
+        }
+    }
 
-        // オンライン
-        // 相手プレイヤーの手札を満たす処理
+    void CoinToss()
+    {
+        if (_isOnline) // ----------------------------------------------------------------------------
+        {
+            // オンライン
+            // 先後の決定をうまいこと行う
+        }
+        else
+        {
+            // オフライン
+            int coin = UnityEngine.Random.Range(0, 2); // コイントスで先攻後攻を決める
+            if (coin == 0)
+            {
+                Debug.Log("Player1が先攻");
+                SetPhase(GamePhase.PlayerSelect1);
+            }
+            else
+            {
+                Debug.Log("Player2が先攻");
+                SetPhase(GamePhase.EnemySelect1);
+            }
+        }
     }
 
     public void Battle1() // player1が攻撃側の場合のバトル処理
     {
         _fieldM.OpenArea(); // 場札を公開
-
         _hitPoint2 -= _battleC.CalcDamage(true); // 相手のHPからダメージを引く
         Debug.Log($"Player1の攻撃！ Player2の残りHP: {_hitPoint2}");
-        Invoke(nameof(ResetField), 1f);
+        // HP表示
+
+        if (!Finished()) Invoke(nameof(ResetField), 1f);
     }
 
     public void Battle2()
     {
         _fieldM.OpenArea(); // 場札を公開
-
         _hitPoint1 -= _battleC.CalcDamage(false); // 自分ののHPからダメージを引く
         Debug.Log($"Player2の攻撃！ Player1の残りHP: {_hitPoint1}");
-        Invoke(nameof(ResetField), 1f);
+        // HP表示
+
+        if (!Finished()) Invoke(nameof(ResetField), 1f);
     }
 
     public void SetPhase(GamePhase nextPhase)
@@ -108,80 +136,71 @@ public class Battle_mgr : MonoBehaviour
         {
             case GamePhase.PlayerSelect1:
                 Debug.Log("PlayerSelect1フェーズに遷移");
-
-                // 自分のクリックを有効化
-                SetP1CardAction(); // PlayerSelect1のカードにクリックイベントを登録
+                SetPlayerAction(); // 操作可能
                 break;
 
             case GamePhase.EnemySelect1:
                 Debug.Log("EnemySelect1フェーズに遷移");
-
-                UnsetP1CardAction(); // PlayerSelect1のカードのクリックイベントを解除
-                UnsetCenterButtonAction(); // センターボタンのクリックイベントを解除
-
-                // オフライン
-                _cpuM.CallActionCPU(); // CPUの行動を呼び出す
-                Invoke(nameof(Transition), 1f); // CPUの行動が終わるまでの時間を設定してTransitionを呼び出す
-
-                // オンライン
-                // 相手のクリックを有効化
-                // 自分は待機
+                UnsetPlayerAction(); // 操作不可
+                if (_isOnline) // ----------------------------------------------------------------------------
+                {
+                    // オンライン
+                    // (相手側)SetPlayerAction();
+                }
+                else
+                {
+                    // オフライン
+                    _cpuM.CallActionCPU(); // CPUの行動を呼び出し
+                    Invoke(nameof(Transition), 1f); // 遅延して遷移
+                }
                 break;
 
             case GamePhase.Battle1:
                 Debug.Log("Battle1フェーズに遷移 - Player1の攻撃処理を実行");
-
-                UnsetP1CardAction(); // PlayerSelect1のカードのクリックイベントを解除
-                UnsetCenterButtonAction(); // センターボタンのクリックイベントを解除
+                UnsetPlayerAction(); // 操作不可
 
                 // 数値処理やアニメーションなどのバトル処理を実行
                 Battle1();
 
-                Invoke(nameof(Transition), 3f); // バトル処理が終わるまでの時間を設定してTransitionを呼び出す
+                Invoke(nameof(Transition), 3f); // 遅延して遷移
                 break;
 
             case GamePhase.EnemySelect2:
                 Debug.Log("EnemySelect2フェーズに遷移");
-
-                UnsetP1CardAction(); // PlayerSelect1のカードのクリックイベントを解除
-                UnsetCenterButtonAction(); // センターボタンのクリックイベントを解除
-
-                // オフライン
-                _cpuM.CallActionCPU(); // CPUの行動を呼び出す
-                Invoke(nameof(Transition), 1f); // CPUの行動が終わるまでの時間を設定してTransitionを呼び出す
-
-
-                // オンライン
-                // 相手のクリックを有効化
-                // 自分は待機
+                UnsetPlayerAction(); // 操作不可
+                if (_isOnline) // ----------------------------------------------------------------------------
+                {
+                    // オンライン
+                    // (相手側)SetPlayerAction(); を呼び出すための通信
+                }
+                else
+                {
+                    // オフライン
+                    _cpuM.CallActionCPU(); // CPUの行動を呼び出し
+                    Invoke(nameof(Transition), 1f); // 遅延して遷移
+                }
                 break;
 
             case GamePhase.PlayerSelect2:
                 Debug.Log("PlayerSelect2フェーズに遷移");
-
-                // 自分のクリックを有効化
-                SetP1CardAction(); // PlayerSelect1のカードにクリックイベントを登録
+                SetPlayerAction(); // 操作可能
                 break;
 
             case GamePhase.Battle2:
                 Debug.Log("Battle2フェーズに遷移 - Player2の攻撃処理を実行");
-
-                UnsetP1CardAction(); // PlayerSelect1のカードのクリックイベントを解除
-                UnsetCenterButtonAction(); // センターボタンのクリックイベントを解除
+                UnsetPlayerAction(); // 操作不可
 
                 // 数値処理やアニメーションなどのバトル処理を実行
                 Battle2();
 
-                Invoke(nameof(Transition), 3f); // バトル処理が終わるまでの時間を設定してTransitionを呼び出す
+                Invoke(nameof(Transition), 3f); // 遅延して遷移
                 break;
 
             case GamePhase.Finish:
                 Debug.Log("Finishフェーズに遷移 - ゲーム終了");
+                UnsetPlayerAction(); // 操作不可
 
-                UnsetP1CardAction(); // PlayerSelect1のカードのクリックイベントを解除
-                UnsetCenterButtonAction(); // センターボタンのクリックイベントを解除
-
-                // ゲーム終了
+                // バトル終了処理
                 break;
         }
     }
@@ -191,7 +210,7 @@ public class Battle_mgr : MonoBehaviour
         switch (_currentPhase)
         {
             case GamePhase.PlayerSelect1:
-                SetPhase(GamePhase.EnemySelect1);
+                if(!Finished()) SetPhase(GamePhase.EnemySelect1);
                 break;
             case GamePhase.EnemySelect1:
                 SetPhase(GamePhase.Battle1);
@@ -203,19 +222,19 @@ public class Battle_mgr : MonoBehaviour
                 SetPhase(GamePhase.PlayerSelect2);
                 break;
             case GamePhase.Battle1:
-                SetPhase(GamePhase.EnemySelect2);
+                if (!Finished()) SetPhase(GamePhase.EnemySelect2);
                 break;
             case GamePhase.Battle2:
                 SetPhase(GamePhase.PlayerSelect1);
                 break;
         }
-        // 自分のセレクト終了時に自分と相手のTransitionを呼び出す
     }
 
-    //public void Finish()
-    //{
-    //    if (_hitPoint1 <= 0 || _hitPoint2 <= 0) SetPhase(GamePhase.Finish);
-    //}
+    bool Finished()
+    {
+        if (_hitPoint1 <= 0 || _hitPoint2 <= 0) return true;
+        else return false;
+    }
 
     public enum GamePhase
     {
@@ -228,7 +247,7 @@ public class Battle_mgr : MonoBehaviour
         Finish
     }
 
-    public void SetP1CardAction()
+    public void SetPlayerAction()
     {
         foreach (Card_viw cardV in _fieldV.GetHand1Transform().GetComponentsInChildren<Card_viw>())
         {
@@ -238,9 +257,11 @@ public class Battle_mgr : MonoBehaviour
         {
             cardV.OnCardClicked += OnP1CardClicked; // Area1のカードにクリックイベントを登録
         }
+
+        // ボタンが押せる状態の見た目の変更などもここで行う
     }
 
-    public void UnsetP1CardAction()
+    public void UnsetPlayerAction()
     {
         foreach (Card_viw cardV in _fieldV.GetHand1Transform().GetComponentsInChildren<Card_viw>())
         {
@@ -250,6 +271,9 @@ public class Battle_mgr : MonoBehaviour
         {
             cardV.OnCardClicked -= OnP1CardClicked; // Area1のカードのクリックイベントを解除
         }
+        UnsetCenterButtonAction(); // センターボタンのクリックイベントを解除
+
+        // ボタンが押せない状態の見た目の変更などもここで行う
     }
 
     void OnP1CardClicked(Card_viw card)
@@ -257,10 +281,8 @@ public class Battle_mgr : MonoBehaviour
         // toggle & Area表示
         if (_fieldM.Toggle(card.GetModel()))
         {
-            // Hand移動
-            card.MoveCard();
-            // 効果音再生
-            card.PlaySound();
+            card.MoveCard(); // Hand移動
+            card.PlaySound(); // 効果音再生
 
             UnsetCenterButtonAction(); // センターボタンのクリックイベントを解除
             if (!_fieldM.IsAreaEmpty())

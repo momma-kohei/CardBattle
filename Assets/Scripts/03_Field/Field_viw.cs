@@ -12,17 +12,14 @@ public class Field_viw : MonoBehaviour
     {
         _handV1.Show(handM);
     }
-
     public void ShowHand2(Hand_mdl handM)
     {
         _handV2.Show(handM);
     }
-
     public void ShowArea1(Area_mdl areaM)
     {
         _areaV1.Show(areaM);
     }
-
     public void ShowArea2(Area_mdl areaM)
     {
         _areaV2.Show(areaM);

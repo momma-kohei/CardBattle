@@ -6,19 +6,9 @@ public class MyPlayer : MonoBehaviour
     public static MyPlayer Instance { get; private set; } // シングルトンインスタンス
 
     string playerName = ""; // プレイヤー名を格納する変数
-
-    public string PlayerName
-    {
-        get => playerName;
-        set => playerName = value;
-    }
-
     Sprite playerIcon;
-    public Sprite PlayerIcon
-    {
-        get => playerIcon;
-        set => playerIcon = value;
-    }
+    public string PlayerName { get => playerName; set => playerName = value; }
+    public Sprite PlayerIcon { get => playerIcon; set => playerIcon = value; }
 
     private void Awake()
     {

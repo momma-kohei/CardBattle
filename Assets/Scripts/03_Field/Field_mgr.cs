@@ -9,13 +9,15 @@ public class Field_mgr : MonoBehaviour
     [SerializeField] Field_viw _fieldV;
     int _maxHandSize = 7;
 
+    bool _isOnline = false; // オンラインかどうかのフラグ（仮）
+
     public void FillHand1()
     {
-        while (_fieldC?.GetHand1().GetSize() < _maxHandSize)
+        while (_fieldC?.Hand1.GetSize() < _maxHandSize)
         {
             Draw();
         }
-        _fieldV.ShowHand1(_fieldC.GetHand1());
+        _fieldV.ShowHand1(_fieldC.Hand1);
     }
 
     public void Draw()
@@ -25,26 +27,31 @@ public class Field_mgr : MonoBehaviour
         {
             _fieldC.Draw1(card);
 
-            // オンラインの処理はここに書く（？）
-            // 相手側の_fieldC.Draw2(card); みたいな
+            if (_isOnline) // ----------------------------------------------------------------------------
+            {
+                // オンライン
+                // (相手側)_fieldC.Draw2(card);
+            }
         }
     }
 
     public bool Toggle(Card_mdl card)
     {
         // 場札と同属性のカードだけがトグルできるようにする
-        if (_fieldC?.GetArea1().GetEleType() != EleType.None && card.GetEleType() != _fieldC?.GetArea1().GetEleType())
+        if (_fieldC?.Area1.GetEleType() != EleType.None && card.GetEleType() != _fieldC?.Area1.GetEleType())
         {
             return false;
         }
 
         _fieldC?.Toggle1(card);
-        _fieldV.ShowArea1(_fieldC.GetArea1());
+        _fieldV.ShowArea1(_fieldC.Area1);
 
-        // オンラインの処理はここに書く（？）
-        // 相手側の_fieldC.Toggle2(card);
-        // 相手側の_fieldV.ShowArea2(_fieldC.GetArea2());
-        // みたいな
+        if (_isOnline) // ----------------------------------------------------------------------------
+        {
+            // オンライン
+            // (相手側)_fieldC.Toggle2(card);
+            // (相手側)_fieldV.ShowArea2(_fieldC.GetArea2());
+        }
 
         return true;
     }
@@ -52,19 +59,19 @@ public class Field_mgr : MonoBehaviour
     public void Trash()
     {
         _fieldC?.Trash();
-        _fieldV.ShowArea1(_fieldC.GetArea1());
-        _fieldV.ShowHand1(_fieldC.GetHand1());
-        _fieldV.ShowArea2(_fieldC.GetArea2());
-        _fieldV.ShowHand2(_fieldC.GetHand2());
+        _fieldV.ShowArea1(_fieldC.Area1);
+        _fieldV.ShowHand1(_fieldC.Hand1);
+        _fieldV.ShowArea2(_fieldC.Area2);
+        _fieldV.ShowHand2(_fieldC.Hand2);
     }
 
     public bool IsAreaEmpty()
     {
-        return _fieldC?.GetArea1().GetSize() == 0;
+        return _fieldC?.Area1.GetSize() == 0;
     }
 
     public void OpenArea()
     {
-        _fieldV?.OpenArea2(_fieldC.GetArea2());
+        _fieldV?.OpenArea2(_fieldC.Area2);
     }
 }

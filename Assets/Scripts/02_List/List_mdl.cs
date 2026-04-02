@@ -15,6 +15,11 @@ namespace ListModels
             _list = new List<Card_mdl>(); // カードのリストを初期化
         }
 
+        /// <summary>
+        /// カードリストへの追加操作
+        /// </summary>
+        /// <param name="card">対象のカードモデル</param>
+        /// <returns>操作の成功可否</returns>
         public bool Add(Card_mdl card) // カードをリストに追加
         {
             if (!_list.Contains(card))
@@ -25,6 +30,11 @@ namespace ListModels
             return false;
         }
 
+        /// <summary>
+        /// カードリストからの削除操作
+        /// </summary>
+        /// <param name="card">対象のカードモデル</param>
+        /// <returns>操作の成功可否</returns>
         public bool Remove(Card_mdl card) // カードをリストから削除
         {
             if (_list.Contains(card))
@@ -35,6 +45,7 @@ namespace ListModels
             return false;
         }
 
+        // Get系のメソッド
         public List<Card_mdl> GetList() // カードのリストを取得
         {
             return _list;
@@ -62,6 +73,25 @@ namespace ListModels
             InitDeck(); // 山札を初期化
         }
 
+        /// <summary>
+        /// 山札の一番上のカードを引く
+        /// </summary>
+        /// <returns>引いたカードモデル</returns>
+        public Card_mdl Pop()
+        {
+            Card_mdl card;
+            if (GetSize() > 0)
+            {
+                card = _list[0];
+                Remove(card);
+            }
+            else
+            {
+                card = null;
+            }
+            return card;
+        }
+
         void InitDeck() // 山札を初期化
         {
             for (int i = 10; i < 40; i++)
@@ -82,21 +112,6 @@ namespace ListModels
                 _list[j] = temp;
             }
         }
-
-        public Card_mdl Pop()
-        {
-            Card_mdl card;
-            if (GetSize() > 0)
-            {
-                card = _list[0];
-                Remove(card);
-            }
-            else
-            {
-                card = null;
-            }
-                return card;
-        }
     }
 
     public class Hand_mdl : List_mdl // 手札クラス
@@ -106,6 +121,9 @@ namespace ListModels
         {
         }
 
+        /// <summary>
+        /// 手札をカードID昇順にソート
+        /// </summary>
         public void Sort() // 手札をカードID昇順にソート
         {
             _list.Sort((a, b) => a.GetID().CompareTo(b.GetID()));
@@ -118,6 +136,10 @@ namespace ListModels
         {
         }
 
+        /// <summary>
+        /// 場札のカードの合計パワーを取得
+        /// </summary>
+        /// <returns>合計値</returns>
         public int GetTotalPower() // 場札のカードの合計パワーを取得
         {
             int totalPower = 0;
@@ -128,6 +150,10 @@ namespace ListModels
             return totalPower;
         }
 
+        /// <summary>
+        /// 場札のカードの属性を取得
+        /// </summary>
+        /// <returns>最初のカードの属性を、空の場合はNoneを返す</returns>
         public EleType GetEleType() // 場札の属性を取得
         {
             if (_list.Count > 0)

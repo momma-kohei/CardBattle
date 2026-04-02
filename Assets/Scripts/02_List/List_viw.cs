@@ -7,6 +7,10 @@ public class List_viw : MonoBehaviour
     [SerializeField] Transform _transform; // 表示するTransformの参照
     [SerializeField] int _side; // 表示するリストの面（0:裏面、1:属性面、2:表面）
 
+    /// <summary>
+    /// カードリストを表示
+    /// </summary>
+    /// <param name="listM">表示するカードリストモデル</param>
     public void Show(List_mdl listM)
     {
         foreach (Transform _oldcard in _transform)
@@ -31,6 +35,10 @@ public class List_viw : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// カードリストを表面で表示（オープン）
+    /// </summary>
+    /// <param name="listM">表示するカードリストモデル</param>
     public void Open(List_mdl listM)
     {
         foreach (Transform _oldcard in _transform)

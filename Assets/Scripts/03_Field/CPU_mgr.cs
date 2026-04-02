@@ -11,11 +11,11 @@ public class CPU_mgr : MonoBehaviour
 
     public void FillHand2()
     {
-        while (_fieldC?.GetHand2().GetSize() < _maxHandSize)
+        while (_fieldC?.Hand2.GetSize() < _maxHandSize)
         {
             Draw();
         }
-        _fieldV.ShowHand2(_fieldC.GetHand2());
+        _fieldV.ShowHand2(_fieldC.Hand2);
     }
 
     public void Draw()
@@ -30,10 +30,10 @@ public class CPU_mgr : MonoBehaviour
     public void Toggle(Card_mdl card)
     {
         _fieldC?.Toggle2(card);
-        _fieldV.ShowArea2(_fieldC.GetArea2());
+        _fieldV.ShowArea2(_fieldC.Area2);
     }
     public void CallActionCPU()
     {
-        Toggle(_fieldC.GetHand2().GetCard(0));
+        Toggle(_fieldC.Hand2.GetCard(0));
     }
 }

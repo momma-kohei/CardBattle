@@ -11,11 +11,34 @@ public class Battle_ctl : MonoBehaviour
     Area_mdl _areaM1;
     Area_mdl _areaM2;
 
-    public void Start()
+    // Get系メソッド
+    public int GetAttack(bool _isMyAtk)
     {
-        
+        if (_isMyAtk)
+        {
+            return CalcPower(_areaM1, _areaM2);
+        }
+        else
+        {
+            return CalcPower(_areaM2, _areaM1);
+        }
     }
 
+    public int GetPower1()
+    {
+        return GetPower(_areaM1);
+    }
+
+    public int GetPower2()
+    {
+        return GetPower(_areaM2);
+    }
+
+    /// <summary>
+    /// 場札の状況とどちらが攻撃側かをもとにダメージを計算する関数
+    /// </summary>
+    /// <param name="_isMyAtk">自分が攻撃側であるかを表すフラグ</param>
+    /// <returns>ダメージ数値</returns>
     public int CalcDamage(bool _isMyAtk)
     {
         GetArea(); // 場の状態を取得
@@ -29,25 +52,7 @@ public class Battle_ctl : MonoBehaviour
         }
     }
 
-    public int GetAttack(bool _isMyAtk)
-    {
-        if (_isMyAtk)
-        {
-            return CalcPower(_areaM1, _areaM2);
-        }
-        else
-        {
-            return CalcPower(_areaM2, _areaM1);
-        }      
-    }
-
-
-    int CalcPower(Area_mdl atkAreaM, Area_mdl defAreaM)
-    {
-        return GetPower(atkAreaM) * GetWeakness(atkAreaM, defAreaM); // ダメージ計算式（例: 攻撃力 × 属性の相性）
-    }
-
-    public int GetDefense(bool _isMyAtk)
+    int GetDefense(bool _isMyAtk)
     {
         if (_isMyAtk)
         {
@@ -59,7 +64,12 @@ public class Battle_ctl : MonoBehaviour
         }
     }
 
-    public int GetPower(Area_mdl areaM)
+    int CalcPower(Area_mdl atkAreaM, Area_mdl defAreaM)
+    {
+        return GetPower(atkAreaM) * GetWeakness(atkAreaM, defAreaM); // ダメージ計算式（例: 攻撃力 × 属性の相性）
+    }
+
+    int GetPower(Area_mdl areaM)
     {
         return areaM.GetTotalPower();
     }
@@ -78,7 +88,7 @@ public class Battle_ctl : MonoBehaviour
 
     void GetArea()
     {
-        _areaM1 = _fieldC?.GetArea1();
-        _areaM2 = _fieldC?.GetArea2();
+        _areaM1 = _fieldC?.Area1;
+        _areaM2 = _fieldC?.Area2;
     }
 }

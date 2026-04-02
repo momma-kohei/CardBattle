@@ -13,34 +13,18 @@ public class Field_ctl : MonoBehaviour
     Area_mdl _areaM1;
     Hand_mdl _handM2;
     Area_mdl _areaM2;
+    public Hand_mdl Hand1 { get { return _handM1; } }
+    public Hand_mdl Hand2 { get { return _handM2; } }
+    public Area_mdl Area1 { get { return _areaM1; } }
+    public Area_mdl Area2 { get { return _areaM2; } }
 
-    void Start()
+    void Awake()
     {
         _deckM1 = new Deck_mdl();
         _handM1 = new Hand_mdl();
         _areaM1 = new Area_mdl();
         _handM2 = new Hand_mdl();
         _areaM2 = new Area_mdl();
-    }
-
-    public Hand_mdl GetHand1()
-    {
-        return _handM1;
-    }
-
-    public Hand_mdl GetHand2()
-    {
-        return _handM2;
-    }
-
-    public Area_mdl GetArea1()
-    {
-        return _areaM1;
-    }
-
-    public Area_mdl GetArea2()
-    {
-        return _areaM2;
     }
 
     /// <summary>
