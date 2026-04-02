@@ -103,17 +103,17 @@ public class Card_viw : MonoBehaviour
     /// Toggleでカードを上下に移動
     /// </summary>
     /// <param name="card"></param>
-    public void MoveCard(Card_mdl card)
+    public void MoveCard()
     {
         Vector3 pos = this.transform.localPosition;
         if (_isMoved)
         {
-            pos = new Vector3(pos.x, 0, pos.z);
+            this.transform.localPosition = new Vector3(pos.x, 0, pos.z);
             _isMoved = false;
         }
         else
         {
-            pos = new Vector3(pos.x, 10, pos.z);
+            this.transform.localPosition = new Vector3(pos.x, 10, pos.z);
             _isMoved = true;
         }  
     }
@@ -122,7 +122,7 @@ public class Card_viw : MonoBehaviour
     /// カードを置くときの音を再生
     /// </summary>
     /// <param name="card"></param>
-    public void PlaySound(Card_mdl card)
+    public void PlaySound()
     {
         if (_audioSource == null)
         {

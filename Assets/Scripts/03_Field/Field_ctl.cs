@@ -60,6 +60,7 @@ public class Field_ctl : MonoBehaviour
     {
         //if(_hand.GetSize() < _maxHandSize)
         _handM1.Add(cardM);
+        _handM1.Sort();
     }
 
     /// <summary>
@@ -70,6 +71,7 @@ public class Field_ctl : MonoBehaviour
     {
         //if(_hand.GetSize() < _maxHandSize)
         _handM2.Add(cardM);
+        _handM2.Sort();
     }
 
     /// <summary>
@@ -111,6 +113,7 @@ public class Field_ctl : MonoBehaviour
             loop++;
             if (loop == 10) break; // 無限ループ回避用
         }
+        loop = 0;
         while (_areaM2.GetSize() > 0)
         {
             cardM = _areaM2.GetCard(0); // 場札の最初のカードを取得

@@ -30,8 +30,14 @@ public class Field_mgr : MonoBehaviour
         }
     }
 
-    public void Toggle(Card_mdl card)
+    public bool Toggle(Card_mdl card)
     {
+        // 場札と同属性のカードだけがトグルできるようにする
+        if (_fieldC?.GetArea1().GetEleType() != EleType.None && card.GetEleType() != _fieldC?.GetArea1().GetEleType())
+        {
+            return false;
+        }
+
         _fieldC?.Toggle1(card);
         _fieldV.ShowArea1(_fieldC.GetArea1());
 
@@ -39,10 +45,26 @@ public class Field_mgr : MonoBehaviour
         // 相手側の_fieldC.Toggle2(card);
         // 相手側の_fieldV.ShowArea2(_fieldC.GetArea2());
         // みたいな
+
+        return true;
     }
 
     public void Trash()
     {
         _fieldC?.Trash();
+        _fieldV.ShowArea1(_fieldC.GetArea1());
+        _fieldV.ShowHand1(_fieldC.GetHand1());
+        _fieldV.ShowArea2(_fieldC.GetArea2());
+        _fieldV.ShowHand2(_fieldC.GetHand2());
+    }
+
+    public bool IsAreaEmpty()
+    {
+        return _fieldC?.GetArea1().GetSize() == 0;
+    }
+
+    public void OpenArea()
+    {
+        _fieldV?.OpenArea2(_fieldC.GetArea2());
     }
 }

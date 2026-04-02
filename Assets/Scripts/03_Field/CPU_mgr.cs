@@ -32,4 +32,8 @@ public class CPU_mgr : MonoBehaviour
         _fieldC?.Toggle2(card);
         _fieldV.ShowArea2(_fieldC.GetArea2());
     }
+    public void CallActionCPU()
+    {
+        Toggle(_fieldC.GetHand2().GetCard(0));
+    }
 }

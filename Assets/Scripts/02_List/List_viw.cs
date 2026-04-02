@@ -43,4 +43,9 @@ public class List_viw : MonoBehaviour
             card.ShowCardFront(listM.GetCard(i)); // 表面で表示
         }
     }
+
+    public Transform GetTransform()
+    {
+        return _transform;
+    }
 }

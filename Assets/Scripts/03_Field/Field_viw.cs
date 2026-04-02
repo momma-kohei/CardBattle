@@ -27,4 +27,19 @@ public class Field_viw : MonoBehaviour
     {
         _areaV2.Show(areaM);
     }
+
+    public Transform GetHand1Transform()
+    {
+        return _handV1.GetTransform();
+    }
+
+    public Transform GetArea1Transform()
+    {
+        return _areaV1.GetTransform();
+    }
+
+    public void OpenArea2(Area_mdl areaM)
+    {
+        _areaV2.Open(areaM);
+    }
 }

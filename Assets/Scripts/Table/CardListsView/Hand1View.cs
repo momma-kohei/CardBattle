@@ -83,7 +83,7 @@ public class Hand1View : MonoBehaviour
         if (_ct != null)
         {
             _ct.localPosition = new Vector3(_ct.transform.localPosition.x, 10, _ct.transform.localPosition.z);
-            _ct.GetComponent<Card_viw>().PlaySound(card); // カードを置く音を再生
+            _ct.GetComponent<Card_viw>().PlaySound(); // カードを置く音を再生
         }
         else Debug.Log("選択されたカードが子オブジェクトに見つかりませんでした。");
     }
@@ -94,7 +94,7 @@ public class Hand1View : MonoBehaviour
         if (_ct != null)
         {
             _ct.localPosition = new Vector3(_ct.transform.localPosition.x, 0, _ct.transform.localPosition.z);
-            _ct.GetComponent<Card_viw>().PlaySound(card); // カードを置く音を再生
+            _ct.GetComponent<Card_viw>().PlaySound(); // カードを置く音を再生
         }
         else Debug.Log("選択されたカードが子オブジェクトに見つかりませんでした。");
     }
