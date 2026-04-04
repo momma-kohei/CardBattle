@@ -3,7 +3,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ButtonView : MonoBehaviour
+public class CenterButtonView : MonoBehaviour
 {
     [SerializeField] Button TurnEndButton;
     [SerializeField] TextMeshProUGUI TurnEndText;

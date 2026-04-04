@@ -40,7 +40,7 @@ public class Field_mgr : MonoBehaviour
         // 場札と同属性のカードだけがトグルできるようにする
         if (_fieldC?.Area1.GetEleType() != EleType.None && card.GetEleType() != _fieldC?.Area1.GetEleType())
         {
-            return false;
+            return false; // 属性が違う場合は即座にfalseを返して弾く
         }
 
         _fieldC?.Toggle1(card);
@@ -60,9 +60,7 @@ public class Field_mgr : MonoBehaviour
     {
         _fieldC?.Trash();
         _fieldV.ShowArea1(_fieldC.Area1);
-        _fieldV.ShowHand1(_fieldC.Hand1);
         _fieldV.ShowArea2(_fieldC.Area2);
-        _fieldV.ShowHand2(_fieldC.Hand2);
     }
 
     public bool IsAreaEmpty()
@@ -73,5 +71,15 @@ public class Field_mgr : MonoBehaviour
     public void OpenArea()
     {
         _fieldV?.OpenArea2(_fieldC.Area2);
+    }
+
+    public int GetArea1Power()
+    {
+        return _fieldC?.Area1.GetTotalPower() ?? 0;
+    }
+
+    public int GetArea2Power()
+    {
+        return _fieldC?.Area2.GetTotalPower() ?? 0;
     }
 }

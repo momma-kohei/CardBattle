@@ -21,6 +21,10 @@ public class HandLayoutGroup : MonoBehaviour
         {
             SetHorizontalLayout();
         }
+        if (this.transform.GetChild(0).localPosition.x != _width / (this.transform.childCount + 1) - _width / 2)
+        {
+            SetHorizontalLayout();
+        }
         _childCount = this.transform.childCount;
     }
 
@@ -32,6 +36,8 @@ public class HandLayoutGroup : MonoBehaviour
             Transform _child = this.transform.GetChild(i);
             float _left = _width * (i + 1) / (this.transform.childCount + 1) - _width / 2;
             _child.localPosition = new Vector3(_left, 0, 0);
+            Debug.Log($"Child {i}: {_child.name}, Position: {_child.localPosition}")
+            ;
         }
     }
 }

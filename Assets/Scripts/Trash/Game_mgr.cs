@@ -8,7 +8,7 @@ public class GameManager : MonoBehaviour
 {
     TableModel _table;
     [SerializeField] TablePresenter _tablePresenter;
-    [SerializeField] ButtonView _buttonView;
+    [SerializeField] CenterButtonView _buttonView;
 
     // アイコン画像例
     [SerializeField] Sprite _playerIconImage1;

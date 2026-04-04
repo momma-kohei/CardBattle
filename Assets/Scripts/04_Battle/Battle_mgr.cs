@@ -1,4 +1,5 @@
 ﻿using System;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,10 +9,13 @@ using UnityEngine.UI;
 public class Battle_mgr : MonoBehaviour
 {
     [SerializeField] Battle_ctl _battleC;
+    [SerializeField] Battle_viw _battleV;
     [SerializeField] Field_mgr _fieldM;
     [SerializeField] Field_viw _fieldV;
     [SerializeField] CPU_mgr _cpuM;
     [SerializeField] Button _centerButton;
+    [SerializeField] GameObject _resultPanel;
+    [SerializeField] TextMeshProUGUI _resultText;
 
     [SerializeField] int _maxHitPoint = 30;
     int _hitPoint1;
@@ -26,6 +30,8 @@ public class Battle_mgr : MonoBehaviour
 
     bool _logOnce = false; // Updateで１回だけログを出すためのフラグ
     bool _isOnline = false; // オンラインかどうかのフラグ（必要に応じて設定）
+
+    float _openTime = 2f; // 場札を公開してから次のフェーズに遷移するまでの時間
 
 
     void Start()
@@ -64,7 +70,9 @@ public class Battle_mgr : MonoBehaviour
     public void ResetField()
     {
         _fieldM.Trash(); // 場札をすべて捨てる
-        Invoke(nameof(FillHands), 1f); // 手札を満たす処理を少し遅らせて呼び出す
+        _battleV.ShowPower1(_fieldM.GetArea1Power()); // パワー表示をリセット
+        _battleV.ShowPower2(_fieldM.GetArea2Power());
+        FillHands(); // 手札を満たす処理
     }
 
     void FillHands()
@@ -103,7 +111,7 @@ public class Battle_mgr : MonoBehaviour
             else
             {
                 Debug.Log("Player2が先攻");
-                SetPhase(GamePhase.EnemySelect1);
+                SetPhase(GamePhase.EnemySelect2);
             }
         }
     }
@@ -111,21 +119,19 @@ public class Battle_mgr : MonoBehaviour
     public void Battle1() // player1が攻撃側の場合のバトル処理
     {
         _fieldM.OpenArea(); // 場札を公開
+        _battleV.ShowPower2(_fieldM.GetArea2Power()); // 相手のパワーを公開
         _hitPoint2 -= _battleC.CalcDamage(true); // 相手のHPからダメージを引く
-        Debug.Log($"Player1の攻撃！ Player2の残りHP: {_hitPoint2}");
-        // HP表示
-
-        if (!Finished()) Invoke(nameof(ResetField), 1f);
+        _battleV.ShowHitPoint2(_hitPoint2); // HP表示
+        if (!Finished()) Invoke(nameof(ResetField), _openTime);
     }
 
     public void Battle2()
     {
         _fieldM.OpenArea(); // 場札を公開
-        _hitPoint1 -= _battleC.CalcDamage(false); // 自分ののHPからダメージを引く
-        Debug.Log($"Player2の攻撃！ Player1の残りHP: {_hitPoint1}");
-        // HP表示
-
-        if (!Finished()) Invoke(nameof(ResetField), 1f);
+        _battleV.ShowPower2(_fieldM.GetArea2Power()); // 相手のパワーを公開
+        _hitPoint1 -= _battleC.CalcDamage(false); // 自分のHPからダメージを引く
+        _battleV.ShowHitPoint1(_hitPoint1); // HP表示
+        if (!Finished()) Invoke(nameof(ResetField), _openTime);
     }
 
     public void SetPhase(GamePhase nextPhase)
@@ -136,6 +142,7 @@ public class Battle_mgr : MonoBehaviour
         {
             case GamePhase.PlayerSelect1:
                 Debug.Log("PlayerSelect1フェーズに遷移");
+                _battleV.ShowAttack1(); // 攻撃側の表示をPlayer1にする
                 SetPlayerAction(); // 操作可能
                 break;
 
@@ -162,11 +169,12 @@ public class Battle_mgr : MonoBehaviour
                 // 数値処理やアニメーションなどのバトル処理を実行
                 Battle1();
 
-                Invoke(nameof(Transition), 3f); // 遅延して遷移
+                Invoke(nameof(Transition), _openTime); // 遅延して遷移
                 break;
 
             case GamePhase.EnemySelect2:
                 Debug.Log("EnemySelect2フェーズに遷移");
+                _battleV.ShowAttack2(); // 攻撃側の表示をPlayer2にする
                 UnsetPlayerAction(); // 操作不可
                 if (_isOnline) // ----------------------------------------------------------------------------
                 {
@@ -193,7 +201,7 @@ public class Battle_mgr : MonoBehaviour
                 // 数値処理やアニメーションなどのバトル処理を実行
                 Battle2();
 
-                Invoke(nameof(Transition), 3f); // 遅延して遷移
+                Invoke(nameof(Transition), _openTime); // 遅延して遷移
                 break;
 
             case GamePhase.Finish:
@@ -201,6 +209,17 @@ public class Battle_mgr : MonoBehaviour
                 UnsetPlayerAction(); // 操作不可
 
                 // バトル終了処理
+                _resultPanel.SetActive(true); // 結果パネルを表示
+                if (_hitPoint1 <= 0)
+                {
+                    _resultText.text = "Lose...";
+                    _resultText.color = Color.blue; // 負けたときはテキストを青色にする
+                }
+                else if (_hitPoint2 <= 0)
+                {
+                    _resultText.text = "Win!!!";
+                    _resultText.color = Color.red; // 勝ったときはテキストを赤色にする
+                }
                 break;
         }
     }
@@ -228,6 +247,7 @@ public class Battle_mgr : MonoBehaviour
                 SetPhase(GamePhase.PlayerSelect1);
                 break;
         }
+        Debug.Log("Transition: " + _currentPhase.ToString() + "フェーズに遷移");
     }
 
     bool Finished()
@@ -291,6 +311,7 @@ public class Battle_mgr : MonoBehaviour
             }
         }
         // Power表示
+        _battleV.ShowPower1(_fieldM.GetArea1Power()); // Area1のパワーを表示
     }
 
     
