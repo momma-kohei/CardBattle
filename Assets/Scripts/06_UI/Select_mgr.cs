@@ -2,7 +2,7 @@
 using UnityEngine.Device;
 using UnityEngine.SceneManagement;
 
-public class SelectController : MonoBehaviour
+public class Select_mgr : MonoBehaviour
 {
     [SerializeField] GameObject _levelSelectPanel; // CPUレベルを選択するパネル
     [SerializeField] GameObject _matchingWindow; // マッチングを開始するか確認するウインドウ

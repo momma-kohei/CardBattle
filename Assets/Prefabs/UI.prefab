@@ -615,8 +615,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: player name
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 06625b4ae9c078148b1e9d68e8e554d9, type: 2}
-  m_sharedMaterial: {fileID: 3681844057756383682, guid: 06625b4ae9c078148b1e9d68e8e554d9, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -648,7 +648,7 @@ MonoBehaviour:
   m_fontSizeMax: 72
   m_fontStyle: 0
   m_HorizontalAlignment: 1
-  m_VerticalAlignment: 256
+  m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
@@ -738,6 +738,7 @@ MonoBehaviour:
   _menu: {fileID: 5678472934231455042}
   _confirmMenu: {fileID: 8742602073933364051}
   _screen: {fileID: 4403764621018920665}
+  _playerName: {fileID: 68878732730585249}
 --- !u!82 &6863232017338228037
 AudioSource:
   m_ObjectHideFlags: 0
