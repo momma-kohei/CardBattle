@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using UnityEngine.Device;
 using UnityEngine.SceneManagement;
 
 public class Select_mgr : MonoBehaviour
@@ -8,6 +7,11 @@ public class Select_mgr : MonoBehaviour
     [SerializeField] GameObject _matchingWindow; // マッチングを開始するか確認するウインドウ
     [SerializeField] GameObject _screen; // 画面全体を覆うオブジェクト（クリックできなくするため）
 
+    private void Start()
+    {
+        MyPlayer.Instance.IsOnline = false;
+        MyPlayer.Instance.CPULevel = 0;
+    }
 
     public void OnSoloButtonClicked()
     {
@@ -24,6 +28,7 @@ public class Select_mgr : MonoBehaviour
     public void OnLevelOneButtonClicked()
     {
         Debug.Log("Lv.1 button pressed");
+        MyPlayer.Instance.CPULevel = 0; // !!!!!
         // ここでレベル1の選択に応じた処理を行う（例: レベル1のデータをロードするなど）
         if(_screen != null) _screen.SetActive(true); // 画面をクリックできなくする
         Invoke("SceneTransition", 0.2f); // 0.2秒後にシーン遷移
@@ -42,16 +47,15 @@ public class Select_mgr : MonoBehaviour
     }
     void MatchingSceneTransition() // BattleSceneをロードするメソッド
     {
-        SceneManager.LoadScene("****Scene");
+        SceneManager.LoadScene("BattleScene");
     }
 
     // ---------- マッチング確認ダイアログに関するボタンイベント ----------
     public void OnMatchingYesButtonClicked()
     {
-        //マージ後に設定
-
-        //_screen.SetActive(true); // 画面をクリックできなくする
-        // Invoke("MatchingSceneTransition", 0.2f); // 0.2秒後にシーン遷移
+        MyPlayer.Instance.IsOnline = true;
+        _screen.SetActive(true); // 画面をクリックできなくする
+        Invoke("MatchingSceneTransition", 0.2f); // 0.2秒後にシーン遷移
     }
 
     public void OnMatchingNoButtonClicked()

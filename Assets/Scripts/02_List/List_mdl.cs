@@ -6,9 +6,10 @@ namespace ListModels
     /// <summary>
     /// 汎用的なカードリストのモデルクラス
     /// </summary>
-    public class List_mdl // 各カードリストの継承元となるクラス
+    public class List_mdl // 各カードリストの継承元となる
     {
         protected List<Card_mdl> _list; // カードのリスト
+        public int Count { get { return _list.Count; } } // カードの枚数を取得するプロパティ
 
         public List_mdl() // コンストラクタ
         {
@@ -45,28 +46,26 @@ namespace ListModels
             return false;
         }
 
-        // Get系のメソッド
-        public List<Card_mdl> GetList() // カードのリストを取得
-        {
-            return _list;
-        }
-
+        /// <summary>
+        /// カードリストからインデックスでカードを取得する操作
+        /// </summary>
+        /// <param name="index">インデックス</param>
+        /// <returns>インデックスに対応するカードモデル</returns>
+        /// <exception cref="ArgumentOutOfRangeException">範囲外のインデックス</exception>
         public Card_mdl GetCard(int index) // カードのリストからインデックスでカードを取得
         {
-            if (index >= 0 && index < GetSize())
+            if (index >= 0 && index < Count)
             {
                 return _list[index];
             }
             throw new ArgumentOutOfRangeException("null pointer exception about List");
         }
-
-        public int GetSize() // カードの枚数を取得
-        {
-            return _list.Count;
-        }
     }
 
-    public class Deck_mdl : List_mdl // 山札クラス
+    /// <summary>
+    /// 山札のリストモデルクラス
+    /// </summary>
+    public class Deck_mdl : List_mdl
     {
         public Deck_mdl() : base() // コンストラクタ
         {
@@ -80,7 +79,7 @@ namespace ListModels
         public Card_mdl Pop()
         {
             Card_mdl card;
-            if (GetSize() > 0)
+            if (Count > 0)
             {
                 card = _list[0];
                 Remove(card);
@@ -94,7 +93,7 @@ namespace ListModels
 
         void InitDeck() // 山札を初期化
         {
-            for (int i = 10; i < 40; i++)
+            for (int i = 1; i <= 30; i++)
             {
                 Add(new Card_mdl(i)); // カードを追加
             }
@@ -114,7 +113,10 @@ namespace ListModels
         }
     }
 
-    public class Hand_mdl : List_mdl // 手札クラス
+    /// <summary>
+    /// 手札のリストモデルクラス
+    /// </summary>
+    public class Hand_mdl : List_mdl
     {
 
         public Hand_mdl() : base() // コンストラクタ
@@ -126,39 +128,37 @@ namespace ListModels
         /// </summary>
         public void Sort() // 手札をカードID昇順にソート
         {
-            _list.Sort((a, b) => a.GetID().CompareTo(b.GetID()));
+            _list.Sort((a, b) => a.ID.CompareTo(b.ID));
         }
     }
 
-    public class Area_mdl : List_mdl // 場札クラス
+    /// <summary>
+    /// 場札のリストモデルクラス
+    /// </summary>
+    public class Area_mdl : List_mdl
     {
         public Area_mdl() : base() // コンストラクタ
         {
         }
 
-        /// <summary>
-        /// 場札のカードの合計パワーを取得
-        /// </summary>
-        /// <returns>合計値</returns>
-        public int GetTotalPower() // 場札のカードの合計パワーを取得
+        public int Power { get { return GetTotalPower(); } } // 場札のカードの合計パワーを取得するプロパティ
+        public EleType Type { get { return GetEleType(); } } // 場札の属性を取得するプロパティ
+
+        int GetTotalPower() // 場札のカードの合計パワーを取得
         {
             int totalPower = 0;
             foreach (Card_mdl card in _list)
             {
-                totalPower += card.GetPower();
+                totalPower += card.Power;
             }
             return totalPower;
         }
 
-        /// <summary>
-        /// 場札のカードの属性を取得
-        /// </summary>
-        /// <returns>最初のカードの属性を、空の場合はNoneを返す</returns>
-        public EleType GetEleType() // 場札の属性を取得
+        EleType GetEleType() // 場札の属性を取得
         {
             if (_list.Count > 0)
             {
-                return _list[0].GetEleType();
+                return _list[0].Type;
             }
             return EleType.None;
         }

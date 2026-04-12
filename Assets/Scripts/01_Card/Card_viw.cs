@@ -14,6 +14,8 @@ public class Card_viw : MonoBehaviour
     AudioSource _audioSource;
     bool _isMoved = false;
 
+    public Card_mdl Model { get { return _model; } set { _model = value; } }
+
     public event Action<Card_viw> OnCardClicked; // カードがクリックされたときのイベント
 
     public void OnPointerClick() // カードクリックされたときに呼ばれるメソッド
@@ -22,81 +24,39 @@ public class Card_viw : MonoBehaviour
     }
 
     /// <summary>
-    /// カードのモデルを取得
+    /// カードの情報を表示
     /// </summary>
-    /// <returns></returns>
-    public Card_mdl GetModel() // クリックされたカードが自身の情報を取得できるようにするためのメソッド
+    /// <param name="card">カードモデル</param>
+    /// <param name="side">表示する面</param>
+    /// <exception cref="ArgumentException"></exception>
+    public void ShowCard(Card_mdl card, CardSide side)
     {
-        return _model;
-    }
+        _model = card;
+        if(!IsVarid(card)) throw new ArgumentException("Invalid card data"); // 例外処理
 
-    /// <summary>
-    /// カードを表面で表示
-    /// </summary>
-    /// <param name="card"></param>
-    /// <returns></returns>
-    public bool ShowCardFront(Card_mdl card)
-    {
-        if (_name != null)
+        switch (side)
         {
-            _name.text = card.GetName();
-            if (_power != null)
-            {
-                _power.text = card.GetPower().ToString();
-                if (_texture != null)
-                {
-                    _texture.sprite = card.GetTexture();
-                    return SetCardInfo(card, "Front");
-                }
-            }
-        }
-        return false;
-    }
-
-    /// <summary>
-    /// カードを裏面で表示
-    /// </summary>
-    /// <param name="card"></param>
-    /// <returns></returns>
-    public bool ShowCardBack(Card_mdl card)
-    {
-        if (_name != null)
-        {
-            Destroy(_name.gameObject);
-            if (_power != null)
-            {
-                Destroy( _power.gameObject);
-                if (_texture != null)
-                {
-                    _texture.sprite = _textureBack;
-                    return SetCardInfo(card, "Back");
-                }
-            }
-        }
-        return false;
-    }
-
-    /// <summary>
-    /// カードを属性面で表示
-    /// </summary>
-    /// <param name="card"></param>
-    /// <returns></returns>
-    public bool ShowCardEle(Card_mdl card)
-    {
-        if (_name != null)
-        {
-            Destroy(_name.gameObject);
-            if (_power != null)
-            {
+            case CardSide.Back:
+                Destroy(_name.gameObject);
                 Destroy(_power.gameObject);
-                if (_texture != null)
-                {
-                    _texture.sprite = card.GetTexture();
-                    return SetCardInfo(card, "Ele");
-                }
-            }
+                _texture.sprite = _textureBack;
+                break;
+
+            case CardSide.Ele:
+                Destroy(_name.gameObject);
+                Destroy(_power.gameObject);
+                _texture.sprite = card.Texture;
+                break;
+
+            case CardSide.Front:
+                _name.text = card.Name;
+                _power.text = card.Power.ToString();
+                _texture.sprite = card.Texture;
+                break;
+
+            default:
+                throw new ArgumentException("Invalid card side");
         }
-        return false;
     }
 
     /// <summary>
@@ -132,16 +92,18 @@ public class Card_viw : MonoBehaviour
     }
 
     // ----------内部メソッド----------
-
-    bool SetCardInfo(Card_mdl card, string how) // 共通の動作
+    bool IsVarid(Card_mdl card) // 例外処理
     {
-        _model = card; // 引数で受け取ったカードモデルを保持
-        if (how == "Front" || how == "Back" || how == "Ele")
-        {
-            this.name = $"Card_{_model.GetID()}_{how}"; // オブジェクト名を設定
-            return true;
-        }
-        return false;
-        
-    } // stringによる分岐は悪手だけど，privateな閉じた動作のため許容とする
+        return ((card != null) && (card.Name != null) && (card.Power != 0) && (card.Texture != null));
+    }
+}
+
+/// <summary>
+/// カードの面を定義する列挙型
+/// </summary>
+public enum CardSide
+{
+    Front,
+    Back,
+    Ele
 }

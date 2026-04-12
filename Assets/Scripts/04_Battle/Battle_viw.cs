@@ -1,65 +1,79 @@
-﻿using UnityEngine;
+﻿using System;
 using TMPro;
+using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.UIElements;
 
 /// <summary>
 /// バトルに関する数値情報等を表示するクラス
 /// </summary>
 public class Battle_viw : MonoBehaviour
 {
+    [SerializeField] TextMeshProUGUI _enemyName;
+    // Battleの数値情報を表示するためのUI要素
     [SerializeField] TextMeshProUGUI _hitPoint1Text;
     [SerializeField] TextMeshProUGUI _hitPoint2Text;
     [SerializeField] TextMeshProUGUI _power1Text;
     [SerializeField] TextMeshProUGUI _power2Text;
-    [SerializeField] Image _atkIcon1;
-    [SerializeField] Image _atkIcon1mini;
-    [SerializeField] Image _atkIcon2;
-    [SerializeField] Image _atkIcon2mini;
+    // 攻撃側と防御側を示すアイコン
+    [SerializeField] UnityEngine.UI.Image _atkIcon1;
+    [SerializeField] UnityEngine.UI.Image _atkIcon1mini;
+    [SerializeField] UnityEngine.UI.Image _atkIcon2;
+    [SerializeField] UnityEngine.UI.Image _atkIcon2mini;
     [SerializeField] Sprite _atkIcon;
     [SerializeField] Sprite _defIcon;
+    // バトルの進行に用いるオブジェクト
+    [SerializeField] GameObject _hand1Panel;
+    [SerializeField] CenterButtonView _centerButtonV;
+    [SerializeField] Result_viw _resultV;
 
-    public void ShowHitPoint1(int hitPoint1)
+    public event Action CenterButtonEvent;
+
+    public void ShowHitPoint(int hitPoint, bool isMine)
     {
-        _hitPoint1Text.text = hitPoint1.ToString();
+        TextMeshProUGUI hitPointText = isMine ? _hitPoint1Text : _hitPoint2Text;
+        hitPointText.text = hitPoint.ToString();
     }
 
-    public void ShowHitPoint2(int hitPoint2)
+    public void ShowPower(int power, bool isMine)
     {
-        _hitPoint2Text.text = hitPoint2.ToString();
+        TextMeshProUGUI powerText = isMine ? _power1Text : _power2Text;
+        powerText.text = power.ToString();
+        if (!isMine && power == 0) powerText.text = "?";
     }
 
-    public void ShowPower1(int power1)
+    public void ShowAttackIcon(bool myAtk)
     {
-        _power1Text.text = power1.ToString();
+        UnityEngine.UI.Image iconAtk = myAtk ? _atkIcon1 : _atkIcon2;
+        UnityEngine.UI.Image miniAtk = myAtk ? _atkIcon1mini : _atkIcon2mini;
+        UnityEngine.UI.Image iconDef = myAtk ? _atkIcon2 : _atkIcon1;
+        UnityEngine.UI.Image miniDef = myAtk ? _atkIcon2mini : _atkIcon1mini;
+
+        iconAtk.sprite = _atkIcon;
+        miniAtk.sprite = _atkIcon;
+        iconDef.sprite = _defIcon;
+        miniDef.sprite = _defIcon;
     }
 
-    public void ShowPower2(int power2)
+    public void SetCenterButtonEvent(bool on) // センターボタンに関するイベント
     {
-        if (power2 == 0)
-        {
-            _power2Text.text = "?"; // パワーが0のときは「?」を表示する
-        }
-        else
-        {
-            _power2Text.text = power2.ToString();
-        }
+        _centerButtonV.SetEvent(on);
+        _centerButtonV.OnCenterButtonClicked -= CenterButtonEvent;
+        if (on) _centerButtonV.OnCenterButtonClicked += CenterButtonEvent;
     }
 
-    public void ShowAttack1()
+    public void ShowGameSet(int hp1, int hp2)
     {
-        _atkIcon1.sprite = _atkIcon; // 攻撃側のアイコンを攻撃アイコンにする
-        _atkIcon1mini.sprite = _atkIcon; // 攻撃側のミニアイコンを攻撃アイコンにする
-
-        _atkIcon2.sprite = _defIcon; // 防御側のアイコンを防御アイコンにする
-        _atkIcon2mini.sprite = _defIcon; // 防御側のミニアイコンを防御アイコンにする
+        _resultV.GameSet(hp1, hp2);
     }
 
-    public void ShowAttack2()
+    public void SetHandPanel(bool on)
     {
-        _atkIcon1.sprite = _defIcon; // 防御側のアイコンを防御アイコンにする
-        _atkIcon1mini.sprite = _defIcon; // 防御側のミニアイコンを防御アイコンにする
+        _hand1Panel.SetActive(on);
+    }
 
-        _atkIcon2.sprite = _atkIcon; // 攻撃側のアイコンを攻撃アイコンにする
-        _atkIcon2mini.sprite = _atkIcon; // 攻撃側のミニアイコンを攻撃アイコンにする
+    public void SetEnemyName(string name)
+    {
+        _enemyName.text = "vs " + name;
     }
 }

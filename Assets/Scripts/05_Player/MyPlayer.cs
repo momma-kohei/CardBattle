@@ -7,8 +7,13 @@ public class MyPlayer : MonoBehaviour
 
     string playerName = ""; // プレイヤー名を格納する変数
     Sprite playerIcon;
+    bool isOnline = false;
+    int cpuLevel = 0;
+
     public string PlayerName { get => playerName; set => playerName = value; }
     public Sprite PlayerIcon { get => playerIcon; set => playerIcon = value; }
+    public bool IsOnline { get => isOnline; set => isOnline = value; }
+    public int CPULevel { get => cpuLevel; set => cpuLevel = value; }
 
     private void Awake()
     {

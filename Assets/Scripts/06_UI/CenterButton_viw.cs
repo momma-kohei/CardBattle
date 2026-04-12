@@ -9,18 +9,34 @@ public class CenterButtonView : MonoBehaviour
     [SerializeField] TextMeshProUGUI _centerButtonText;
     [SerializeField] Image _centerButonBGD;
 
-    // 余裕があれば押せるか押せないかでボタンの色を変更する処理
-    public void SetButtonText(bool on)
+    public Action OnCenterButtonClicked; // センターボタンがクリックされたときのイベント
+    AudioSource _buttonSound;
+
+    public void OnCenterButtonPressed()
     {
-        if(on)
+        OnCenterButtonClicked?.Invoke(); // センターボタンがクリックされたときのイベントを呼び出す
+        SetEvent(false); // ボタンがクリックされたらイベントを解除
+    }
+
+    public void SetEvent(bool on)
+    {
+        OnCenterButtonClicked -= PlayButtonSound;
+        if (on) OnCenterButtonClicked += PlayButtonSound;
+        SetButtonText(on);
+    }
+
+    void PlayButtonSound()
+    {
+        if (_buttonSound == null)
         {
-            _centerButton.interactable = true;
-            _centerButtonText.text = "END";
+            _buttonSound = _centerButton.GetComponent<AudioSource>();
         }
-        else
-        {
-            _centerButton.interactable = false;
-            _centerButtonText.text = "";
-        }
+        _buttonSound.Play();
+    }
+
+    void SetButtonText(bool on) // Buttonの見た目を変更するメソッド
+    {
+        _centerButton.interactable = on;
+        _centerButtonText.text = on ? "END" : "";
     }
 }
