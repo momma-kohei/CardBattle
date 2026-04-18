@@ -164,7 +164,7 @@ public class Battle_mgr : MonoBehaviour
         _fieldManager.SetCardAction(on);
     }
 
-    void OnP1CardClicked(Card_viw2 card) // toggle & Area表示
+    void OnP1CardClicked(Card_viw card) // toggle & Area表示
     {
         if (_fieldManager.Toggle(card.Model, true))
         {
