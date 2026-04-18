@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class List_viw : MonoBehaviour
 {
-    [SerializeField] Card_viw _cardPrefab; // カードプレハブの参照
+    [SerializeField] Card_viw2 _cardPrefab; // カードプレハブの参照
 
     Transform _place; // 表示する場所
     public Transform Place { get { return _place; } }
@@ -30,7 +30,7 @@ public class List_viw : MonoBehaviour
         }
         for (int i = 0; i < listM.Count; i++)
         {
-            Card_viw card = Instantiate(_cardPrefab, _place);
+            Card_viw2 card = Instantiate(_cardPrefab, _place);
             card.ShowCard(listM.GetCard(i), side); // 指定された面で表示
         }
     }

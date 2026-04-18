@@ -16,7 +16,7 @@ public class Field_mgr : MonoBehaviour
     public int AreaPower2 { get { return _fieldM?.Area2.Power ?? 0; } }
 
     public event Action CPUaction;
-    public event Action<Card_viw> CardAction;
+    public event Action<Card_viw2> CardAction;
     public event Action<bool> FillHandAction;
     public event Func<Card_mdl, bool, bool> ToggleFunc;
 
@@ -85,12 +85,12 @@ public class Field_mgr : MonoBehaviour
 
     public void SetCardAction(bool on)
     {
-        foreach (Card_viw cardV in _fieldV.Hand1Transform.GetComponentsInChildren<Card_viw>())
+        foreach (Card_viw2 cardV in _fieldV.Hand1Transform.GetComponentsInChildren<Card_viw2>())
         {
             cardV.OnCardClicked -= CardAction;
             if (on) cardV.OnCardClicked += CardAction;
         }
-        foreach (Card_viw cardV in _fieldV.Area1Transform.GetComponentsInChildren<Card_viw>())
+        foreach (Card_viw2 cardV in _fieldV.Area1Transform.GetComponentsInChildren<Card_viw2>())
         {
             cardV.OnCardClicked -= CardAction;
             if (on) cardV.OnCardClicked += CardAction;
