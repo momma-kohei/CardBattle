@@ -79,5 +79,9 @@ crashlytics-build.properties
 /[Aa]ssets/[Tt]extMeshPro/
 /[Aa]ssets/[Tt]extMesh Pro.meta
 
+# Photon
+Assets/Photon/
+Assets/Photon.meta
+
 # Unity拡張機能
 /.vscode
