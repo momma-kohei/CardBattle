@@ -22,15 +22,17 @@ public class Select_mgr : MonoBehaviour
     public void OnMultiButtonClicked()
     {
         Debug.Log("Multi button pressed");
-        _matchingWindow.SetActive(true); // マッチング確認ウインドウを表示
+        PunManager.Instance.Connect(); // マッチング開始
+        //_matchingWindow.SetActive(true); // マッチング確認ウインドウを表示
     }
+
 
     public void OnLevelOneButtonClicked()
     {
         Debug.Log("Lv.1 button pressed");
         MyPlayer.Instance.CPULevel = 0; // !!!!!
         // ここでレベル1の選択に応じた処理を行う（例: レベル1のデータをロードするなど）
-        if(_screen != null) _screen.SetActive(true); // 画面をクリックできなくする
+        if (_screen != null) _screen.SetActive(true); // 画面をクリックできなくする
         Invoke("SceneTransition", 0.2f); // 0.2秒後にシーン遷移
     }
 
