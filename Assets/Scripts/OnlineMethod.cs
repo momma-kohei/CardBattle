@@ -1,10 +1,11 @@
 ﻿using ListModels;
+using Photon.Pun;
 using UnityEngine;
 
 /// <summary>
 /// オンラインが関わるメソッドをまとめたクラス
 /// </summary>
-public class OnlineMethod : MonoBehaviour
+public class OnlineMethod : MonoBehaviourPun
 {
     bool _isOnline;
     Field_mgr _fieldManager;
@@ -31,8 +32,8 @@ public class OnlineMethod : MonoBehaviour
     {
         if (_isOnline) // オンライン
         {
-            // 相手側の
-            // OnlineMethod.SetEnemyName(MyPlayer.Instance.PlayerName);
+            string enemyName = PunManager.Instance.GetEnemyName();
+            SetEnemyName(enemyName);
         }
         else //オフライン
         {
@@ -129,14 +130,27 @@ public class OnlineMethod : MonoBehaviour
 
     public void DecideAtkPlayer()
     {
-        bool isMyAtk = CoinToss();
-        SetAttacker(isMyAtk);
-        if (_isOnline) // オンライン
+        if (_isOnline)
         {
-            // どちらか一方だけ
-            // OnlinMethod.SetAttacker(!isMyAtk);
-            // を呼んで，相手の手番を上書きする
+            if (PhotonNetwork.IsMasterClient) // Host側だけコイントスする
+            {
+                bool isMyAtk = CoinToss();
+                SetAttacker(isMyAtk);
+                // 相手には逆の結果を送る
+                photonView.RPC("RPC_SetAttacker", RpcTarget.Others, !isMyAtk);
+            }
         }
+        else
+        {
+            bool isMyAtk = CoinToss();
+            SetAttacker(isMyAtk);
+        }
+    }
+
+    [PunRPC]
+    public void RPC_SetAttacker(bool isMyAtk)
+    {
+        SetAttacker(isMyAtk);
     }
 
     public void SetAttacker(bool isMyAtk)

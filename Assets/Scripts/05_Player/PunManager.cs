@@ -26,6 +26,8 @@ public class PunManager : MonoBehaviourPunCallbacks
     public void Connect()
     {
         Debug.Log("Connecting...");
+        PhotonNetwork.AutomaticallySyncScene = true;
+        PhotonNetwork.NickName = MyPlayer.Instance.PlayerName; // プレイヤー名を設定
         if (_matchingWindow != null) _matchingWindow.SetActive(true);
         PhotonNetwork.ConnectUsingSettings();
     }
@@ -44,10 +46,16 @@ public class PunManager : MonoBehaviourPunCallbacks
         PhotonNetwork.CreateRoom(null, new RoomOptions { MaxPlayers = 2 });
     }
 
-    // ルーム参加成功時
+    // Clientが部屋に入ったときに呼ばれる（自分自身が入ったとき）
     public override void OnJoinedRoom()
     {
         Debug.Log("Joined room. Players: " + PhotonNetwork.CurrentRoom.PlayerCount);
+        // 既に2人いる部屋に入ったということはHostが待っていた = すぐ開始
+        if (PhotonNetwork.CurrentRoom.PlayerCount == 2 && !PhotonNetwork.IsMasterClient)
+        {
+            // Hostがシーン遷移するのを待つ（AutomaticallySyncSceneが機能する）
+            Debug.Log("Joined as Client, waiting for host to load scene...");
+        }
     }
 
     // 2人揃ったとき（ホスト側のみ実行）
@@ -56,7 +64,8 @@ public class PunManager : MonoBehaviourPunCallbacks
         Debug.Log("Player entered. Players: " + PhotonNetwork.CurrentRoom.PlayerCount);
         if (PhotonNetwork.CurrentRoom.PlayerCount == 2 && PhotonNetwork.IsMasterClient)
         {
-            PhotonNetwork.LoadLevel("BattleScene"); // 全員同時にシーン遷移
+            PhotonNetwork.AutomaticallySyncScene = true; // 先に設定
+            PhotonNetwork.LoadLevel("BattleScene");
         }
     }
 
@@ -65,5 +74,25 @@ public class PunManager : MonoBehaviourPunCallbacks
     {
         Debug.Log("Disconnected: " + cause);
         if (_matchingWindow != null) _matchingWindow.SetActive(false);
+    }
+
+    /// <summary>
+    /// 自分がMasterClient（Host側）かどうか
+    /// </summary>
+    public bool IsMasterClient()
+    {
+        return PhotonNetwork.IsMasterClient;
+    }
+
+    /// <summary>
+    /// 相手のプレイヤー名を取得
+    /// </summary>
+    public string GetEnemyName()
+    {
+        foreach (Player player in PhotonNetwork.PlayerList)
+        {
+            if (!player.IsLocal) return player.NickName;
+        }
+        return "Player2";
     }
 }

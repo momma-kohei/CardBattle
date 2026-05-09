@@ -21,7 +21,7 @@ public class HandLayoutGroup : MonoBehaviour
         {
             SetHorizontalLayout();
         }
-        if (this.transform.GetChild(0).localPosition.x != _width / (this.transform.childCount + 1) - _width / 2)
+        if (this.transform.childCount > 0 && this.transform.GetChild(0).localPosition.x != _width / (this.transform.childCount + 1) - _width / 2)
         {
             SetHorizontalLayout();
         }
