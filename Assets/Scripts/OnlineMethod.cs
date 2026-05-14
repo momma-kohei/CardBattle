@@ -75,7 +75,7 @@ public class OnlineMethod : MonoBehaviourPun
             if (card != null) _fieldManager.Draw(card, isMine);
 
             if (_isOnline && isMine) // オンライン
-            { 
+            {
                 // 相手側の
                 // OnlineMethod.Draw(card, false);
             }
@@ -175,8 +175,15 @@ public class OnlineMethod : MonoBehaviourPun
             // 相手側の
             // OnlineMethod.SubToggle(card, false);
             // を呼んで，相手側目線の敵側エリアに選んだカードをトグル
+            photonView.RPC("RPC_SubToggle", RpcTarget.Others, card.ID, false);
         }
         return true;
+    }
+    [PunRPC]
+    public void RPC_SubToggle(int cardID, bool isMine)
+    {
+        Card_mdl card = new Card_mdl(cardID);
+        _fieldManager.SubToggle(card, isMine);
     }
 
     public void SubToggle(Card_mdl card, bool isMine)
