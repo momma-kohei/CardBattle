@@ -52,11 +52,18 @@ public class OnlineMethod : MonoBehaviourPun
         {
             // 相手側の
             // OnlineMethod.SetPlayerAction();
+            // 相手側で SetPlayerAction() を呼ぶ
+            photonView.RPC("RPC_SetPlayerAction", RpcTarget.Others);
         }
         else // オフライン
         {
             _battleManager.CPUAction();
         }
+    }
+    [PunRPC]
+    public void RPC_SetPlayerAction()
+    {
+        _battleManager.SetAction(true); // 相手側の操作を有効化
     }
 
     public void SetPlayerAction()
@@ -74,11 +81,11 @@ public class OnlineMethod : MonoBehaviourPun
             card = _fieldManager.Pop(isMine);
             if (card != null) _fieldManager.Draw(card, isMine);
 
-            if (_isOnline && isMine) // オンライン
-            {
-                // 相手側の
-                // OnlineMethod.Draw(card, false);
-            }
+            //if (_isOnline && isMine) // オンライン 各プレイヤーが自分のisMine=trueで呼ぶ
+            //{
+            // 相手側の
+            // OnlineMethod.Draw(card, false);
+            //}
         }
         _fieldManager.ShowHand(hand, isMine);
     }
@@ -94,14 +101,30 @@ public class OnlineMethod : MonoBehaviourPun
         {
             // お互いのFillHandを同時に呼ぶみたいな
             // 片側(Host的な)だけで行われる操作
-            // 両側の
-            // OnlineMethod.FillPlayerHand();
+            // MasterClient（Host）だけが両者の手札補充を起動する
+            Debug.Log($"FillAllHands: IsMasterClient={PhotonNetwork.IsMasterClient}");
+            if (PhotonNetwork.IsMasterClient)
+            {
+                _fieldManager.FillHand(true);  // 自分（Host）の手札
+                photonView.RPC("RPC_FillHand", RpcTarget.Others); // Client側の手札
+            }
+            else
+            {
+                _fieldManager.FillHand(true);  // 自分（Client）の手札
+            }
         }
         else // オフライン
         {
             _fieldManager.FillHand(true); // 自分の手札を満たす
             _fieldManager.FillHand(false); // CPUの手札を満たす
         }
+    }
+
+    [PunRPC]
+    public void RPC_FillHand()
+    {
+        Debug.Log("RPC_FillHand: received");
+        _fieldManager.FillHand(true); // 受け取った側が自分の手札を補充
     }
 
     public void FillPlayerHand()
@@ -111,16 +134,29 @@ public class OnlineMethod : MonoBehaviourPun
 
     public void TransitionAll()
     {
+        Debug.Log($"TransitionAll called: IsMasterClient={PhotonNetwork.IsMasterClient}, IsOnline={_isOnline}");
         if (_isOnline) // オンライン
         {
             // 両側の
             // OnlineMethod.Transition();
             // を呼ぶ．片側だけで行われる（全体で１回）
+            //if (PhotonNetwork.IsMasterClient) // Host側だけ起動（全体で1回）
+            //{
+            Debug.Log("Sending RPC_Transition");
+            photonView.RPC("RPC_Transition", RpcTarget.All);
+            //}
         }
         else // オフライン
         {
             Transition();
         }
+    }
+
+    [PunRPC]
+    public void RPC_Transition()
+    {
+        Debug.Log("RPC_Transition received");
+        _battleManager.Transition();
     }
 
     public void Transition()

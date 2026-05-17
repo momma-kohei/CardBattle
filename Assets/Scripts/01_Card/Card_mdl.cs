@@ -4,10 +4,10 @@ using UnityEngine;
 public class Card_mdl
 {
     // カードID
-    int     _id;
-    string  _name;
+    int _id;
+    string _name;
     EleType _type;
-    int     _power;
+    int _power;
     Sprite _texture;
     string _description; // 未使用
 
@@ -30,7 +30,7 @@ public class Card_mdl
 
     bool IsVarid(int id) // 例外処理
     {
-        return (id >= 1 && id <= 30 );
+        return (id >= 1 && id <= 30);
     }
 
     void GetCardInfo(int id) // カードデータと照合してカードデータを取得
@@ -41,6 +41,17 @@ public class Card_mdl
         _power = data.cardPower;
         _texture = data.cardTexture;
         _description = data.description;
+    }
+
+    public override bool Equals(object obj)
+    {
+        if (obj is Card_mdl other) return _id == other._id;
+        return false;
+    }
+
+    public override int GetHashCode()
+    {
+        return _id.GetHashCode();
     }
 }
 
@@ -54,3 +65,4 @@ public enum EleType
     Water, // 水属性
     Grass // 草属性
 }
+
