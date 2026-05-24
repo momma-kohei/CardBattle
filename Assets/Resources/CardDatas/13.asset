@@ -16,5 +16,5 @@ MonoBehaviour:
   cardName: "\u306D\u3053\u5175\u58EB"
   cardType: 2
   cardPower: 3
-  cardTexture: {fileID: 21300000, guid: 2c6ac40b8a48f874bbe65b5961bd555d, type: 3}
+  cardTexture: {fileID: 21300000, guid: 111d0c02ec6ff844e9a6b03edc472d69, type: 3}
   description: 

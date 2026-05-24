@@ -8,7 +8,7 @@ public class Card_viw : MonoBehaviour
     [SerializeField] TextMeshProUGUI _name = null;
     [SerializeField] TextMeshProUGUI _power = null;
     [SerializeField] Image _texture = null;
-    [SerializeField] Sprite _textureBack = null;
+    [SerializeField] Sprite _white = null;
 
     Card_mdl _model;
     AudioSource _audioSource;
@@ -39,19 +39,22 @@ public class Card_viw : MonoBehaviour
             case CardSide.Back:
                 Destroy(_name.gameObject);
                 Destroy(_power.gameObject);
-                _texture.sprite = _textureBack;
+                _texture.sprite = _white;
+                _texture.color = GetEleColor(EleType.None);
                 break;
 
             case CardSide.Ele:
                 Destroy(_name.gameObject);
                 Destroy(_power.gameObject);
-                _texture.sprite = card.Texture;
+                _texture.sprite = _white;
+                _texture.color = GetEleColor(card.Type);
                 break;
 
             case CardSide.Front:
                 _name.text = card.Name;
                 _power.text = card.Power.ToString();
                 _texture.sprite = card.Texture;
+                _texture.color = GetEleColor(card.Type);
                 break;
 
             default:
@@ -95,6 +98,18 @@ public class Card_viw : MonoBehaviour
     bool IsVarid(Card_mdl card) // 例外処理
     {
         return ((card != null) && (card.Name != null) && (card.Power != 0) && (card.Texture != null));
+    }
+
+    Color GetEleColor(EleType type)
+    {
+        switch (type)
+        {
+            case EleType.None: return new Color(0.764706f, 0.6392157f, 0.5294118f, 1f);
+            case EleType.Fire: return new Color(0.9960785f, 0.6f, 0.6f, 1f);
+            case EleType.Grass: return new Color(0.6f, 0.9960785f, 0.6f, 1f);
+            case EleType.Water: return new Color(0.6f, 0.6f, 0.9960785f, 1f);
+        }
+        throw new ArgumentException("Invalid element type");
     }
 }
 

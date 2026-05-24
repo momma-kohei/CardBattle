@@ -358,7 +358,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9967a356f5f4984792cab16a855f3fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::List_viw
-  _cardPrefab: {fileID: 5835935263170625886, guid: 80e949178ae29914f99d13cfc74432ca, type: 3}
+  _cardPrefab: {fileID: 5290602707682022092, guid: b94a940cc5e9f7640a162cbe1cfc8d5b, type: 3}
 --- !u!1 &205703605
 GameObject:
   m_ObjectHideFlags: 0
@@ -2921,7 +2921,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9967a356f5f4984792cab16a855f3fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::List_viw
-  _cardPrefab: {fileID: 5835935263170625886, guid: 80e949178ae29914f99d13cfc74432ca, type: 3}
+  _cardPrefab: {fileID: 5290602707682022092, guid: b94a940cc5e9f7640a162cbe1cfc8d5b, type: 3}
 --- !u!1 &1500232015
 GameObject:
   m_ObjectHideFlags: 0
@@ -3600,7 +3600,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9967a356f5f4984792cab16a855f3fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::List_viw
-  _cardPrefab: {fileID: 5835935263170625886, guid: 80e949178ae29914f99d13cfc74432ca, type: 3}
+  _cardPrefab: {fileID: 5290602707682022092, guid: b94a940cc5e9f7640a162cbe1cfc8d5b, type: 3}
 --- !u!1 &1880401093
 GameObject:
   m_ObjectHideFlags: 0
@@ -3793,7 +3793,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9967a356f5f4984792cab16a855f3fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::List_viw
-  _cardPrefab: {fileID: 5835935263170625886, guid: 80e949178ae29914f99d13cfc74432ca, type: 3}
+  _cardPrefab: {fileID: 5290602707682022092, guid: b94a940cc5e9f7640a162cbe1cfc8d5b, type: 3}
 --- !u!1 &1892707816
 GameObject:
   m_ObjectHideFlags: 0
