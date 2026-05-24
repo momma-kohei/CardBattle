@@ -1,8 +1,6 @@
 ﻿using ListModels;
 using Photon.Pun;
-using System.ComponentModel;
 using UnityEngine;
-using UnityEngine.XR;
 
 /// <summary>
 /// オンラインが関わるメソッドをまとめたクラス
@@ -67,11 +65,6 @@ public class OnlineMethod : MonoBehaviourPun
         _battleManager.SetAction(true); // 相手側の操作を有効化
     }
 
-    public void SetPlayerAction()
-    {
-        _battleManager.SetAction(true);
-    }
-
     public void FillHand(bool isMine)
     {
         Hand_mdl hand = _fieldManager.GetMyHand(isMine);
@@ -90,11 +83,6 @@ public class OnlineMethod : MonoBehaviourPun
             }
         }
         _fieldManager.ShowHand(hand, isMine);
-
-        if (_isOnline)
-        {
-            _fieldManager.ShowHand(_fieldManager.GetMyHand(false), false);
-        }
     }
 
     [PunRPC]
@@ -102,6 +90,9 @@ public class OnlineMethod : MonoBehaviourPun
     {
         Card_mdl card = new Card_mdl(cardID);
         _fieldManager.Draw(card, isMine);
+
+        Hand_mdl hand = _fieldManager.GetMyHand(isMine);
+        _fieldManager.ShowHand(hand, isMine);
     }
 
     public void FillAllHands()
@@ -112,16 +103,11 @@ public class OnlineMethod : MonoBehaviourPun
             // 片側(Host的な)だけで行われる操作
             // MasterClient（Host）だけが両者の手札補充を起動する
             Debug.Log($"FillAllHands: IsMasterClient={PhotonNetwork.IsMasterClient}");
-            if (PhotonNetwork.IsMasterClient)
-            {
-                _fieldManager.FillHand(true);  // 自分（Host）の手札
+            //if (PhotonNetwork.IsMasterClient) // 消したくないが，消さないと手札補充などのタイミングと同期タイミングのずれによりクライアントの防御開始時の手札が補充されないためバグが起きない限り消しておく．
+            //{
+            _fieldManager.FillHand(true);  // 自分（Host）の手札
                 photonView.RPC("RPC_FillHand", RpcTarget.Others); // Client側の手札
-            }
-            else
-            {
-                _fieldManager.FillHand(true);  // 自分（Host）の手札
-                photonView.RPC("RPC_FillHand", RpcTarget.Others); // Client側の手札
-            }
+            //}
             _fieldManager.ShowHand(_fieldManager.GetMyHand(true), true);
             _fieldManager.ShowHand(_fieldManager.GetMyHand(false), false);
         }
@@ -204,6 +190,7 @@ public class OnlineMethod : MonoBehaviourPun
     public void SetAttacker(bool isMyAtk)
     {
         _battleManager.IsMyAtk = isMyAtk;
+        _battleManager.SetPhase(Battle_mgr.GamePhase.SelectAtk);
     }
 
     bool CoinToss()

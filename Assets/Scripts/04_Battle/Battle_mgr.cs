@@ -17,7 +17,6 @@ public class Battle_mgr : MonoBehaviour
 
     GamePhase _currentPhase;
 
-    //bool _isOnline = false; // オンラインかどうかのフラグ（必要に応じて設定）
     bool _isMyAtk;
     public bool IsMyAtk {  set { _isMyAtk = value; } }
 
@@ -34,7 +33,7 @@ public class Battle_mgr : MonoBehaviour
     {
         _hitPoint1 = _maxHitPoint;
         _hitPoint2 = _maxHitPoint;
-
+        
         _fieldManager.CardAction += OnP1CardClicked; // アクションを_fieldManagerへ伝える
     }
 
@@ -47,7 +46,8 @@ public class Battle_mgr : MonoBehaviour
         _battleM = new Battle_mdl(_fieldManager.FieldM);
         FillHands.Invoke(); // 手札を満たす処理
         CoinToss.Invoke(); // 先攻後攻の決定
-        SetPhase(GamePhase.SelectAtk);
+        
+        //SetPhase(GamePhase.SelectAtk);
     }
 
     public void SetEnemyName(string name)
@@ -158,7 +158,7 @@ public class Battle_mgr : MonoBehaviour
         else return false;
     }
 
-    public void SetAction(bool on)
+    public void SetAction(bool on) // パネルを消す・出す，アクションをオン・オフ
     {
         _battleV.SetHandPanel(!on); // 手札の表示/非表示
         _fieldManager.SetCardAction(on);

@@ -23,7 +23,6 @@ public class Select_mgr : MonoBehaviour
     public void OnMultiButtonClicked()
     {
         Debug.Log("Multi button pressed");
-        MyPlayer.Instance.IsOnline = true; // オンラインフラグを立てる
         _matchingWindow.SetActive(true); // マッチング確認ウインドウを表示
     }
 
