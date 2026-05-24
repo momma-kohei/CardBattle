@@ -105,6 +105,8 @@ public class Field_mgr : MonoBehaviour
         _fieldM?.Trash();
         _fieldV.ShowArea(_fieldM.Area1, true);
         _fieldV.ShowArea(_fieldM.Area2, false);
+        _fieldV.ShowHand(_fieldM.Hand1, true);
+        _fieldV.ShowHand(_fieldM.Hand2, false);
     }
 
     /// <summary>

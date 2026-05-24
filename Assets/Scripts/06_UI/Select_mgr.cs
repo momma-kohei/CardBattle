@@ -11,6 +11,7 @@ public class Select_mgr : MonoBehaviour
     {
         MyPlayer.Instance.IsOnline = false;
         MyPlayer.Instance.CPULevel = 0;
+        PunManager.Instance.Disconnect();
     }
 
     public void OnSoloButtonClicked()
@@ -23,7 +24,7 @@ public class Select_mgr : MonoBehaviour
     {
         Debug.Log("Multi button pressed");
         MyPlayer.Instance.IsOnline = true; // オンラインフラグを立てる
-        PunManager.Instance.Connect(); // マッチング開始
+        _matchingWindow.SetActive(true); // マッチング確認ウインドウを表示
     }
 
 
@@ -56,8 +57,9 @@ public class Select_mgr : MonoBehaviour
     public void OnMatchingYesButtonClicked()
     {
         MyPlayer.Instance.IsOnline = true;
-        _screen.SetActive(true); // 画面をクリックできなくする
-        Invoke("MatchingSceneTransition", 0.2f); // 0.2秒後にシーン遷移
+        PunManager.Instance.Connect(); // マッチング開始
+        //_screen.SetActive(true); // 画面をクリックできなくする
+        //Invoke("MatchingSceneTransition", 0.2f); // 0.2秒後にシーン遷移
     }
 
     public void OnMatchingNoButtonClicked()

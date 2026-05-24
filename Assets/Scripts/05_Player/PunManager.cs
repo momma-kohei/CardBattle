@@ -13,7 +13,7 @@ public class PunManager : MonoBehaviourPunCallbacks
 
     [SerializeField] GameObject _matchingWindow; // マッチング中の表示用
 
-    void Awake()
+    void Awake() // シングルトンの設定
     {
         if (Instance != null) { Destroy(gameObject); return; }
         Instance = this;
@@ -28,8 +28,15 @@ public class PunManager : MonoBehaviourPunCallbacks
         Debug.Log("Connecting...");
         PhotonNetwork.AutomaticallySyncScene = true;
         PhotonNetwork.NickName = MyPlayer.Instance.PlayerName; // プレイヤー名を設定
-        if (_matchingWindow != null) _matchingWindow.SetActive(true);
+        if (_matchingWindow != null) _matchingWindow.SetActive(true); // マッチング中の表示を有効化，「マッチング中」ウィンドウどうしようかな...
         PhotonNetwork.ConnectUsingSettings();
+    }
+
+    // 相手が退出したとき（BattleSceneかつプレイヤー数が1人になったとき）
+    // 「対戦相手が退出しました」という表示だけで済ませるか
+    public void Disconnect()
+    {
+        PhotonNetwork.Disconnect();
     }
 
     // 接続成功時

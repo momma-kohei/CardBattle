@@ -1,6 +1,8 @@
 ﻿using ListModels;
 using Photon.Pun;
+using System.ComponentModel;
 using UnityEngine;
+using UnityEngine.XR;
 
 /// <summary>
 /// オンラインが関わるメソッドをまとめたクラス
@@ -50,8 +52,6 @@ public class OnlineMethod : MonoBehaviourPun
     {
         if (_isOnline) // オンライン
         {
-            // 相手側の
-            // OnlineMethod.SetPlayerAction();
             // 相手側で SetPlayerAction() を呼ぶ
             photonView.RPC("RPC_SetPlayerAction", RpcTarget.Others);
         }
@@ -60,6 +60,7 @@ public class OnlineMethod : MonoBehaviourPun
             _battleManager.CPUAction();
         }
     }
+
     [PunRPC]
     public void RPC_SetPlayerAction()
     {
@@ -81,17 +82,25 @@ public class OnlineMethod : MonoBehaviourPun
             card = _fieldManager.Pop(isMine);
             if (card != null) _fieldManager.Draw(card, isMine);
 
-            //if (_isOnline && isMine) // オンライン 各プレイヤーが自分のisMine=trueで呼ぶ
-            //{
-            // 相手側の
-            // OnlineMethod.Draw(card, false);
-            //}
+            if (_isOnline && isMine) // オンライン 各プレイヤーが自分のisMine=trueで呼ぶ
+            {
+                // 相手側の
+                // OnlineMethod.Draw(card, false);
+                photonView.RPC("RPC_Draw", RpcTarget.Others, card.ID, false);
+            }
         }
         _fieldManager.ShowHand(hand, isMine);
+
+        if (_isOnline)
+        {
+            _fieldManager.ShowHand(_fieldManager.GetMyHand(false), false);
+        }
     }
 
-    public void Draw(Card_mdl card, bool isMine)
+    [PunRPC]
+    public void RPC_Draw(int cardID, bool isMine)
     {
+        Card_mdl card = new Card_mdl(cardID);
         _fieldManager.Draw(card, isMine);
     }
 
@@ -110,8 +119,11 @@ public class OnlineMethod : MonoBehaviourPun
             }
             else
             {
-                _fieldManager.FillHand(true);  // 自分（Client）の手札
+                _fieldManager.FillHand(true);  // 自分（Host）の手札
+                photonView.RPC("RPC_FillHand", RpcTarget.Others); // Client側の手札
             }
+            _fieldManager.ShowHand(_fieldManager.GetMyHand(true), true);
+            _fieldManager.ShowHand(_fieldManager.GetMyHand(false), false);
         }
         else // オフライン
         {
@@ -215,6 +227,7 @@ public class OnlineMethod : MonoBehaviourPun
         }
         return true;
     }
+
     [PunRPC]
     public void RPC_SubToggle(int cardID, bool isMine)
     {
