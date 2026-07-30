@@ -44,3 +44,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 394413d67452e4342ad82148b299644b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MyPlayer
+  playerIcons:
+  - {fileID: 21300000, guid: a5533b2fc54fff14d926f649ee04dcaf, type: 3}
+  - {fileID: 21300000, guid: ec6314fd5d0689d488b4f93697ba54f8, type: 3}
+  - {fileID: 21300000, guid: ce1deeeacbfcf1b4ab7401acdeb8d1fa, type: 3}
+  - {fileID: 21300000, guid: 25c6a06fccf2a064b8d8b5364b2e5128, type: 3}
+  - {fileID: 21300000, guid: 13647db76cac8274d8afd3bcd89c3fb0, type: 3}
+  - {fileID: 21300000, guid: b9ad3a30040ba634e814cb7caa6dcf42, type: 3}
+  - {fileID: 21300000, guid: e9fe25778be574e468ae65d5bc468095, type: 3}
+  - {fileID: 21300000, guid: e7232e04eb0006c419b51ed83d5a587d, type: 3}
+  - {fileID: 21300000, guid: feabea93ca5200c46907219e84d91ac0, type: 3}
+  - {fileID: 21300000, guid: eddab1df77cce4d47b23c3e226d2fa3c, type: 3}

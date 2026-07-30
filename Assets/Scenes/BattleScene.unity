@@ -786,7 +786,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4527b04bbab4ea4d9a33507fb79e1a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Battle_viw
+  _myName: {fileID: 439678635}
   _enemyName: {fileID: 1166805885}
+  _playerIcon1: {fileID: 502868695}
+  _playerIcon2: {fileID: 771503032}
   _hitPoint1Text: {fileID: 273575}
   _hitPoint2Text: {fileID: 1372902234}
   _power1Text: {fileID: 1949300984}
@@ -800,6 +803,17 @@ MonoBehaviour:
   _hand1Panel: {fileID: 960832504}
   _centerButtonV: {fileID: 6940170398599808873}
   _resultV: {fileID: 644404220}
+--- !u!114 &439678635 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 68878732730585249, guid: 13e1115065997ca40b34d8ca1ce28298, type: 3}
+  m_PrefabInstance: {fileID: 5791284367745225471}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
 --- !u!1 &456192171
 GameObject:
   m_ObjectHideFlags: 0

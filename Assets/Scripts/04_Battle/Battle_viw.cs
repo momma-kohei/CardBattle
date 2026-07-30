@@ -9,7 +9,10 @@ using UnityEngine.UIElements;
 /// </summary>
 public class Battle_viw : MonoBehaviour
 {
+    [SerializeField] TextMeshProUGUI _myName;
     [SerializeField] TextMeshProUGUI _enemyName;
+    [SerializeField] UnityEngine.UI.Image _playerIcon1;
+    [SerializeField] UnityEngine.UI.Image _playerIcon2;
     // Battleの数値情報を表示するためのUI要素
     [SerializeField] TextMeshProUGUI _hitPoint1Text;
     [SerializeField] TextMeshProUGUI _hitPoint2Text;
@@ -28,6 +31,14 @@ public class Battle_viw : MonoBehaviour
     [SerializeField] Result_viw _resultV;
 
     public event Action CenterButtonEvent;
+
+    public void Start()
+    {
+        int iconIndex1 = ((_myName.GetHashCode() % 10) + 10) % 10; // 負の値を防ぐ
+        int iconIndex2 = ((_enemyName.GetHashCode() % 10) + 10) % 10; // 負の値を防ぐ
+        _playerIcon1.sprite = MyPlayer.Instance.playerIcons[iconIndex1];
+        _playerIcon2.sprite = MyPlayer.Instance.playerIcons[iconIndex2];
+    }
 
     public void ShowHitPoint(int hitPoint, bool isMine)
     {
